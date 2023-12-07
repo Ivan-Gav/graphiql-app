@@ -1,9 +1,10 @@
-import React, { Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import PageError from './404/404';
-import MainPage from './MainPage/MainPage';
-import SignInPage from './SignInPage/SignInPage';
-import SignUpPage from './SignUpPage/SignUpPage';
+
+const MainPage = lazy(() => import('./MainPage/MainPage'));
+const SignInPage = lazy(() => import('./SignInPage/SignInPage'));
+const SignUpPage = lazy(() => import('./SignUpPage/SignUpPage'));
+const PageError = lazy(() => import('./404/404'));
 
 const Router = (): React.JSX.Element => (
   <Routes>

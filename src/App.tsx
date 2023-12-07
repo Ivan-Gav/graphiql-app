@@ -5,7 +5,7 @@ import '@fontsource/noto-sans/400.css';
 import '@fontsource/noto-sans/600.css';
 import '@fontsource/noto-sans/700.css';
 import '@fontsource/noto-sans/900.css';
-import theme from './theme';
+import theme from './themes/theme';
 import Router from './pages/router';
 
 function App() {

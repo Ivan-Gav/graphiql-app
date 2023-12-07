@@ -9,9 +9,13 @@
 Delete this section after reading and checking all the points!
 -->
 
-## Task
+## Major task
 
 [GraphiQL App](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md)
+
+## Task on the Kanban
+
+[Task title](link)
 
 ## Description
 
@@ -23,9 +27,9 @@ This PR [adds/removes/fixes/replaces] the [feature/bug/etc].
 
 ## What type of PR is this? (check all applicable)
 
-- [ ] Feature
+- [x] Feature
 - [ ] Bug Fix
-- [x] Documentation Update
+- [ ] Documentation Update
 - [ ] Style
 - [ ] Refactor
 - [ ] Test

@@ -4,7 +4,7 @@ import UndoIcon from '@mui/icons-material/Undo';
 
 export default function Page404() {
   return (
-    <main>
+    <main data-testid="page-404">
       <Stack sx={{ width: '40%', margin: '0 auto', gap: 2 }}>
         <Typography variant="h2" textAlign="center">
           Page Not Found
@@ -22,6 +22,7 @@ export default function Page404() {
           variant="contained"
           size="large"
           endIcon={<UndoIcon />}
+          data-testid="btn-home"
         >
           Home
         </Button>

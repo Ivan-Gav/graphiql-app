@@ -10,11 +10,21 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import schema, { SchemaSignIn } from '../../utils/yup/schemaValidationSignIn';
 
 export default function SignInPage() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<SchemaSignIn>({
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data: SchemaSignIn) => console.log(data);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -32,8 +42,14 @@ export default function SignInPage() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
+            {...register('email')}
             margin="normal"
             required
             fullWidth
@@ -41,7 +57,13 @@ export default function SignInPage() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
+            helperText={errors?.email?.message || 'Please enter your email'}
+            FormHelperTextProps={{
+              sx: {
+                opacity: 0.5,
+                color: `${!!errors?.email?.message && '#d9534f'}`,
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -58,6 +80,7 @@ export default function SignInPage() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={!isValid}
           >
             Sign In
           </Button>

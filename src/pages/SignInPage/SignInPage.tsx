@@ -20,14 +20,14 @@ export default function SignInPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<SchemaSignIn>({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data: SchemaSignIn) => console.log(data);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" data-testid="sign-in-page">
       <Box
         sx={{
           marginTop: 8,
@@ -56,6 +56,7 @@ export default function SignInPage() {
             id="email"
             label="Email Address"
             name="email"
+            inputProps={{ 'data-testid': 'email-input' }}
             autoComplete="email"
             helperText={errors?.email?.message || 'Please enter your email'}
             FormHelperTextProps={{

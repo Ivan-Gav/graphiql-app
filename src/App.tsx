@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider, Typography } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import '@fontsource/noto-sans/200.css';
 import '@fontsource/noto-sans/400.css';
@@ -13,9 +13,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Typography variant="h1">
-          <Router />
-        </Typography>
+        <Router />
       </ThemeProvider>
     </>
   );

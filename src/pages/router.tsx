@@ -1,5 +1,7 @@
+import { Container, Grid } from '@mui/material';
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
+import Header from '../components/Header/Header';
 
 const MainPage = lazy(() => import('./MainPage/MainPage'));
 const SignInPage = lazy(() => import('./SignInPage/SignInPage'));
@@ -11,13 +13,20 @@ const Router = (): React.JSX.Element => (
     <Route
       path=""
       element={
-        <>
-          <>Header Component</>
-          <Suspense fallback={<>Loading..</>}>
-            <Outlet />
-          </Suspense>
-          <>Footer Component</>
-        </>
+        <Container>
+          <Grid
+            container
+            flexDirection="column"
+            justifyContent="space-between"
+            minHeight="100vh"
+          >
+            <Header />
+            <Suspense fallback={<main>Loading..</main>}>
+              <Outlet />
+            </Suspense>
+            <>Footer Component</>
+          </Grid>
+        </Container>
       }
     >
       <Route path="/" element={<MainPage />} />

@@ -35,6 +35,7 @@ export default function SignInPage() {
         flexDirection: 'column',
         alignItems: 'center',
         maxWidth: 400,
+        marginBottom: 8,
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>

@@ -1,20 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
 
 import Footer from '../components/Footer/Footer';
 
-const TestFooter = () => {
-  return (
-    <MemoryRouter>
-      <Footer />
-    </MemoryRouter>
-  );
-};
-
 describe('Footer', () => {
   it('renders team title', () => {
-    render(<TestFooter />);
+    render(<Footer />);
 
     const teamTitle = screen.getByRole('heading', { level: 2 });
 
@@ -22,7 +13,7 @@ describe('Footer', () => {
   });
 
   it('renders links to authors GitHub pages', () => {
-    render(<TestFooter />);
+    render(<Footer />);
 
     const ghLinks = screen.getAllByTestId('member-gh-link');
 
@@ -37,7 +28,7 @@ describe('Footer', () => {
   });
 
   it('renders RS School logo with link to the course', async () => {
-    render(<TestFooter />);
+    render(<Footer />);
 
     const rsLogoLink = screen.getByTestId('rss-link');
     const rsLogo = await screen.findByAltText('RSS');
@@ -52,12 +43,4 @@ describe('Footer', () => {
 
     expect(rsLogoLink).toHaveAttribute('href', 'https://rs.school/react/');
   });
-
-  // it('renders Sign Up button', () => {
-  //   render(<TestFooter />);
-
-  //   const signUpLink = screen.getByRole('link', { name: 'SignUp' });
-
-  //   expect(signUpLink).toHaveAttribute('href', '/signup');
-  // });
 });

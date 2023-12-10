@@ -3,7 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function Footer() {
   return (
-    <Box sx={{ mx: 0, width: '100%', marginTop: 'auto' }}>
+    <Box component="footer" sx={{ mx: 0, width: '100%', marginTop: 'auto' }}>
       <Paper sx={{ mt: 2 }}>
         <Grid container>
           <Grid
@@ -32,6 +32,7 @@ export default function Footer() {
           >
             <Box>
               <Link
+                data-testid="member-gh-link"
                 href="https://github.com/ana-ma-web"
                 sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
@@ -39,6 +40,7 @@ export default function Footer() {
                 <Typography variant="subtitle1">Anastasia Mataeva</Typography>
               </Link>
               <Link
+                data-testid="member-gh-link"
                 href="https://github.com/cheleste1994"
                 sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
@@ -46,6 +48,7 @@ export default function Footer() {
                 <Typography variant="subtitle1">Andrei Shamayeu</Typography>
               </Link>
               <Link
+                data-testid="member-gh-link"
                 href="https://github.com/ivan-gav"
                 sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
@@ -68,7 +71,7 @@ export default function Footer() {
             <Typography variant="h4" mb={1}>
               This project was made as part of
             </Typography>
-            <Link>
+            <Link data-testid="rss-link" href="https://rs.school/react/">
               <img
                 src="https://rs.school/images/rs_school.svg"
                 alt="RSS"

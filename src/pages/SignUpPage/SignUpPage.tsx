@@ -30,7 +30,7 @@ export default function SignUpPage() {
   return (
     <Box
       component="main"
-      data-testid="sign-in-page"
+      data-testid="sign-up-page"
       sx={{
         marginTop: 8,
         display: 'flex',
@@ -61,6 +61,7 @@ export default function SignUpPage() {
               fullWidth
               id="firstName"
               label="First Name"
+              inputProps={{ 'data-testid': 'first-name-input' }}
               autoFocus
               helperText={
                 errors?.firstName?.message || 'Please enter your first name'
@@ -80,6 +81,7 @@ export default function SignUpPage() {
               id="lastName"
               label="Last Name"
               name="lastName"
+              inputProps={{ 'data-testid': 'last-name-input' }}
               autoComplete="family-name"
               helperText={
                 errors?.lastName?.message || 'Please enter your last name'
@@ -99,6 +101,7 @@ export default function SignUpPage() {
               id="email"
               label="Email Address"
               name="email"
+              inputProps={{ 'data-testid': 'email-input' }}
               autoComplete="email"
               helperText={errors?.email?.message || 'Please enter your email'}
               FormHelperTextProps={{
@@ -116,6 +119,7 @@ export default function SignUpPage() {
               name="password"
               label="Password"
               type="password"
+              inputProps={{ 'data-testid': 'password-input' }}
               id="password"
               autoComplete="new-password"
               helperText={
@@ -131,7 +135,13 @@ export default function SignUpPage() {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox {...register('rules')} color="primary" />}
+              control={
+                <Checkbox
+                  {...register('rules')}
+                  color="primary"
+                  data-testid="rules-input"
+                />
+              }
               label="I want to receive inspiration, marketing promotions and updates via email."
             />
           </Grid>

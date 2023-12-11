@@ -7,14 +7,17 @@ import '@fontsource/noto-sans/700.css';
 import '@fontsource/noto-sans/900.css';
 import theme from './themes/theme';
 import Router from './pages/router';
+import LangContextProvider from './context/LangContext';
 
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router />
-      </ThemeProvider>
+      <LangContextProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router />
+        </ThemeProvider>
+      </LangContextProvider>
     </>
   );
 }

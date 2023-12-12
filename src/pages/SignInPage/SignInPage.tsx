@@ -14,8 +14,12 @@ import { useForm } from 'react-hook-form';
 import schema, { SchemaSignIn } from '../../utils/yup/schemaValidationSignIn';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchSignIn } from '../../store/slice/user.slice';
+import { useState } from 'react';
+import { SerializedError } from '@reduxjs/toolkit';
 
 export default function SignInPage() {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -27,8 +31,14 @@ export default function SignInPage() {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = async ({ email, password }: SchemaSignIn) => {
-    dispatch(fetchSignIn({ email, password }));
+  const onSubmit = ({ email, password }: SchemaSignIn) => {
+    dispatch(fetchSignIn({ email, password }))
+      .unwrap()
+      .catch((error: SerializedError) => {
+        if (error?.message) {
+          setErrorMessage(error.message);
+        }
+      });
   };
 
   return (
@@ -91,6 +101,15 @@ export default function SignInPage() {
             },
           }}
         />
+        {errorMessage && (
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{ width: 1, opacity: 0.5, color: '#d9534f' }}
+          >
+            {errorMessage}
+          </Typography>
+        )}
         <Button
           type="submit"
           fullWidth

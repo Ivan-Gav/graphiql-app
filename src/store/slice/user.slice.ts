@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_API_KEY,
@@ -21,22 +25,26 @@ export interface UserState {
   isAuth: boolean;
   email: string | null;
   avatar: string | null;
-  errorMessage: string | null;
-  errorCode: string | null;
 }
 
 const initialState: UserState = {
   isAuth: false,
   email: null,
   avatar: null,
-  errorMessage: null,
-  errorCode: null,
 };
 
 export const fetchSignIn = createAsyncThunk(
   'user/signInWithEmailAndPassword',
   async ({ email, password }: { email: string; password: string }) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
+
+    return { email: data.user.email, avatar: data.user.photoURL };
+  }
+);
+export const fetchSignUp = createAsyncThunk(
+  'user/createUserWithEmailAndPassword',
+  async ({ email, password }: { email: string; password: string }) => {
+    const data = await createUserWithEmailAndPassword(auth, email, password);
 
     return { email: data.user.email, avatar: data.user.photoURL };
   }
@@ -60,34 +68,21 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchSignIn.fulfilled, (state, action) => {
-        state.errorMessage = null;
-        state.errorCode = null;
-        state.isAuth = true;
-        state.email = action.payload.email;
-        state.avatar = action.payload.avatar;
-      })
-      .addCase(fetchSignIn.rejected, (state, action) => {
-        state.isAuth = false;
-        state.email = null;
-        state.avatar = null;
-        state.errorMessage = action.error.message || null;
-        state.errorCode = action.error.code || null;
-      });
-    builder
-      .addCase(fetchSignOut.fulfilled, (state) => {
-        state.isAuth = false;
-        state.email = null;
-        state.avatar = null;
-        state.errorMessage = null;
-        state.errorCode = null;
-      })
-      .addCase(fetchSignOut.rejected, (state, action) => {
-        state = { ...state };
-        state.errorMessage = action.error.message || null;
-        state.errorCode = action.error.code || null;
-      });
+    builder.addCase(fetchSignIn.fulfilled, (state, action) => {
+      state.isAuth = true;
+      state.email = action.payload.email;
+      state.avatar = action.payload.avatar;
+    });
+    builder.addCase(fetchSignOut.fulfilled, (state) => {
+      state.isAuth = false;
+      state.email = null;
+      state.avatar = null;
+    });
+    builder.addCase(fetchSignUp.fulfilled, (state, action) => {
+      state.isAuth = true;
+      state.email = action.payload.email;
+      state.avatar = action.payload.avatar;
+    });
   },
 });
 

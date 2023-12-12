@@ -1,15 +1,19 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
+import { store } from '../store/store';
 import { VALIDATION_MESSAGE } from '../utils/yup/schemaValidationSignUp';
 
 describe('Page SignUp', () => {
   const renderComponent = (url: string) =>
     render(
-      <MemoryRouter initialEntries={[url]}>
-        <SignUpPage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[url]}>
+          <SignUpPage />
+        </MemoryRouter>
+      </Provider>
     );
 
   it('should render SignUpPage component successfully', () => {

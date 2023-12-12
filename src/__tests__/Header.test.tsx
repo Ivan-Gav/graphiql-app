@@ -3,12 +3,16 @@ import { describe, expect, it } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
+import { store } from '../store/store';
+import { Provider } from 'react-redux';
 
 const TestHeader = () => {
   return (
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>
+    <Provider store={store}>
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    </Provider>
   );
 };
 

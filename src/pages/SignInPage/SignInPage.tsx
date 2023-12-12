@@ -89,6 +89,7 @@ export default function SignInPage() {
           margin="normal"
           fullWidth
           name="password"
+          inputProps={{ 'data-testid': 'password-input' }}
           label="Password"
           type="password"
           id="password"

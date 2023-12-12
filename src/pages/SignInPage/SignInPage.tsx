@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import schema, { SchemaSignIn } from '../../utils/yup/schemaValidationSignIn';
+import { useAppDispatch } from '../../hooks/redux';
+import { fetchSignIn } from '../../store/slice/user.slice';
 
 export default function SignInPage() {
   const {
@@ -23,7 +25,11 @@ export default function SignInPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: SchemaSignIn) => console.log(data);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async ({ email, password }: SchemaSignIn) => {
+    dispatch(fetchSignIn({ email, password }));
+  };
 
   return (
     <Box
@@ -69,14 +75,21 @@ export default function SignInPage() {
           }}
         />
         <TextField
+          {...register('password')}
           margin="normal"
-          required
           fullWidth
           name="password"
           label="Password"
           type="password"
           id="password"
           autoComplete="current-password"
+          helperText={errors?.password?.message || 'Please enter your password'}
+          FormHelperTextProps={{
+            sx: {
+              opacity: 0.5,
+              color: `${!!errors?.password?.message && '#d9534f'}`,
+            },
+          }}
         />
         <Button
           type="submit"

@@ -7,13 +7,17 @@ import '@fontsource/noto-sans/700.css';
 import '@fontsource/noto-sans/900.css';
 import theme from './themes/theme';
 import Router from './pages/router';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Router />
+        <Provider store={store}>
+          <Router />
+        </Provider>
       </ThemeProvider>
     </>
   );

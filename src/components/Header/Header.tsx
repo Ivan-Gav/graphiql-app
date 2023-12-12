@@ -15,9 +15,15 @@ import {
 } from '@mui/material';
 import { Login, PersonAddAlt1 } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { fetchSignOut, getUser } from '../../store/slice/user.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 export default function Header() {
+  const { isAuth } = useAppSelector(getUser);
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -73,22 +79,36 @@ export default function Header() {
               <Typography textAlign="center">GraphiQL</Typography>
             </MenuItem>
             <Divider />
-            <MenuItem
-              onClick={() => {
-                navigate('/signin');
-                handleCloseNavMenu();
-              }}
-            >
-              <Typography textAlign="center">Sign In</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate('/signup');
-                handleCloseNavMenu();
-              }}
-            >
-              <Typography textAlign="center">Sign Up</Typography>
-            </MenuItem>
+            {isAuth && (
+              <MenuItem
+                onClick={() => {
+                  handleCloseNavMenu();
+                  dispatch(fetchSignOut());
+                }}
+              >
+                <Typography textAlign="center">Sign Out</Typography>
+              </MenuItem>
+            )}
+            {!isAuth && (
+              <MenuItem
+                onClick={() => {
+                  navigate('/signin');
+                  handleCloseNavMenu();
+                }}
+              >
+                <Typography textAlign="center">Sign In</Typography>
+              </MenuItem>
+            )}
+            {!isAuth && (
+              <MenuItem
+                onClick={() => {
+                  navigate('/signup');
+                  handleCloseNavMenu();
+                }}
+              >
+                <Typography textAlign="center">Sign Up</Typography>
+              </MenuItem>
+            )}
           </Menu>
         </Box>
 
@@ -102,24 +122,41 @@ export default function Header() {
         </Box>
 
         <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex', gap: 16 } }}>
-          <Button
-            component={NavLink}
-            to="/signin"
-            onClick={handleCloseNavMenu}
-            variant="text"
-            endIcon={<Login />}
-          >
-            SignIn
-          </Button>
-          <Button
-            component={NavLink}
-            to="/signup"
-            onClick={handleCloseNavMenu}
-            variant="text"
-            endIcon={<PersonAddAlt1 />}
-          >
-            SignUp
-          </Button>
+          {isAuth ? (
+            <Button
+              component={NavLink}
+              to="/"
+              onClick={() => {
+                handleCloseNavMenu();
+                dispatch(fetchSignOut());
+              }}
+              variant="text"
+              endIcon={<Login />}
+            >
+              SignOut
+            </Button>
+          ) : (
+            <>
+              <Button
+                component={NavLink}
+                to="/signin"
+                onClick={handleCloseNavMenu}
+                variant="text"
+                endIcon={<Login />}
+              >
+                SignIn
+              </Button>
+              <Button
+                component={NavLink}
+                to="/signup"
+                onClick={handleCloseNavMenu}
+                variant="text"
+                endIcon={<PersonAddAlt1 />}
+              >
+                SignUp
+              </Button>
+            </>
+          )}
         </Box>
 
         <IconButton

@@ -14,6 +14,7 @@ import {
   useScrollTrigger,
 } from '@mui/material';
 import { Login, PersonAddAlt1 } from '@mui/icons-material';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { fetchSignOut, getUser } from '../../store/slice/user.slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -131,7 +132,7 @@ export default function Header() {
                 dispatch(fetchSignOut());
               }}
               variant="text"
-              endIcon={<Login />}
+              endIcon={<LogoutIcon />}
             >
               SignOut
             </Button>

@@ -5,13 +5,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyArlI68HLkDCOZd_oPtBrEsJ-axvU8uIGY',
-  authDomain: 'graphiql-98687.firebaseapp.com',
-  projectId: 'graphiql-98687',
-  storageBucket: 'graphiql-98687.appspot.com',
-  messagingSenderId: '332315397269',
-  appId: '1:332315397269:web:0c4298fc43caa6ed015f9c',
-  measurementId: 'G-9E33XGMLGY',
+  apiKey: import.meta.env.VITE_API_API_KEY,
+  authDomain: import.meta.env.VITE_API_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_API_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_API_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_API_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_API_APP_ID,
+  measurementId: import.meta.env.VITE_API_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -93,6 +93,6 @@ const userSlice = createSlice({
 
 export const { setUser } = userSlice.actions;
 
-export const getUser = (state: RootState) => state.useReducer;
+export const getUser = (state: RootState) => state.userReducer;
 
 export default userSlice.reducer;

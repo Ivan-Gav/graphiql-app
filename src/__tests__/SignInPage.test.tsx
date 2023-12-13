@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import SignInPage from '../pages/SignInPage/SignInPage';
 import { store } from '../store/store';
 
@@ -14,6 +14,8 @@ describe('Page SignIn', () => {
         </MemoryRouter>
       </Provider>
     );
+
+  vi.mock('firebase/auth');
 
   it('should render SignInPage component successfully', () => {
     renderComponent('/');

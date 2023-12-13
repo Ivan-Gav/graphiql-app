@@ -1,11 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import Footer from '../components/Footer/Footer';
+import Footer from 'src/components/Footer/Footer';
+import LangContextProvider from 'src/context/LangContext';
+
+const WrappedFooter = () => {
+  return (
+    <LangContextProvider>
+      <Footer />
+    </LangContextProvider>
+  );
+};
 
 describe('Footer', () => {
   it('renders team title', () => {
-    render(<Footer />);
+    render(<WrappedFooter />);
 
     const teamTitle = screen.getByRole('heading', { level: 2 });
 
@@ -13,7 +22,7 @@ describe('Footer', () => {
   });
 
   it('renders links to authors GitHub pages', () => {
-    render(<Footer />);
+    render(<WrappedFooter />);
 
     const ghLinks = screen.getAllByTestId('member-gh-link');
 
@@ -28,7 +37,7 @@ describe('Footer', () => {
   });
 
   it('renders RS School logo with link to the course', async () => {
-    render(<Footer />);
+    render(<WrappedFooter />);
 
     const rsLogoLink = screen.getByTestId('rss-link');
     const rsLogo = await screen.findByAltText('RSS');

@@ -16,13 +16,12 @@ import {
 import { Login, PersonAddAlt1 } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LangSelect from '../LangSelect/LangSelect';
-import { T } from '../../constants/text';
-import { useLangContext } from '../../context/useLangContext';
+import { useText } from 'src/hooks/useText';
 
 export default function Header() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-  const { lang } = useLangContext();
+  const T = useText();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -65,7 +64,7 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">{T.WELCOME_PAGE[lang]}</Typography>
+              <Typography textAlign="center">{T.WELCOME_PAGE}</Typography>
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -73,9 +72,7 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">
-                {T.GRAPHIQL_PAGE[lang]}
-              </Typography>
+              <Typography textAlign="center">{T.GRAPHIQL_PAGE}</Typography>
             </MenuItem>
             <Divider />
             <MenuItem
@@ -84,7 +81,7 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">{T.SIGNIN[lang]}</Typography>
+              <Typography textAlign="center">{T.SIGNIN}</Typography>
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -92,17 +89,17 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">{T.SIGNUP[lang]}</Typography>
+              <Typography textAlign="center">{T.SIGNUP}</Typography>
             </MenuItem>
           </Menu>
         </Box>
 
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Link component={NavLink} to="/" px={2}>
-            {T.WELCOME_PAGE[lang]}
+            {T.WELCOME_PAGE}
           </Link>
           <Link component={NavLink} to="/graphiql" px={2}>
-            {T.GRAPHIQL_PAGE[lang]}
+            {T.GRAPHIQL_PAGE}
           </Link>
         </Box>
 
@@ -114,7 +111,7 @@ export default function Header() {
             variant="text"
             endIcon={<Login />}
           >
-            {T.SIGNIN[lang]}
+            {T.SIGNIN}
           </Button>
           <Button
             component={NavLink}
@@ -123,7 +120,7 @@ export default function Header() {
             variant="text"
             endIcon={<PersonAddAlt1 />}
           >
-            {T.SIGNUP[lang]}
+            {T.SIGNUP}
           </Button>
         </Box>
 

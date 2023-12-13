@@ -2,16 +2,19 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import Page404 from '../pages/404/404';
+import LangContextProvider from 'src/context/LangContext';
 
 describe('Page 404', () => {
   const renderComponent = (url: string) =>
     render(
-      <MemoryRouter initialEntries={[url]}>
-        <Routes>
-          <Route path="" element={<>Home Page</>} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </MemoryRouter>
+      <LangContextProvider>
+        <MemoryRouter initialEntries={[url]}>
+          <Routes>
+            <Route path="" element={<>Home Page</>} />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+        </MemoryRouter>
+      </LangContextProvider>
     );
 
   it('should render Page404 when accessing a non-existent route', () => {

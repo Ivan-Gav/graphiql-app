@@ -3,12 +3,15 @@ import { describe, expect, it } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
+import LangContextProvider from '../context/LangContext';
 
 const TestHeader = () => {
   return (
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>
+    <LangContextProvider>
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    </LangContextProvider>
   );
 };
 
@@ -32,7 +35,7 @@ describe('Header', () => {
   it('renders Sign In button', () => {
     render(<TestHeader />);
 
-    const signInLink = screen.getByRole('link', { name: 'SignIn' });
+    const signInLink = screen.getByRole('link', { name: 'Sign In' });
 
     expect(signInLink).toHaveAttribute('href', '/signin');
   });
@@ -40,7 +43,7 @@ describe('Header', () => {
   it('renders Sign Up button', () => {
     render(<TestHeader />);
 
-    const signUpLink = screen.getByRole('link', { name: 'SignUp' });
+    const signUpLink = screen.getByRole('link', { name: 'Sign Up' });
 
     expect(signUpLink).toHaveAttribute('href', '/signup');
   });

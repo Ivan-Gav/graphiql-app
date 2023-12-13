@@ -1,7 +1,11 @@
 import { Box, Grid, Link, Paper, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+import { useText } from 'src/hooks/useText';
+
 export default function Footer() {
+  const T = useText();
+
   return (
     <Box component="footer" sx={{ mx: 0, width: '100%', marginTop: 'auto' }}>
       <Paper sx={{ mt: 2 }}>
@@ -17,7 +21,7 @@ export default function Footer() {
               p: 2,
             }}
           >
-            <Typography variant="h2">The Team</Typography>
+            <Typography variant="h2">{T.THE_TEAM}</Typography>
           </Grid>
           <Grid
             item
@@ -37,7 +41,7 @@ export default function Footer() {
                 sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <GitHubIcon />
-                <Typography variant="subtitle1">Anastasia Mataeva</Typography>
+                <Typography variant="subtitle1">{T.ANASTASIA}</Typography>
               </Link>
               <Link
                 data-testid="member-gh-link"
@@ -45,7 +49,7 @@ export default function Footer() {
                 sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <GitHubIcon />
-                <Typography variant="subtitle1">Andrei Shamayeu</Typography>
+                <Typography variant="subtitle1">{T.ANDREY}</Typography>
               </Link>
               <Link
                 data-testid="member-gh-link"
@@ -53,7 +57,7 @@ export default function Footer() {
                 sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <GitHubIcon />
-                <Typography variant="subtitle1">Ivan Gavrilin</Typography>
+                <Typography variant="subtitle1">{T.IVAN}</Typography>
               </Link>
             </Box>
           </Grid>
@@ -69,7 +73,7 @@ export default function Footer() {
             }}
           >
             <Typography variant="h4" mb={1}>
-              This project was made as part of
+              {T.FOOTER_PROJECT_TEXT}
             </Typography>
             <Link data-testid="rss-link" href="https://rs.school/react/">
               <img

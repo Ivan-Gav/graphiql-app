@@ -1,12 +1,13 @@
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useLangContext } from '../../context/useLangContext';
-import { Lang } from '../../models/models';
-import { T } from '../../constants/text';
+import { useLangContext } from 'src/context/useLangContext';
+import { useText } from 'src/hooks/useText';
+import { Lang } from 'src/models/models';
 
 export default function BasicSelect() {
   const { lang, setLang } = useLangContext();
+  const T = useText();
 
   const handleChange = (event: SelectChangeEvent) => {
     setLang(event.target.value as Lang);
@@ -27,10 +28,10 @@ export default function BasicSelect() {
         disableUnderline
       >
         <MenuItem selected={lang === 'EN'} value={'EN' as Lang}>
-          {T.LANG_EN[lang]}
+          {T.LANG_EN}
         </MenuItem>
         <MenuItem selected={lang === 'RU'} value={'RU' as Lang}>
-          {T.LANG_RU[lang]}
+          {T.LANG_RU}
         </MenuItem>
       </Select>
     </FormControl>

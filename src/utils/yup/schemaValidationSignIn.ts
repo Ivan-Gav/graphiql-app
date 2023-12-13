@@ -4,8 +4,8 @@ const schema = yup
   .object({
     email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Email is a required field'),
+      .email('YUP_EMAIL_INVALID')
+      .required('YUP_EMAIL_REQUIRED'),
   })
   .required();
 

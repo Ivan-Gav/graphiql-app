@@ -12,8 +12,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import schema, { SchemaSignIn } from '../../utils/yup/schemaValidationSignIn';
+import { useText } from 'src/hooks/useText';
+import { T } from 'src/models/models';
 
 export default function SignInPage() {
+  const T = useText();
+
   const {
     register,
     handleSubmit,
@@ -24,6 +28,8 @@ export default function SignInPage() {
   });
 
   const onSubmit = (data: SchemaSignIn) => console.log(data);
+
+  const errMsg = errors?.email?.message;
 
   return (
     <Box
@@ -42,7 +48,7 @@ export default function SignInPage() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign in
+        {T.SIGNIN}
       </Typography>
       <Box
         component="form"
@@ -56,11 +62,11 @@ export default function SignInPage() {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={T.EMAIL_ADDRESS}
           name="email"
           inputProps={{ 'data-testid': 'email-input' }}
           autoComplete="email"
-          helperText={errors?.email?.message || 'Please enter your email'}
+          helperText={(!!errMsg && T[errMsg as keyof T]) || T.EMAIL_PROMPT}
           FormHelperTextProps={{
             sx: {
               opacity: 0.5,
@@ -73,7 +79,7 @@ export default function SignInPage() {
           required
           fullWidth
           name="password"
-          label="Password"
+          label={T.PASSWORD}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -85,12 +91,12 @@ export default function SignInPage() {
           sx={{ mt: 3, mb: 2 }}
           disabled={!isValid}
         >
-          Sign In
+          {T.SIGNIN}
         </Button>
         <Grid container>
           <Grid item>
             <Link component={RouterLink} to="/signup" variant="body2">
-              {"Don't have an account? Sign Up"}
+              {T.SIGNUP_PROMPT}
             </Link>
           </Grid>
         </Grid>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
-import { Paper } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { useAppSelector } from '../../hooks/redux';
 
 export default function ResponseSection() {
@@ -10,15 +10,17 @@ export default function ResponseSection() {
   return (
     <>
       <Paper variant="outlined">
-        <ReactCodeMirror
-          lang="json"
-          extensions={[json()]}
-          theme="dark"
-          width="100%"
-          height="100%"
-          value={responseString}
-          readOnly
-        />
+        <Typography variant="caption">
+          <ReactCodeMirror
+            lang="json"
+            extensions={[json()]}
+            theme="dark"
+            width="100%"
+            height="100%"
+            value={responseString}
+            readOnly
+          />
+        </Typography>
       </Paper>
     </>
   );

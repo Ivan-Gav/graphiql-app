@@ -20,6 +20,7 @@ export default function RequestEditor() {
         value={requestInputValue}
         onChange={handleChange}
         fullWidth
+        inputProps={{ style: { fontSize: 12, lineHeight: '150%' } }}
       />
     </>
   );

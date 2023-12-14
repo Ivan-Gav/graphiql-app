@@ -16,12 +16,12 @@ export default function GraphiQLPage() {
           <DocumentationExplorer />
         </Grid>
         <Grid item xs={5} sx={{ p: 1 }}>
-          <Paper sx={{ p: 2 }}>
+          <Paper sx={{ p: 1 }}>
             <Grid container>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{ p: 1 }}>
                 <RequestEditor />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{ p: 1 }}>
                 <RequestMenu />
               </Grid>
             </Grid>

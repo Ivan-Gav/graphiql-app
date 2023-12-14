@@ -23,7 +23,11 @@ export default function RequestMenu() {
         return res.json();
       })
       .then((data) => {
-        dispatch(setResponseInputValue(JSON.stringify(data.data)));
+        dispatch(
+          setResponseInputValue(
+            JSON.stringify(JSON.parse(JSON.stringify(data.data)), null, 1)
+          )
+        );
       });
   };
 

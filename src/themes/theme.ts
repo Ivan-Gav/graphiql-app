@@ -125,6 +125,16 @@ const theme = createTheme({
         },
       ],
     },
+    MuiTextField: {
+      variants: [
+        {
+          props: { variant: 'outlined' },
+          style: {
+            backgroundColor: paperBgColor,
+          },
+        },
+      ],
+    },
     MuiTypography: {
       variants: [
         {

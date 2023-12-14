@@ -6,11 +6,23 @@ import VariablesEditor from './VariablesEditor/VariablesEditor';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import { requestSlice } from '../../store/reducers/RequestSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getData } from '../../api/api';
 
 export default function RequestMenu() {
+  const dispatch = useAppDispatch();
+  const { requestInputValue } = useAppSelector((state) => state.requestReducer);
+  const { setRequestInputValue } = requestSlice.actions;
+
   const handleClickPlay = () => {
-    console.log('handleClickPlay');
+    getData(requestInputValue);
   };
+
+  const handleClickClear = () => {
+    dispatch(setRequestInputValue(''));
+  };
+
   return (
     <>
       <Paper variant="outlined">
@@ -26,7 +38,7 @@ export default function RequestMenu() {
             </IconButton>
           </Grid>
           <Grid item>
-            <IconButton>
+            <IconButton onClick={handleClickClear}>
               <CancelPresentationRoundedIcon />
             </IconButton>
           </Grid>

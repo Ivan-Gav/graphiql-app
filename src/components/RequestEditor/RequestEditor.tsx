@@ -1,27 +1,15 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { TextField } from '@mui/material';
-
-const defaultString = `{
-  characters(page: 2, filter: { name: "rick" }) {
-    info {
-      count
-    }
-    results {
-      name
-    }
-  }
-  location(id: 1) {
-    id
-  }
-  episodesByIds(ids: [1, 2]) {
-    id
-  }
-}
-`;
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { requestSlice } from '../../store/reducers/RequestSlice';
 
 export default function RequestEditor() {
-  const handleChange = () => {
-    console.log('handleChange');
+  const dispatch = useAppDispatch();
+  const { requestInputValue } = useAppSelector((state) => state.requestReducer);
+  const { setRequestInputValue } = requestSlice.actions;
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setRequestInputValue(e.target.value));
   };
   return (
     <>
@@ -29,7 +17,7 @@ export default function RequestEditor() {
         variant="outlined"
         multiline
         rows={20}
-        defaultValue={defaultString}
+        value={requestInputValue}
         onChange={handleChange}
         fullWidth
       />

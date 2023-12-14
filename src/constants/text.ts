@@ -10,7 +10,7 @@ const TEXT = {
     WELCOME_PAGE: 'Welcome',
     GRAPHIQL_PAGE: 'GraphiQL',
     HI: 'Hi!',
-    ANASTASIA: 'Анастасия Матаева',
+    ANASTASIA: 'Anastasia Mataeva',
     ANDREY: 'Andrei Shamayeu',
     IVAN: 'Ivan Gavrilin',
     FOOTER_PROJECT_TEXT: 'This project was made as part of',

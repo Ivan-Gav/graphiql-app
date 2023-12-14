@@ -9,14 +9,22 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { requestSlice } from '../../store/reducers/RequestSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getData } from '../../api/api';
+import { responseSlice } from '../../store/reducers/ResponseSlice';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();
   const { requestInputValue } = useAppSelector((state) => state.requestReducer);
   const { setRequestInputValue } = requestSlice.actions;
+  const { setResponseInputValue } = responseSlice.actions;
 
   const handleClickPlay = () => {
-    getData(requestInputValue);
+    getData(requestInputValue)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        dispatch(setResponseInputValue(JSON.stringify(data.data)));
+      });
   };
 
   const handleClickClear = () => {

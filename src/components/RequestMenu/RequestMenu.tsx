@@ -5,8 +5,12 @@ import HeadersEditor from './HeadersEditor/HeadersEditor';
 import VariablesEditor from './VariablesEditor/VariablesEditor';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 
 export default function RequestMenu() {
+  const handleClickPlay = () => {
+    console.log('handleClickPlay');
+  };
   return (
     <>
       <Paper variant="outlined">
@@ -14,6 +18,11 @@ export default function RequestMenu() {
           <Grid item>
             <IconButton>
               <AutoStoriesRoundedIcon />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton onClick={handleClickPlay}>
+              <PlayArrowRoundedIcon />
             </IconButton>
           </Grid>
           <Grid item>

@@ -2,13 +2,16 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import SignInPage from '../pages/SignInPage/SignInPage';
+import LangContextProvider from 'src/context/LangContext';
 
 describe('Page SignIn', () => {
   const renderComponent = (url: string) =>
     render(
-      <MemoryRouter initialEntries={[url]}>
-        <SignInPage />
-      </MemoryRouter>
+      <LangContextProvider>
+        <MemoryRouter initialEntries={[url]}>
+          <SignInPage />
+        </MemoryRouter>
+      </LangContextProvider>
     );
 
   it('should render SignInPage component successfully', () => {
@@ -21,7 +24,7 @@ describe('Page SignIn', () => {
     renderComponent('/');
 
     const emailInput = screen.getByTestId('email-input');
-    const btnSubmit = screen.getByText('Sign In');
+    const btnSubmit = screen.getByRole('button', { name: 'Sign In' });
 
     await act(async () => {
       fireEvent.input(emailInput, { target: { value: 'test' } });
@@ -34,7 +37,7 @@ describe('Page SignIn', () => {
     renderComponent('/');
 
     const emailInput = screen.getByTestId('email-input');
-    const btnSubmit = screen.getByText('Sign In');
+    const btnSubmit = screen.getByRole('button', { name: 'Sign In' });
 
     await act(async () => {
       fireEvent.input(emailInput, { target: { value: 'test@gmail.com' } });

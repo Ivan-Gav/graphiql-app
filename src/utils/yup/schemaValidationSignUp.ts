@@ -6,18 +6,17 @@ const REGEX = {
 };
 
 export const VALIDATION_MESSAGE = {
-  firstName: 'First uppercased letter',
-  lastName: 'First uppercased letter',
+  firstName: 'YUP_FIRST_LETTER',
+  lastName: 'YUP_FIRST_LETTER',
   email: {
-    required: 'Email is a required field',
-    valid: 'Please enter a valid email',
+    required: 'YUP_EMAIL_REQUIRED',
+    valid: 'YUP_EMAIL_INVALID',
   },
   password: {
-    length: 'Minimum 8 symbols',
-    strength:
-      'Password strength: 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
+    length: 'YUP_PASS_LENGTH',
+    strength: 'YUP_PASS_STRENGTH',
   },
-  rules: 'Rules not accepted',
+  rules: 'YUP_TANDC',
 };
 
 const schema = yup

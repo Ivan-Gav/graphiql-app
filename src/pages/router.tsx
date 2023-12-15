@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import RootLayout from '../layout/RootLayout';
+import GraphiQLPage from './GraphiQLPage/GraphiQLPage';
 
 const MainPage = lazy(() => import('./MainPage/MainPage'));
 const SignInPage = lazy(() => import('./SignInPage/SignInPage'));
@@ -14,6 +15,7 @@ const Router = (): React.JSX.Element => (
       <Route index element={<MainPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="signup" element={<SignUpPage />} />
+      <Route path="graphiql" element={<GraphiQLPage />} />
       <Route path="*" element={<Page404 />} />
     </Route>
   </Routes>

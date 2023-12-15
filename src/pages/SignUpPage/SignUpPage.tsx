@@ -11,13 +11,15 @@ import {
 import { Box } from '@mui/system';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import schema, { SchemaSignUp } from '../../utils/yup/schemaValidationSignUp';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchSignUp } from '../../store/slice/user.slice';
 import { useState } from 'react';
 import { SerializedError } from '@reduxjs/toolkit';
+import { useText } from 'src/hooks/useText';
+import { T } from 'src/models/models';
 
 export default function SignUpPage() {
   const [errorMessage, setErrorMessage] = useState('');
@@ -43,6 +45,16 @@ export default function SignUpPage() {
       });
   };
 
+  const T = useText();
+
+  const msg = (key: keyof FieldErrors<SchemaSignUp>) => {
+    const fieldErr = errors ? errors[key] : null;
+    if (fieldErr && fieldErr.message && T[fieldErr.message as keyof T]) {
+      return T[fieldErr.message as keyof T];
+    }
+    return false;
+  };
+
   return (
     <Box
       component="main"
@@ -60,7 +72,7 @@ export default function SignUpPage() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign up
+        {T.SIGNUP}
       </Typography>
       <Box
         component="form"
@@ -76,16 +88,14 @@ export default function SignUpPage() {
               name="firstName"
               fullWidth
               id="firstName"
-              label="First Name"
+              label={T.FIRST_NAME}
               inputProps={{ 'data-testid': 'first-name-input' }}
               autoFocus
-              helperText={
-                errors?.firstName?.message || 'Please enter your first name'
-              }
+              helperText={msg('firstName') || T.FIRST_NAME_PROMPT}
               FormHelperTextProps={{
                 sx: {
                   opacity: 0.5,
-                  color: `${!!errors?.firstName?.message && '#d9534f'}`,
+                  color: `${!!msg('firstName') && '#d9534f'}`,
                 },
               }}
             />
@@ -95,17 +105,15 @@ export default function SignUpPage() {
               {...register('lastName')}
               fullWidth
               id="lastName"
-              label="Last Name"
+              label={T.LAST_NAME}
               name="lastName"
               inputProps={{ 'data-testid': 'last-name-input' }}
               autoComplete="family-name"
-              helperText={
-                errors?.lastName?.message || 'Please enter your last name'
-              }
+              helperText={msg('lastName') || T.LAST_NAME_PROMPT}
               FormHelperTextProps={{
                 sx: {
                   opacity: 0.5,
-                  color: `${!!errors?.lastName?.message && '#d9534f'}`,
+                  color: `${!!msg('lastName') && '#d9534f'}`,
                 },
               }}
             />
@@ -115,15 +123,15 @@ export default function SignUpPage() {
               {...register('email')}
               fullWidth
               id="email"
-              label="Email Address"
+              label={T.EMAIL_ADDRESS}
               name="email"
               inputProps={{ 'data-testid': 'email-input' }}
               autoComplete="email"
-              helperText={errors?.email?.message || 'Please enter your email'}
+              helperText={msg('email') || T.EMAIL_PROMPT}
               FormHelperTextProps={{
                 sx: {
                   opacity: 0.5,
-                  color: `${!!errors?.email?.message && '#d9534f'}`,
+                  color: `${!!msg('email') && '#d9534f'}`,
                 },
               }}
             />
@@ -133,18 +141,16 @@ export default function SignUpPage() {
               {...register('password')}
               fullWidth
               name="password"
-              label="Password"
+              label={T.PASSWORD}
               type="password"
               inputProps={{ 'data-testid': 'password-input' }}
               id="password"
               autoComplete="new-password"
-              helperText={
-                errors?.password?.message || 'Please enter your password'
-              }
+              helperText={msg('password') || T.PASSWORD_PROMPT}
               FormHelperTextProps={{
                 sx: {
                   opacity: 0.5,
-                  color: `${!!errors?.password?.message && '#d9534f'}`,
+                  color: `${!!msg('password') && '#d9534f'}`,
                 },
               }}
             />
@@ -158,7 +164,7 @@ export default function SignUpPage() {
                   data-testid="rules-input"
                 />
               }
-              label="I want to receive inspiration, marketing promotions and updates via email."
+              label={T.AGREE_TO_SUBSCRIBE}
             />
           </Grid>
         </Grid>
@@ -178,12 +184,12 @@ export default function SignUpPage() {
           sx={{ mt: 3, mb: 2 }}
           disabled={!isValid}
         >
-          Sign Up
+          {T.SIGNUP}
         </Button>
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Link component={RouterLink} to="/signin" variant="body2">
-              Already have an account? Sign in
+              {T.SIGNIN_PROMPT}
             </Link>
           </Grid>
         </Grid>

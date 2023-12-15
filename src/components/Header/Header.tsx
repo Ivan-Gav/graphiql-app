@@ -18,6 +18,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { fetchSignOut, getUser } from '../../store/slice/user.slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import LangSelect from '../LangSelect/LangSelect';
+import { useText } from 'src/hooks/useText';
 
 export default function Header() {
   const { isAuth } = useAppSelector(getUser);
@@ -27,6 +29,7 @@ export default function Header() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
+  const T = useText();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -69,7 +72,7 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">Welcome</Typography>
+              <Typography textAlign="center">{T.WELCOME_PAGE}</Typography>
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -77,7 +80,7 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">GraphiQL</Typography>
+              <Typography textAlign="center">{T.GRAPHIQL_PAGE}</Typography>
             </MenuItem>
             <Divider />
             {isAuth && (
@@ -97,7 +100,7 @@ export default function Header() {
                   handleCloseNavMenu();
                 }}
               >
-                <Typography textAlign="center">Sign In</Typography>
+                <Typography textAlign="center">{T.SIGNIN}</Typography>
               </MenuItem>
             )}
             {!isAuth && (
@@ -107,7 +110,7 @@ export default function Header() {
                   handleCloseNavMenu();
                 }}
               >
-                <Typography textAlign="center">Sign Up</Typography>
+                <Typography textAlign="center">{T.SIGNUP}</Typography>
               </MenuItem>
             )}
           </Menu>
@@ -115,10 +118,10 @@ export default function Header() {
 
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Link component={NavLink} to="/" px={2}>
-            Welcome
+            {T.WELCOME_PAGE}
           </Link>
           <Link component={NavLink} to="/graphiql" px={2}>
-            GraphiQL
+            {T.GRAPHIQL_PAGE}
           </Link>
         </Box>
 
@@ -145,7 +148,7 @@ export default function Header() {
                 variant="text"
                 endIcon={<Login />}
               >
-                SignIn
+                {T.SIGNIN}
               </Button>
               <Button
                 component={NavLink}
@@ -154,15 +157,17 @@ export default function Header() {
                 variant="text"
                 endIcon={<PersonAddAlt1 />}
               >
-                SignUp
+                {T.SIGNUP}
               </Button>
             </>
           )}
         </Box>
 
+        <LangSelect />
+
         <IconButton
           size="large"
-          aria-label="account of current user"
+          aria-label="burger menu"
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={handleOpenNavMenu}

@@ -4,15 +4,18 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import SignInPage from '../pages/SignInPage/SignInPage';
 import { store } from '../store/store';
+import LangContextProvider from 'src/context/LangContext';
 
 describe('Page SignIn', () => {
   const renderComponent = (url: string) =>
     render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[url]}>
-          <SignInPage />
-        </MemoryRouter>
-      </Provider>
+      <LangContextProvider>
+        <Provider store={store}>
+          <MemoryRouter initialEntries={[url]}>
+            <SignInPage />
+          </MemoryRouter>
+        </Provider>
+      </LangContextProvider>
     );
 
   vi.mock('firebase/auth');
@@ -27,7 +30,7 @@ describe('Page SignIn', () => {
     renderComponent('/');
 
     const emailInput = screen.getByTestId('email-input');
-    const btnSubmit = screen.getByText('Sign In');
+    const btnSubmit = screen.getByRole('button', { name: 'Sign In' });
 
     await act(async () => {
       fireEvent.input(emailInput, { target: { value: 'test' } });
@@ -41,7 +44,7 @@ describe('Page SignIn', () => {
 
     const emailInput = screen.getByTestId('email-input');
     const passwordInput = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByText('Sign In');
+    const btnSubmit = screen.getByRole('button', { name: 'Sign In' });
 
     await act(async () => {
       fireEvent.input(emailInput, { target: { value: 'test@gmail.com' } });

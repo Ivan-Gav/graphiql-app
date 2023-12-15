@@ -4,9 +4,9 @@ const schema = yup
   .object({
     email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Email is a required field'),
-    password: yup.string().required('Password is a required field'),
+      .email('YUP_EMAIL_INVALID')
+      .required('YUP_EMAIL_REQUIRED'),
+    password: yup.string().required('YUP_PASSWORD_REQUIRED'),
   })
   .required();
 

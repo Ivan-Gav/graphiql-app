@@ -9,15 +9,18 @@ import theme from './themes/theme';
 import Router from './pages/router';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import LangContextProvider from './context/LangContext';
 
 function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Provider store={store}>
-          <Router />
-        </Provider>
+        <LangContextProvider>
+          <Provider store={store}>
+            <Router />
+          </Provider>
+        </LangContextProvider>
       </ThemeProvider>
     </>
   );

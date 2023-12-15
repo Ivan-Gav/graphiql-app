@@ -16,9 +16,13 @@ import { useAppDispatch } from '../../hooks/redux';
 import { fetchSignIn } from '../../store/slice/user.slice';
 import { useState } from 'react';
 import { SerializedError } from '@reduxjs/toolkit';
+import { useText } from 'src/hooks/useText';
+import { T } from 'src/models/models';
 
 export default function SignInPage() {
   const [errorMessage, setErrorMessage] = useState('');
+
+  const T = useText();
 
   const {
     register,
@@ -41,6 +45,8 @@ export default function SignInPage() {
       });
   };
 
+  const errMsg = errors?.email?.message;
+
   return (
     <Box
       component="main"
@@ -58,7 +64,7 @@ export default function SignInPage() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign in
+        {T.SIGNIN}
       </Typography>
       <Box
         component="form"
@@ -72,11 +78,11 @@ export default function SignInPage() {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={T.EMAIL_ADDRESS}
           name="email"
           inputProps={{ 'data-testid': 'email-input' }}
           autoComplete="email"
-          helperText={errors?.email?.message || 'Please enter your email'}
+          helperText={(!!errMsg && T[errMsg as keyof T]) || T.EMAIL_PROMPT}
           FormHelperTextProps={{
             sx: {
               opacity: 0.5,
@@ -90,7 +96,7 @@ export default function SignInPage() {
           fullWidth
           name="password"
           inputProps={{ 'data-testid': 'password-input' }}
-          label="Password"
+          label={T.PASSWORD}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -118,12 +124,12 @@ export default function SignInPage() {
           sx={{ mt: 3, mb: 2 }}
           disabled={!isValid}
         >
-          Sign In
+          {T.SIGNIN}
         </Button>
         <Grid container>
           <Grid item>
             <Link component={RouterLink} to="/signup" variant="body2">
-              {"Don't have an account? Sign Up"}
+              {T.SIGNUP_PROMPT}
             </Link>
           </Grid>
         </Grid>

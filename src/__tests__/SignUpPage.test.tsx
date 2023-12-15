@@ -4,17 +4,22 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import { store } from '../store/store';
-import { VALIDATION_MESSAGE } from '../utils/yup/schemaValidationSignUp';
+import LangContextProvider from 'src/context/LangContext';
+import TEXT from 'src/constants/text';
 
 describe('Page SignUp', () => {
   const renderComponent = (url: string) =>
     render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[url]}>
-          <SignUpPage />
-        </MemoryRouter>
-      </Provider>
+      <LangContextProvider>
+        <Provider store={store}>
+          <MemoryRouter initialEntries={[url]}>
+            <SignUpPage />
+          </MemoryRouter>
+        </Provider>
+      </LangContextProvider>
     );
+
+  const T = TEXT.EN;
 
   vi.mock('firebase/auth');
 
@@ -29,23 +34,19 @@ describe('Page SignUp', () => {
 
     const firstNameInput = screen.getByTestId('first-name-input');
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.firstName)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_FIRST_LETTER)).not.toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(firstNameInput, { target: { value: 'firstname' } });
     });
 
-    expect(screen.getByText(VALIDATION_MESSAGE.firstName)).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_FIRST_LETTER)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(firstNameInput, { target: { value: 'Firstname' } });
     });
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.firstName)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_FIRST_LETTER)).not.toBeInTheDocument();
   });
 
   it('should check last name validation', async () => {
@@ -53,23 +54,19 @@ describe('Page SignUp', () => {
 
     const lastNameInput = screen.getByTestId('last-name-input');
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.lastName)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_FIRST_LETTER)).not.toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(lastNameInput, { target: { value: 'lastname' } });
     });
 
-    expect(screen.getByText(VALIDATION_MESSAGE.lastName)).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_FIRST_LETTER)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(lastNameInput, { target: { value: 'Lastname' } });
     });
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.lastName)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_FIRST_LETTER)).not.toBeInTheDocument();
   });
 
   it('should check email validation', async () => {
@@ -77,25 +74,19 @@ describe('Page SignUp', () => {
 
     const emailInput = screen.getByTestId('email-input');
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.email.valid)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_EMAIL_INVALID)).not.toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(emailInput, { target: { value: 'email' } });
     });
 
-    expect(
-      screen.getByText(VALIDATION_MESSAGE.email.valid)
-    ).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_EMAIL_INVALID)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(emailInput, { target: { value: 'email@gmail.com' } });
     });
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.email.valid)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_EMAIL_INVALID)).not.toBeInTheDocument();
   });
 
   it('should check strength password validation', async () => {
@@ -103,36 +94,26 @@ describe('Page SignUp', () => {
 
     const passwordInput = screen.getByTestId('password-input');
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.password.strength)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_PASS_STRENGTH)).not.toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(passwordInput, { target: { value: 'password' } });
     });
 
-    expect(
-      screen.getByText(VALIDATION_MESSAGE.password.strength)
-    ).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_PASS_STRENGTH)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(passwordInput, { target: { value: '@Qwert1' } });
     });
 
-    expect(
-      screen.getByText(VALIDATION_MESSAGE.password.length)
-    ).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_PASS_LENGTH)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(passwordInput, { target: { value: '@Qwerty123' } });
     });
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.password.strength)
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.password.length)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_PASS_LENGTH)).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_PASS_LENGTH)).not.toBeInTheDocument();
   });
 
   it('should check length and strength password validation', async () => {
@@ -140,36 +121,26 @@ describe('Page SignUp', () => {
 
     const passwordInput = screen.getByTestId('password-input');
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.password.strength)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_PASS_STRENGTH)).not.toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(passwordInput, { target: { value: 'password' } });
     });
 
-    expect(
-      screen.getByText(VALIDATION_MESSAGE.password.strength)
-    ).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_PASS_STRENGTH)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(passwordInput, { target: { value: '@Qwert1' } });
     });
 
-    expect(
-      screen.getByText(VALIDATION_MESSAGE.password.length)
-    ).toBeInTheDocument();
+    expect(screen.getByText(T.YUP_PASS_LENGTH)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.input(passwordInput, { target: { value: '@Qwerty123' } });
     });
 
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.password.strength)
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(VALIDATION_MESSAGE.password.length)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_PASS_STRENGTH)).not.toBeInTheDocument();
+    expect(screen.queryByText(T.YUP_PASS_LENGTH)).not.toBeInTheDocument();
   });
 
   it('should block the SignUp button if validation fails', async () => {
@@ -180,7 +151,7 @@ describe('Page SignUp', () => {
     const emailInput = screen.getByTestId('email-input');
     const passwordInput = screen.getByTestId('password-input');
 
-    const btnSubmit = screen.getByText('Sign Up');
+    const btnSubmit = screen.getByRole('button', { name: 'Sign Up' });
 
     await act(async () => {
       fireEvent.input(firstNameInput, { target: { value: 'Firstname' } });
@@ -201,7 +172,7 @@ describe('Page SignUp', () => {
     const passwordInput = screen.getByTestId('password-input');
     const rulesInput = screen.getByTestId('rules-input');
 
-    const btnSubmit = screen.getByText('Sign Up');
+    const btnSubmit = screen.getByRole('button', { name: 'Sign Up' });
 
     await act(async () => {
       fireEvent.input(firstNameInput, { target: { value: 'Firstname' } });

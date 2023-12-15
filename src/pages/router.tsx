@@ -6,6 +6,7 @@ import { useAppDispatch } from '../hooks/redux';
 
 import RootLayout from '../layout/RootLayout';
 import { auth, setUser } from '../store/slice/user.slice';
+import GraphiQLPage from './GraphiQLPage/GraphiQLPage';
 
 const MainPage = lazy(() => import('./MainPage/MainPage'));
 const SignInPage = lazy(() => import('./SignInPage/SignInPage'));
@@ -33,6 +34,7 @@ const Router = (): React.JSX.Element => {
           <Route path="signin" element={<SignInPage />} />
           <Route path="signup" element={<SignUpPage />} />
         </Route>
+        <Route path="graphiql" element={<GraphiQLPage />} />
         <Route path="*" element={<Page404 />} />
       </Route>
     </Routes>

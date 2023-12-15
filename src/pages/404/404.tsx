@@ -2,7 +2,11 @@ import { Typography, Button, Stack } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import UndoIcon from '@mui/icons-material/Undo';
 
+import { useText } from 'src/hooks/useText';
+
 export default function Page404() {
+  const T = useText();
+
   return (
     <Stack
       component="main"
@@ -17,15 +21,10 @@ export default function Page404() {
       data-testid="page-404"
     >
       <Typography variant="h2" textAlign="center">
-        Page Not Found
+        {T.PAGE_NOT_FOUND}
       </Typography>
-      <Typography variant="h4">
-        We could not find what you were looking for.
-      </Typography>
-      <Typography variant="h6">
-        Please contact the owner of the site that linked you to the original URL
-        and let them know their link is broken.
-      </Typography>
+      <Typography variant="h4">{T.PAGE_NOT_FOUND_SUBTITLE}</Typography>
+      <Typography variant="h6">{T.PAGE_NOT_FOUND_INSTRUCTION}</Typography>
       <Button
         component={NavLink}
         to="/"
@@ -35,7 +34,7 @@ export default function Page404() {
         data-testid="btn-home"
         sx={{ width: '100%', opacity: 0.6 }}
       >
-        Home
+        {T.PAGE_NOT_FOUND_BTN}
       </Button>
     </Stack>
   );

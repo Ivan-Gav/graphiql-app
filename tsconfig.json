@@ -8,6 +8,12 @@
     "allowJs": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    },
 
     /* Bundler mode */
     "moduleResolution": "Node",

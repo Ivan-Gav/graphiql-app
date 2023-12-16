@@ -24,13 +24,11 @@ export const auth = getAuth(app);
 export interface UserState {
   isAuth: boolean;
   email: string | null;
-  avatar: string | null;
 }
 
 const initialState: UserState = {
   isAuth: false,
   email: null,
-  avatar: null,
 };
 
 export const fetchSignIn = createAsyncThunk(
@@ -38,7 +36,7 @@ export const fetchSignIn = createAsyncThunk(
   async ({ email, password }: { email: string; password: string }) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
 
-    return { email: data.user.email, avatar: data.user.photoURL };
+    return { email: data.user.email };
   }
 );
 export const fetchSignUp = createAsyncThunk(
@@ -46,7 +44,7 @@ export const fetchSignUp = createAsyncThunk(
   async ({ email, password }: { email: string; password: string }) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
 
-    return { email: data.user.email, avatar: data.user.photoURL };
+    return { email: data.user.email };
   }
 );
 
@@ -58,30 +56,23 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (
-      state,
-      { payload }: { payload: { email: string | null; avatar: string | null } }
-    ) => {
+    setUser: (state, { payload }: { payload: { email: string | null } }) => {
       state.isAuth = !!payload.email;
       state.email = payload.email;
-      state.avatar = payload.avatar;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSignIn.fulfilled, (state, action) => {
       state.isAuth = true;
       state.email = action.payload.email;
-      state.avatar = action.payload.avatar;
     });
     builder.addCase(fetchSignOut.fulfilled, (state) => {
       state.isAuth = false;
       state.email = null;
-      state.avatar = null;
     });
     builder.addCase(fetchSignUp.fulfilled, (state, action) => {
       state.isAuth = true;
       state.email = action.payload.email;
-      state.avatar = action.payload.avatar;
     });
   },
 });

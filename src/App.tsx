@@ -1,4 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { BrowserRouter } from 'react-router-dom';
 
 import '@fontsource/noto-sans/200.css';
 import '@fontsource/noto-sans/400.css';
@@ -14,14 +15,16 @@ import LangContextProvider from './context/LangContext';
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <LangContextProvider>
-          <Provider store={store}>
-            <Router />
-          </Provider>
-        </LangContextProvider>
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <LangContextProvider>
+            <Provider store={store}>
+              <Router />
+            </Provider>
+          </LangContextProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </>
   );
 }

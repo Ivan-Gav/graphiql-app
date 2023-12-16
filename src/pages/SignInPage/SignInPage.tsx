@@ -10,7 +10,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import schema, { SchemaSignIn } from '../../utils/yup/schemaValidationSignIn';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchSignIn } from '../../store/slice/user.slice';
@@ -45,7 +45,13 @@ export default function SignInPage() {
       });
   };
 
-  const errMsg = errors?.email?.message;
+  const msg = (key: keyof FieldErrors<SchemaSignIn>) => {
+    const fieldErr = errors ? errors[key] : null;
+    if (fieldErr && fieldErr.message && T[fieldErr.message as keyof T]) {
+      return T[fieldErr.message as keyof T];
+    }
+    return false;
+  };
 
   return (
     <Box
@@ -82,11 +88,11 @@ export default function SignInPage() {
           name="email"
           inputProps={{ 'data-testid': 'email-input' }}
           autoComplete="email"
-          helperText={(!!errMsg && T[errMsg as keyof T]) || T.EMAIL_PROMPT}
+          helperText={msg('email') || T.EMAIL_PROMPT}
           FormHelperTextProps={{
             sx: {
               opacity: 0.5,
-              color: `${!!errors?.email?.message && '#d9534f'}`,
+              color: `${msg('email') && '#d9534f'}`,
             },
           }}
         />
@@ -100,11 +106,11 @@ export default function SignInPage() {
           type="password"
           id="password"
           autoComplete="current-password"
-          helperText={errors?.password?.message || 'Please enter your password'}
+          helperText={msg('password') || T.PASSWORD_PROMPT}
           FormHelperTextProps={{
             sx: {
               opacity: 0.5,
-              color: `${!!errors?.password?.message && '#d9534f'}`,
+              color: `${!!msg('password') && '#d9534f'}`,
             },
           }}
         />

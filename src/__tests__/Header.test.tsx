@@ -62,7 +62,7 @@ describe('Header', () => {
 
     render(<TestHeader />);
 
-    const signUpLink = screen.getByRole('link', { name: 'SignOut' });
+    const signUpLink = screen.getByRole('link', { name: 'Sign Out' });
 
     expect(signUpLink).toHaveAttribute('href', '/');
   });

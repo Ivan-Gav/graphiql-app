@@ -14,7 +14,6 @@ import userReducer, {
 import { mockResponseUserData } from './mockResponseUserData';
 
 const initialState: UserState = {
-  avatar: null,
   email: null,
   isAuth: false,
 };
@@ -24,7 +23,6 @@ describe('User slice', () => {
 
   it('should auth user with "setUser" action', () => {
     const user = {
-      avatar: 'http//avatar',
       email: 'example@gmail.com',
     };
 
@@ -48,7 +46,6 @@ describe('User slice', () => {
     expect(result).toEqual({
       isAuth: false,
       email: null,
-      avatar: null,
     });
   });
 
@@ -82,7 +79,6 @@ describe('User slice', () => {
     expect(store.getState().userReducer).toEqual({
       isAuth: true,
       email: 'example@gmail.com',
-      avatar: 'http//avatar',
     });
   });
 
@@ -91,7 +87,6 @@ describe('User slice', () => {
       new Promise((resolve) => {
         const user = {
           email: 'example@gmail.com',
-          photoURL: 'http//avatar',
         };
         resolve({
           ...mockResponseUserData,
@@ -116,7 +111,6 @@ describe('User slice', () => {
     expect(store.getState().userReducer).toEqual({
       isAuth: true,
       email: 'example@gmail.com',
-      avatar: 'http//avatar',
     });
   });
 });

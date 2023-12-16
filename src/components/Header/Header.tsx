@@ -90,7 +90,7 @@ export default function Header() {
                   dispatch(fetchSignOut());
                 }}
               >
-                <Typography textAlign="center">Sign Out</Typography>
+                <Typography textAlign="center">{T.SIGNOUT}</Typography>
               </MenuItem>
             )}
             {!isAuth && (
@@ -137,7 +137,7 @@ export default function Header() {
               variant="text"
               endIcon={<LogoutIcon />}
             >
-              SignOut
+              {T.SIGNOUT}
             </Button>
           ) : (
             <>

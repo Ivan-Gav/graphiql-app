@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import PrivateRoutes from '../components/PrivateRoute/PrivateRoute';
+import AuthRoutes from 'src/components/PrivateRoutes/AuthRoutes/AuthRoutes';
 import { useAppDispatch } from '../hooks/redux';
 
 import RootLayout from '../layout/RootLayout';
@@ -20,9 +20,7 @@ const Router = (): React.JSX.Element => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      dispatch(
-        setUser({ email: user?.email || null, avatar: user?.photoURL || null })
-      );
+      dispatch(setUser({ email: user?.email || null }));
     });
   }, [dispatch, location.pathname]);
 
@@ -30,7 +28,7 @@ const Router = (): React.JSX.Element => {
     <Routes>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<MainPage />} />
-        <Route element={<PrivateRoutes />}>
+        <Route element={<AuthRoutes />}>
           <Route path="signin" element={<SignInPage />} />
           <Route path="signup" element={<SignUpPage />} />
         </Route>

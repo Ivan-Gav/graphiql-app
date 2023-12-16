@@ -12,7 +12,13 @@ export default function Fallback(props: FallbackProps) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Stack
-        sx={{ alignItems: 'center', justifyContent: 'center', height: '100vh' }}
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 5,
+          height: '100vh',
+          textAlign: 'center',
+        }}
       >
         {errorMessage ? (
           <>

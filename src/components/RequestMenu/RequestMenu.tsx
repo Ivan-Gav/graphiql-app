@@ -36,49 +36,48 @@ export default function RequestMenu() {
     dispatch(setRequestInputValue(''));
   };
 
+  const addSpaces = (str: string, count: number, space: string) => {
+    let row = str.trim();
+    for (let i = 0; i < count; i++) {
+      if (row !== '') row = space + row;
+    }
+    row += '\n';
+
+    return row;
+  };
+
   const splitToRows = (str: string) => {
-    const arr: string[] = [];
+    const arr = [];
     let count = 0;
     let row = '';
     let inParentheses = false;
     const space = '  ';
 
-    const addRow = (arr: string[], count: number, space: string) => {
-      let newRow = row.trim();
-      for (let i = 0; i < count; i++) {
-        if (newRow !== '') newRow = space + newRow;
-      }
-
-      if (newRow !== '') arr.push(newRow + '\n');
-      row = '';
-
-      return row;
-    };
-
     for (let i = 0; i < str.length; i++) {
       const el = str[i];
       if (el === '\n') continue;
-
       if (el === '(') {
         inParentheses = true;
       }
       if (el === ')') {
         inParentheses = false;
       }
-
       if (el === '}' && !inParentheses) {
-        addRow(arr, count, space);
+        row = addSpaces(row, count, space);
+        if (row !== '\n') arr.push(row);
+        row = '';
 
         count--;
         row += el;
-        addRow(arr, count, space);
+        arr.push(addSpaces(row, count, space));
+        row = '';
       } else {
         row += el;
       }
-
       if (el === '{' && !inParentheses) {
-        addRow(arr, count, space);
+        arr.push(addSpaces(row, count, space));
         count++;
+        row = '';
       }
     }
     return arr.join('');

@@ -7,6 +7,7 @@ const TEXT = {
     SIGNUP_PROMPT: "Don't have an account? Sign Up",
     SIGNIN: 'Sign In',
     SIGNIN_PROMPT: 'Already have an account? Sign in',
+    SIGNOUT: 'Sign Out',
     WELCOME_PAGE: 'Welcome',
     GRAPHIQL_PAGE: 'GraphiQL',
     HI: 'Hi!',
@@ -32,6 +33,7 @@ const TEXT = {
       'I want to receive inspiration, marketing promotions and updates via email',
     YUP_EMAIL_INVALID: 'Please enter a valid email',
     YUP_EMAIL_REQUIRED: 'Email is a required field',
+    YUP_PASSWORD_REQUIRED: 'Password is a required field',
     YUP_FIRST_LETTER: 'First uppercased letter',
     YUP_PASS_LENGTH: 'Minimum 8 symbols',
     YUP_PASS_STRENGTH:
@@ -46,6 +48,7 @@ const TEXT = {
     SIGNUP_PROMPT: 'Нет аккаунта? Зарегистрируйтесь здесь',
     SIGNIN: 'Войти',
     SIGNIN_PROMPT: 'Уже есть аккаунт? Войти',
+    SIGNOUT: 'Выйти',
     WELCOME_PAGE: 'Добро пожаловать',
     GRAPHIQL_PAGE: 'Редактор GraphiQL',
     HI: 'Привет!',
@@ -71,6 +74,7 @@ const TEXT = {
       'Я даю согласие на получение предложений и информации об акциях по электронной почте',
     YUP_EMAIL_INVALID: 'Неверный формат электронной почты',
     YUP_EMAIL_REQUIRED: 'Поле Электронная почта - обязательное',
+    YUP_PASSWORD_REQUIRED: 'Поле Пароль - обязательное',
     YUP_FIRST_LETTER: 'Первая буква - заглавная',
     YUP_PASS_LENGTH: 'Не менее 8 символов',
     YUP_PASS_STRENGTH:

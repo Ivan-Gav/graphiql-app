@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import { Paper, Typography } from '@mui/material';

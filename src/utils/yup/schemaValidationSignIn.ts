@@ -6,6 +6,7 @@ const schema = yup
       .string()
       .email('YUP_EMAIL_INVALID')
       .required('YUP_EMAIL_REQUIRED'),
+    password: yup.string().required('YUP_PASSWORD_REQUIRED'),
   })
   .required();
 

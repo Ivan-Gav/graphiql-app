@@ -1,7 +1,7 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { requestSlice } from '../../store/reducers/RequestSlice';
+import { requestSlice } from '../../store/slice/RequestSlice';
 
 export default function RequestEditor() {
   const dispatch = useAppDispatch();

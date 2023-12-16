@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, IconButton, Paper } from '@mui/material';
 import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
 import HeadersEditor from './HeadersEditor/HeadersEditor';
@@ -6,10 +5,10 @@ import VariablesEditor from './VariablesEditor/VariablesEditor';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
-import { requestSlice } from '../../store/reducers/RequestSlice';
+import { requestSlice } from '../../store/slice/RequestSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getData } from '../../api/api';
-import { responseSlice } from '../../store/reducers/ResponseSlice';
+import { responseSlice } from '../../store/slice/ResponseSlice';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();

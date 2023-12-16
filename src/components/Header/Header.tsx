@@ -14,12 +14,20 @@ import {
   useScrollTrigger,
 } from '@mui/material';
 import { Login, PersonAddAlt1 } from '@mui/icons-material';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import { fetchSignOut, getUser } from '../../store/slice/user.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import LangSelect from '../LangSelect/LangSelect';
 import { useText } from 'src/hooks/useText';
 
 export default function Header() {
+  const { isAuth } = useAppSelector(getUser);
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const T = useText();
 
@@ -75,22 +83,36 @@ export default function Header() {
               <Typography textAlign="center">{T.GRAPHIQL_PAGE}</Typography>
             </MenuItem>
             <Divider />
-            <MenuItem
-              onClick={() => {
-                navigate('/signin');
-                handleCloseNavMenu();
-              }}
-            >
-              <Typography textAlign="center">{T.SIGNIN}</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate('/signup');
-                handleCloseNavMenu();
-              }}
-            >
-              <Typography textAlign="center">{T.SIGNUP}</Typography>
-            </MenuItem>
+            {isAuth && (
+              <MenuItem
+                onClick={() => {
+                  handleCloseNavMenu();
+                  dispatch(fetchSignOut());
+                }}
+              >
+                <Typography textAlign="center">{T.SIGNOUT}</Typography>
+              </MenuItem>
+            )}
+            {!isAuth && (
+              <MenuItem
+                onClick={() => {
+                  navigate('/signin');
+                  handleCloseNavMenu();
+                }}
+              >
+                <Typography textAlign="center">{T.SIGNIN}</Typography>
+              </MenuItem>
+            )}
+            {!isAuth && (
+              <MenuItem
+                onClick={() => {
+                  navigate('/signup');
+                  handleCloseNavMenu();
+                }}
+              >
+                <Typography textAlign="center">{T.SIGNUP}</Typography>
+              </MenuItem>
+            )}
           </Menu>
         </Box>
 
@@ -104,24 +126,41 @@ export default function Header() {
         </Box>
 
         <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex', gap: 16 } }}>
-          <Button
-            component={NavLink}
-            to="/signin"
-            onClick={handleCloseNavMenu}
-            variant="text"
-            endIcon={<Login />}
-          >
-            {T.SIGNIN}
-          </Button>
-          <Button
-            component={NavLink}
-            to="/signup"
-            onClick={handleCloseNavMenu}
-            variant="text"
-            endIcon={<PersonAddAlt1 />}
-          >
-            {T.SIGNUP}
-          </Button>
+          {isAuth ? (
+            <Button
+              component={NavLink}
+              to="/"
+              onClick={() => {
+                handleCloseNavMenu();
+                dispatch(fetchSignOut());
+              }}
+              variant="text"
+              endIcon={<LogoutIcon />}
+            >
+              {T.SIGNOUT}
+            </Button>
+          ) : (
+            <>
+              <Button
+                component={NavLink}
+                to="/signin"
+                onClick={handleCloseNavMenu}
+                variant="text"
+                endIcon={<Login />}
+              >
+                {T.SIGNIN}
+              </Button>
+              <Button
+                component={NavLink}
+                to="/signup"
+                onClick={handleCloseNavMenu}
+                variant="text"
+                endIcon={<PersonAddAlt1 />}
+              >
+                {T.SIGNUP}
+              </Button>
+            </>
+          )}
         </Box>
 
         <LangSelect />

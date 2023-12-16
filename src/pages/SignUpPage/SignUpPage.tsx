@@ -14,10 +14,16 @@ import { Link as RouterLink } from 'react-router-dom';
 import { FieldErrors, useForm } from 'react-hook-form';
 import schema, { SchemaSignUp } from '../../utils/yup/schemaValidationSignUp';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppDispatch } from '../../hooks/redux';
+import { fetchSignUp } from '../../store/slice/user.slice';
+import { useState } from 'react';
+import { SerializedError } from '@reduxjs/toolkit';
 import { useText } from 'src/hooks/useText';
 import { T } from 'src/models/models';
 
 export default function SignUpPage() {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -27,7 +33,17 @@ export default function SignUpPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: SchemaSignUp) => console.log(data);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = ({ email, password }: SchemaSignUp) => {
+    dispatch(fetchSignUp({ email, password }))
+      .unwrap()
+      .catch((error: SerializedError) => {
+        if (error?.message) {
+          setErrorMessage(error.message);
+        }
+      });
+  };
 
   const T = useText();
 
@@ -152,6 +168,15 @@ export default function SignUpPage() {
             />
           </Grid>
         </Grid>
+        {errorMessage && (
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{ width: 1, opacity: 0.5, color: '#d9534f' }}
+          >
+            {errorMessage}
+          </Typography>
+        )}
         <Button
           type="submit"
           fullWidth

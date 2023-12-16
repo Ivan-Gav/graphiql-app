@@ -1,7 +1,9 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
+import { store } from '../store/store';
 import LangContextProvider from 'src/context/LangContext';
 import TEXT from 'src/constants/text';
 
@@ -9,13 +11,17 @@ describe('Page SignUp', () => {
   const renderComponent = (url: string) =>
     render(
       <LangContextProvider>
-        <MemoryRouter initialEntries={[url]}>
-          <SignUpPage />
-        </MemoryRouter>
+        <Provider store={store}>
+          <MemoryRouter initialEntries={[url]}>
+            <SignUpPage />
+          </MemoryRouter>
+        </Provider>
       </LangContextProvider>
     );
 
   const T = TEXT.EN;
+
+  vi.mock('firebase/auth');
 
   it('should render SignUpPage component successfully', () => {
     renderComponent('/');

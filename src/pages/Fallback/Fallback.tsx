@@ -12,6 +12,7 @@ export default function Fallback(props: FallbackProps) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Stack
+        data-testid="fallback"
         sx={{
           alignItems: 'center',
           justifyContent: 'center',

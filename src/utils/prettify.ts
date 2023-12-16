@@ -1,4 +1,4 @@
-const addSpaces = (str: string, count: number, space: string) => {
+const addTabs = (str: string, count: number, space: string) => {
   let row = str.trim();
   for (let i = 0; i < count; i++) {
     if (row !== '') row = space + row;
@@ -6,6 +6,37 @@ const addSpaces = (str: string, count: number, space: string) => {
   row += '\n';
 
   return row;
+};
+
+const addSpaces = (el: string, inParentheses: boolean) => {
+  let newEl = el;
+  switch (el) {
+    case '}':
+      if (inParentheses) {
+        newEl = ' ' + el;
+      }
+      break;
+    case '{':
+      if (inParentheses) {
+        newEl = el + ' ';
+      } else {
+        newEl = ' ' + el;
+      }
+      break;
+    case '(':
+      break;
+    case ')':
+      break;
+    case ':':
+      newEl = el + ' ';
+      break;
+    case ',':
+      newEl = el + ' ';
+      break;
+    default:
+      break;
+  }
+  return newEl;
 };
 
 export const prettify = (str: string) => {
@@ -16,42 +47,36 @@ export const prettify = (str: string) => {
   const space = '  ';
 
   for (let i = 0; i < str.length; i++) {
-    const el = str[i];
-    if (el === '\n' || el === ' ') continue;
-    if (el === '}' && !inParentheses) {
-      row = addSpaces(row, count, space);
-      if (row !== '\n') arr.push(row);
-      row = '';
+    if (str[i] === '\n' || str[i] === ' ') continue;
+    const el = addSpaces(str[i], inParentheses);
 
-      count--;
-      row += el;
-      arr.push(addSpaces(row, count, space));
-      row = '';
+    if (el.includes('}')) {
+      if (!inParentheses) {
+        row = addTabs(row, count, space);
+        if (row !== '\n') arr.push(row);
+        row = '';
+
+        row += el;
+        count--;
+        arr.push(addTabs(row, count, space));
+        row = '';
+      } else {
+        row += el;
+      }
     } else {
-      if (el === ')') {
-        inParentheses = false;
-        row += el;
-      } else if (el === '(') {
-        inParentheses = true;
-        row += el;
-      } else if (el === ',') {
-        row += el + ' ';
-      } else if (el === '{') {
-        if (inParentheses) {
-          row += el + ' ';
-        } else {
-          row += ' ' + el;
-        }
-      } else if (el === '}' && inParentheses) {
-        row += ' ' + el;
-      } else if (el === ':') {
-        row += el + ' ';
-      } else row += el;
+      row += el;
     }
-    if (el === '{' && !inParentheses) {
-      arr.push(addSpaces(row, count, space));
+
+    if (el.includes('{') && !inParentheses) {
+      arr.push(addTabs(row, count, space));
       count++;
       row = '';
+    }
+
+    if (el.includes(')')) {
+      inParentheses = false;
+    } else if (el.includes('(')) {
+      inParentheses = true;
     }
   }
   return arr.join('');

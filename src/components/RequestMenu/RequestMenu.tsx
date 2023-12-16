@@ -46,7 +46,7 @@ export default function RequestMenu() {
     return row;
   };
 
-  const splitToRows = (str: string) => {
+  const prettify = (str: string) => {
     const arr = [];
     let count = 0;
     let row = '';
@@ -103,7 +103,7 @@ export default function RequestMenu() {
     // arr.forEach((e) => (e = e.trim()));
 
     // console.log('handleClickFormatter', arr);
-    dispatch(setRequestInputValue(splitToRows(requestInputValue)));
+    dispatch(setRequestInputValue(prettify(requestInputValue)));
     // console.log('splitToRows', splitToRows(requestInputValue));
   };
 

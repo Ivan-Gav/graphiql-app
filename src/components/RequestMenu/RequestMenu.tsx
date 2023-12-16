@@ -96,15 +96,7 @@ export default function RequestMenu() {
   };
 
   const handleClickFormatter = () => {
-    // const str = requestInputValue.replace(/\r?\n/g, '');
-    // const strRow = str.replace(/{/g, '{\n').replace(/}/g, '\n}\n');
-    // const arr = strRow.split('\n').map((e: string) => (e = e.trim()));
-    // arr.map((e) => e.trim());
-    // arr.forEach((e) => (e = e.trim()));
-
-    // console.log('handleClickFormatter', arr);
     dispatch(setRequestInputValue(prettify(requestInputValue)));
-    // console.log('splitToRows', splitToRows(requestInputValue));
   };
 
   return (

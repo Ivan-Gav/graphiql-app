@@ -36,8 +36,64 @@ export default function RequestMenu() {
     dispatch(setRequestInputValue(''));
   };
 
+  const splitToRows = (str: string) => {
+    const arr: string[] = [];
+    let count = 0;
+    let row = '';
+    let inParentheses = false;
+    const space = '  ';
+
+    const addRow = (arr: string[], count: number, space: string) => {
+      let newRow = row.trim();
+      for (let i = 0; i < count; i++) {
+        if (newRow !== '') newRow = space + newRow;
+      }
+
+      if (newRow !== '') arr.push(newRow + '\n');
+      row = '';
+
+      return row;
+    };
+
+    for (let i = 0; i < str.length; i++) {
+      const el = str[i];
+      if (el === '\n') continue;
+
+      if (el === '(') {
+        inParentheses = true;
+      }
+      if (el === ')') {
+        inParentheses = false;
+      }
+
+      if (el === '}' && !inParentheses) {
+        addRow(arr, count, space);
+
+        count--;
+        row += el;
+        addRow(arr, count, space);
+      } else {
+        row += el;
+      }
+
+      if (el === '{' && !inParentheses) {
+        addRow(arr, count, space);
+        count++;
+      }
+    }
+    return arr.join('');
+  };
+
   const handleClickFormatter = () => {
-    console.log('handleClickFormatter');
+    // const str = requestInputValue.replace(/\r?\n/g, '');
+    // const strRow = str.replace(/{/g, '{\n').replace(/}/g, '\n}\n');
+    // const arr = strRow.split('\n').map((e: string) => (e = e.trim()));
+    // arr.map((e) => e.trim());
+    // arr.forEach((e) => (e = e.trim()));
+
+    // console.log('handleClickFormatter', arr);
+    dispatch(setRequestInputValue(splitToRows(requestInputValue)));
+    // console.log('splitToRows', splitToRows(requestInputValue));
   };
 
   return (

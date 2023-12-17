@@ -11,10 +11,11 @@ import Router from './pages/router';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import LangContextProvider from './context/LangContext';
+import ErrorBoundary from 'src/components/ErrorBoundary/ErrorBoundary';
 
 function App() {
   return (
-    <>
+    <ErrorBoundary>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -25,7 +26,7 @@ function App() {
           </LangContextProvider>
         </ThemeProvider>
       </BrowserRouter>
-    </>
+    </ErrorBoundary>
   );
 }
 

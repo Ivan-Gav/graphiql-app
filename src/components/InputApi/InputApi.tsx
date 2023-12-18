@@ -8,6 +8,7 @@ import {
   getGraphqlState,
   getIntrospection,
 } from 'src/store/slice/graphql.slice';
+import { useText } from 'src/hooks/useText';
 
 const EXAMPLE_API = [
   'https://graphql.anilist.co',
@@ -23,6 +24,7 @@ export default function InputApi() {
   const [valueAutocomplete, setValueAutocomplete] = useState('');
 
   const dispatch = useAppDispatch();
+  const T = useText();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,7 +70,7 @@ export default function InputApi() {
             {...params}
             fullWidth
             InputLabelProps={{ sx: { paddingLeft: 1 } }}
-            label="Input API"
+            label={T.INPUT_API}
             variant="standard"
           />
         )}

@@ -44,6 +44,7 @@ export default function InputApi() {
     <Grid
       container
       component={'form'}
+      data-testid="component-input-api"
       flexWrap={'nowrap'}
       alignItems={'center'}
       gap={1}
@@ -80,6 +81,7 @@ export default function InputApi() {
         sx={{ p: '2px 8px', marginTop: 1, minWidth: '0px' }}
         type="submit"
         disabled={isLoading}
+        data-testid="btn-submit-api"
       >
         {!urlApi ? (
           <SendIcon color={'action'} />

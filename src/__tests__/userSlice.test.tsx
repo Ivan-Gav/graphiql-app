@@ -54,7 +54,6 @@ describe('User slice', () => {
       new Promise((resolve) => {
         const user = {
           email: 'example@gmail.com',
-          photoURL: 'http//avatar',
         };
         resolve({
           ...mockResponseUserData,

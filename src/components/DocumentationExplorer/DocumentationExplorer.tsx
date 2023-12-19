@@ -1,4 +1,7 @@
-import { Divider, Link, Paper, Stack, Typography } from '@mui/material';
+import { Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import DeviceHubRoundedIcon from '@mui/icons-material/DeviceHubRounded';
+import AdjustIcon from '@mui/icons-material/Adjust';
+import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded';
 import {
   GraphQLEnumType,
   GraphQLNamedType,
@@ -147,13 +150,16 @@ export default function DocumentationExplorer() {
     };
 
     return (
-      <>
-        <Link sx={{ fontWeight: 'normal' }} onClick={handleClick}>
+      <Grid>
+        <Link
+          sx={{ fontWeight: 'normal', color: 'secondary.main' }}
+          onClick={handleClick}
+        >
           {text}
         </Link>
-        {': '}
+        <span>:&nbsp;</span>
         {!!type.type && <TypeLink type={type.type as GraphQLNamedType} />}
-      </>
+      </Grid>
     );
   }
   // FieldLink component - end
@@ -166,34 +172,46 @@ export default function DocumentationExplorer() {
           <Typography variant="h3">Docs</Typography>
         </Stack>
         <Stack spacing={2}>{schemaDescription}</Stack>
-        <Stack>Root types</Stack>
+        <Grid container alignItems="center" gap={1}>
+          <DeviceHubRoundedIcon fontSize="small" />
+          <Typography variant="subtitle1">Root types</Typography>
+        </Grid>
         <Stack spacing={2}>
           {!!queryType && (
-            <div>
-              <span>query</span>
-              {': '}
+            <Grid container px={2}>
+              <Typography variant="body1" sx={{ color: 'secondary.main' }}>
+                query
+              </Typography>
+              <span>:&nbsp;</span>
               <TypeLink type={queryType} />
-            </div>
+            </Grid>
           )}
           {!!mutationType && (
-            <div>
-              <span>mutation</span>
-              {': '}
+            <Grid container px={2}>
+              <Typography variant="body1" sx={{ color: 'secondary.main' }}>
+                mutation
+              </Typography>
+              <span>:&nbsp;</span>
               <TypeLink type={mutationType} />
-            </div>
+            </Grid>
           )}
           {!!subscriptionType && (
-            <div>
-              <span>subscription</span>
-              {': '}
+            <Grid container px={2}>
+              <Typography variant="body1" sx={{ color: 'secondary.main' }}>
+                subscription
+              </Typography>
+              <span>:&nbsp;</span>
               <TypeLink type={subscriptionType} />
-            </div>
+            </Grid>
           )}
         </Stack>
-        <Stack>All schema types</Stack>
-        <Stack spacing={2}>
+        <Grid container alignItems="center" gap={1}>
+          <AdjustIcon fontSize="small" />
+          <Typography variant="subtitle1">All schema types</Typography>
+        </Grid>
+        <Stack spacing={0.5}>
           {!!typeMap && (
-            <div>
+            <>
               {Object.values(typeMap).map((type) => {
                 if (
                   ignoreTypesInAllSchema.includes(type.name) ||
@@ -203,12 +221,12 @@ export default function DocumentationExplorer() {
                 }
 
                 return (
-                  <div key={type.name}>
+                  <Stack key={type.name} px={2}>
                     <TypeLink type={type} />
-                  </div>
+                  </Stack>
                 );
               })}
-            </div>
+            </>
           )}
         </Stack>
       </Stack>
@@ -216,8 +234,8 @@ export default function DocumentationExplorer() {
   }
   // Docs main page component - end
 
-  // Doc page for enum type - start
-  function EnumTypePage(props: { type: GraphQLEnumType }) {
+  // Section for enum type - start
+  function EnumTypeSection(props: { type: GraphQLEnumType }) {
     const { type } = props;
     const values = type.getValues();
 
@@ -259,25 +277,32 @@ export default function DocumentationExplorer() {
       </Stack>
     );
   }
+  // Section for enum type - end
 
-  // Doc page for enum type - end
+  // Section with fields - start
+
+  // Section with fields - end
 
   // Doc page component - start
-  function DocPage(props: { bob: string }) {
+  function Doc(props: { bob: string }) {
     const { bob } = props;
 
     const selectedType = typeCheck(bob);
 
-    if (isEnumType(selectedType)) return <EnumTypePage type={selectedType} />;
+    if (isEnumType(selectedType))
+      return <EnumTypeSection type={selectedType} />;
+    // let section: React.ReactNode = <></>;
+    // if (isEnumType(selectedType))
+    //   section = <EnumTypeSection type={selectedType} />;
 
-    console.log(`Type of ${selectedType?.name} is ${selectedType?.type?.name}`); // delete it!
+    // if (isObjectType(selectedType)) section = <></>;
 
     const fields = selectedType?._fields || {};
 
     return (
       <Stack spacing={2}>
         <Stack>
-          <Typography variant="h4">{bob}</Typography>
+          <Typography variant="h3">{bob}</Typography>
         </Stack>
         <Stack>
           {!!selectedType?.description && (
@@ -287,31 +312,32 @@ export default function DocumentationExplorer() {
         <Stack>
           {!!Object.keys(fields).length && (
             <>
-              <Stack>
-                <Typography variant="h5">Fields</Typography>
-              </Stack>
+              <Grid container alignItems="center" gap={1} mb={1}>
+                <AccountTreeRoundedIcon fontSize="small" />
+                <Typography variant="h4">Fields</Typography>
+              </Grid>
               {Object.values(fields).map((field) => {
                 return (
-                  <>
+                  <Stack key={field.name} mb={1} px={2}>
                     <Divider />
-                    <div key={field.name}>
-                      <FieldLink type={field} />
-                      <br />
-                      <Typography variant="caption">
-                        {field.description}
-                      </Typography>
-                    </div>
-                  </>
+                    <FieldLink type={field} />
+                    <Typography variant="caption">
+                      {field.description}
+                    </Typography>
+                  </Stack>
                 );
               })}
             </>
           )}
           {!Object.keys(fields).length && !!selectedType?.type?.name && (
             <>
-              <Stack>
-                <Typography variant="h5">Type</Typography>
+              <Grid container alignItems="center" gap={1} mb={1}>
+                <AdjustIcon fontSize="small" />
+                <Typography variant="h4">Type</Typography>
+              </Grid>
+              <Stack px={2}>
+                <TypeLink type={selectedType.type as GraphQLNamedType} />
               </Stack>
-              <TypeLink type={selectedType.type as GraphQLNamedType} />
             </>
           )}
         </Stack>
@@ -329,7 +355,7 @@ export default function DocumentationExplorer() {
         {path.length > 1 && (
           <>
             <DocsBreadCrumbs />
-            <DocPage bob={path[path.length - 1]} />
+            <Doc bob={path[path.length - 1]} />
           </>
         )}
       </Paper>

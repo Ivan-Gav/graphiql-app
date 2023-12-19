@@ -8,7 +8,7 @@ import {
   isListType,
   isNonNullType,
 } from 'graphql';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getSchema } from 'src/api/apiSchema';
 
 type CustomGraphQLType = GraphQLNamedType & {
@@ -94,49 +94,43 @@ export default function DocumentationExplorer() {
         setPath([...path, e.target.textContent]);
     };
 
-    let text = type.name;
+    function TypeLinkWrapper(props: {
+      children: React.ReactNode;
+      isList: boolean;
+      isNonNull: boolean;
+    }) {
+      const { children, isList, isNonNull } = props;
 
-    if (isNonNullType(type) && isListType(type.ofType)) {
-      text = (type.ofType.ofType as GraphQLNamedType).name;
-      return (
+      return isList ? (
         <>
           {'['}
-          <Link sx={{ fontWeight: 'normal' }} onClick={handleClick}>
-            {text}
-          </Link>
-          {']!'}
-        </>
-      );
-    }
-
-    if (isNonNullType(type)) {
-      text = (type.ofType as GraphQLNamedType).name;
-      return (
-        <>
-          <Link sx={{ fontWeight: 'normal' }} onClick={handleClick}>
-            {text}
-          </Link>
-          {'!'}
-        </>
-      );
-    }
-
-    if (isListType(type)) {
-      text = (type.ofType as GraphQLNamedType).name;
-      return (
-        <>
-          {'['}
-          <Link sx={{ fontWeight: 'normal' }} onClick={handleClick}>
-            {text}
-          </Link>
+          {children}
           {']'}
         </>
+      ) : isNonNull ? (
+        <>
+          {children}
+          {'!'}
+        </>
+      ) : (
+        <>{children}</>
+      );
+    }
+
+    const isList = isListType(type);
+    const isNonNull = isNonNullType(type);
+
+    if (isNonNull || isList) {
+      return (
+        <TypeLinkWrapper isList={isList} isNonNull={isNonNull}>
+          <TypeLink type={type.ofType as GraphQLNamedType} />
+        </TypeLinkWrapper>
       );
     }
 
     return (
       <Link sx={{ fontWeight: 'normal' }} onClick={handleClick}>
-        {text}
+        {type.name}
       </Link>
     );
   }
@@ -331,9 +325,13 @@ export default function DocumentationExplorer() {
   return (
     <>
       <Paper sx={{ p: 2 }}>
-        <DocsBreadCrumbs />
         {path.length <= 1 && <Docs />}
-        {path.length > 1 && <DocPage bob={path[path.length - 1]} />}
+        {path.length > 1 && (
+          <>
+            <DocsBreadCrumbs />
+            <DocPage bob={path[path.length - 1]} />
+          </>
+        )}
       </Paper>
     </>
   );

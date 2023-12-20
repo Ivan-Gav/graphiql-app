@@ -1,15 +1,19 @@
 import { Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 import DeviceHubRoundedIcon from '@mui/icons-material/DeviceHubRounded';
 import AdjustIcon from '@mui/icons-material/Adjust';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded';
+import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
 import {
   GraphQLEnumType,
   GraphQLNamedType,
   GraphQLSchema,
   GraphQLType,
   isEnumType,
+  isInputObjectType,
   isListType,
   isNonNullType,
+  isObjectType,
 } from 'graphql';
 import React, { useEffect, useState } from 'react';
 import { getSchema } from 'src/api/apiSchema';
@@ -81,9 +85,19 @@ export default function DocumentationExplorer() {
     const onBCClick = () => setPath(path.slice(0, -1));
 
     return (
-      <span>
-        &lt;&nbsp;<Link onClick={onBCClick}>{path[path.length - 2]}</Link>
-      </span>
+      <Grid container alignItems="center" gap={1} mb={2}>
+        <NavigateBeforeRoundedIcon fontSize="small" />
+        <Link
+          href="#"
+          variant="body1"
+          sx={[{ color: 'inherit' }, { '&:hover': { color: 'inherit' } }]}
+          noWrap
+          title={path[path.length - 2]}
+          onClick={onBCClick}
+        >
+          {path[path.length - 2]}
+        </Link>
+      </Grid>
     );
   }
   // DocsBreadCrumbs component - end
@@ -132,7 +146,12 @@ export default function DocumentationExplorer() {
     }
 
     return (
-      <Link sx={{ fontWeight: 'normal' }} onClick={handleClick}>
+      <Link
+        noWrap
+        title={type.name}
+        sx={{ fontWeight: 'normal' }}
+        onClick={handleClick}
+      >
         {type.name}
       </Link>
     );
@@ -142,7 +161,7 @@ export default function DocumentationExplorer() {
   // FieldLink component - start
   function FieldLink(props: { type: CustomGraphQLType }) {
     const { type } = props;
-    const text = type.name || '';
+    const text = type.name;
 
     const handleClick = (e: React.MouseEvent) => {
       if (e.target instanceof HTMLAnchorElement && e.target.textContent)
@@ -150,9 +169,14 @@ export default function DocumentationExplorer() {
     };
 
     return (
-      <Grid>
+      <Grid textOverflow="ellipsis" overflow="hidden">
         <Link
-          sx={{ fontWeight: 'normal', color: 'secondary.main' }}
+          sx={[
+            { fontWeight: 'normal', color: 'secondary.main' },
+            { '&:hover': { color: 'secondary.main' } },
+          ]}
+          noWrap
+          title={text}
           onClick={handleClick}
         >
           {text}
@@ -240,48 +264,84 @@ export default function DocumentationExplorer() {
     const values = type.getValues();
 
     return (
-      <Stack spacing={2}>
-        <Stack>
-          <Typography variant="h4">{type.name}</Typography>
-        </Stack>
-        <Stack>
-          {!!type.description && (
-            <Typography variant="body1">{type.description}</Typography>
-          )}
-        </Stack>
-        <Stack>
-          {!!values.length && (
-            <>
-              <Stack>
-                <Typography variant="h5">Enum Values</Typography>
-              </Stack>
-              {values.map((val) => {
-                return (
-                  <>
-                    <Divider />
-                    <div key={val.value}>
-                      <Typography variant="subtitle2">{val.value}</Typography>
-                      <br />
-                      {!!val.description && (
-                        <Typography variant="caption">
-                          {val.description}
-                        </Typography>
-                      )}
-                    </div>
-                  </>
-                );
-              })}
-            </>
-          )}
-        </Stack>
+      <Stack>
+        {!!values.length && (
+          <>
+            <Grid container alignItems="center" gap={1} mb={1}>
+              <ListAltIcon fontSize="small" />
+              <Typography variant="h4">Enum Values</Typography>
+            </Grid>
+            {values.map((val) => {
+              return (
+                <Stack key={val.value} mb={1} px={2}>
+                  <Divider />
+                  <Grid textOverflow="ellipsis" overflow="hidden">
+                    <Typography
+                      title={val.value}
+                      variant="subtitle2"
+                      sx={{ color: 'secondary.main' }}
+                    >
+                      {val.value}
+                    </Typography>
+                  </Grid>
+                  {!!val.description && (
+                    <Typography variant="caption">{val.description}</Typography>
+                  )}
+                </Stack>
+              );
+            })}
+          </>
+        )}
       </Stack>
+      // </Stack>
     );
   }
   // Section for enum type - end
 
   // Section with fields - start
+  function FieldsSection(props: { type: CustomGraphQLType }) {
+    const { type } = props;
+    const fields = type?._fields;
 
+    if (!fields) return <></>;
+
+    return (
+      <>
+        <Grid container alignItems="center" gap={1} mb={1}>
+          <AccountTreeRoundedIcon fontSize="small" />
+          <Typography variant="h4">Fields</Typography>
+        </Grid>
+        {Object.values(fields).map((field) => {
+          return (
+            <Stack key={field.name} mb={1} px={2}>
+              <Divider />
+              <FieldLink type={field} />
+              <Typography variant="caption">{field.description}</Typography>
+            </Stack>
+          );
+        })}
+      </>
+    );
+  }
   // Section with fields - end
+
+  // Section with type - start
+  function TypeSection(props: { type: GraphQLNamedType }) {
+    const { type } = props;
+
+    return (
+      <>
+        <Grid container alignItems="center" gap={1} mb={1}>
+          <AdjustIcon fontSize="small" />
+          <Typography variant="h4">Type</Typography>
+        </Grid>
+        <Grid px={2}>
+          <TypeLink type={type} />
+        </Grid>
+      </>
+    );
+  }
+  // Section with type - end
 
   // Doc page component - start
   function Doc(props: { bob: string }) {
@@ -289,56 +349,38 @@ export default function DocumentationExplorer() {
 
     const selectedType = typeCheck(bob);
 
-    if (isEnumType(selectedType))
-      return <EnumTypeSection type={selectedType} />;
-    // let section: React.ReactNode = <></>;
-    // if (isEnumType(selectedType))
-    //   section = <EnumTypeSection type={selectedType} />;
-
-    // if (isObjectType(selectedType)) section = <></>;
-
-    const fields = selectedType?._fields || {};
+    let sectionType = '';
+    if (isEnumType(selectedType)) sectionType = 'ENUM';
+    if (isObjectType(selectedType) || isInputObjectType(selectedType))
+      sectionType = 'FIELDS';
+    if (
+      selectedType?.type &&
+      (selectedType.type.name || 'ofType' in selectedType.type)
+    )
+      sectionType = 'TYPE';
 
     return (
       <Stack spacing={2}>
         <Stack>
-          <Typography variant="h3">{bob}</Typography>
+          <Typography noWrap title={bob} variant="h3">
+            {bob}
+          </Typography>
         </Stack>
         <Stack>
           {!!selectedType?.description && (
-            <Typography variant="body1">{selectedType?.description}</Typography>
+            <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
+              {selectedType?.description}
+            </Typography>
           )}
         </Stack>
+
         <Stack>
-          {!!Object.keys(fields).length && (
-            <>
-              <Grid container alignItems="center" gap={1} mb={1}>
-                <AccountTreeRoundedIcon fontSize="small" />
-                <Typography variant="h4">Fields</Typography>
-              </Grid>
-              {Object.values(fields).map((field) => {
-                return (
-                  <Stack key={field.name} mb={1} px={2}>
-                    <Divider />
-                    <FieldLink type={field} />
-                    <Typography variant="caption">
-                      {field.description}
-                    </Typography>
-                  </Stack>
-                );
-              })}
-            </>
+          {sectionType === 'ENUM' && (
+            <EnumTypeSection type={selectedType as GraphQLEnumType} />
           )}
-          {!Object.keys(fields).length && !!selectedType?.type?.name && (
-            <>
-              <Grid container alignItems="center" gap={1} mb={1}>
-                <AdjustIcon fontSize="small" />
-                <Typography variant="h4">Type</Typography>
-              </Grid>
-              <Stack px={2}>
-                <TypeLink type={selectedType.type as GraphQLNamedType} />
-              </Stack>
-            </>
+          {sectionType === 'FIELDS' && <FieldsSection type={selectedType} />}
+          {sectionType === 'TYPE' && selectedType?.type && (
+            <TypeSection type={selectedType.type as GraphQLNamedType} />
           )}
         </Stack>
       </Stack>

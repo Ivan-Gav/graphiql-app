@@ -17,6 +17,8 @@ import {
 } from 'graphql';
 import React, { useEffect, useState } from 'react';
 import { getSchema } from 'src/api/apiSchema';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
+import { setPath } from 'src/store/slice/DocSlice';
 
 type CustomGraphQLType = GraphQLNamedType & {
   _fields?: { [key: string]: CustomGraphQLType };
@@ -37,8 +39,8 @@ export default function DocumentationExplorer() {
   }, []);
   // temporary section for dev purposes -- end
 
-  // current whereabouts in docs
-  const [path, setPath] = useState<string[]>(['Docs']);
+  const dispatch = useAppDispatch();
+  const { docPath: path } = useAppSelector((state) => state.docReducer);
 
   const queryType = schema?.getQueryType() || null;
   const mutationType = schema?.getMutationType?.() || null;
@@ -82,7 +84,7 @@ export default function DocumentationExplorer() {
   function DocsBreadCrumbs() {
     if (path.length <= 1) return null;
 
-    const onBCClick = () => setPath(path.slice(0, -1));
+    const onBCClick = () => dispatch(setPath(path.slice(0, -1)));
 
     return (
       <Grid container alignItems="center" gap={1} mb={2}>
@@ -102,14 +104,14 @@ export default function DocumentationExplorer() {
   }
   // DocsBreadCrumbs component - end
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (e.target instanceof HTMLAnchorElement && e.target.textContent)
+      dispatch(setPath([...path, e.target.textContent]));
+  };
+
   // TypeLink component - start
   function TypeLink(props: { type: GraphQLNamedType }) {
     const { type } = props;
-
-    const handleClick = (e: React.MouseEvent) => {
-      if (e.target instanceof HTMLAnchorElement && e.target.textContent)
-        setPath([...path, e.target.textContent]);
-    };
 
     function TypeLinkWrapper(props: {
       children: React.ReactNode;
@@ -162,11 +164,6 @@ export default function DocumentationExplorer() {
   function FieldLink(props: { type: CustomGraphQLType }) {
     const { type } = props;
     const text = type.name;
-
-    const handleClick = (e: React.MouseEvent) => {
-      if (e.target instanceof HTMLAnchorElement && e.target.textContent)
-        setPath([...path, e.target.textContent]);
-    };
 
     return (
       <Grid textOverflow="ellipsis" overflow="hidden">

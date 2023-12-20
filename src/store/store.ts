@@ -5,6 +5,7 @@ import variablesReducer from './slice/VariablesSlice';
 import responseReducer from './slice/ResponseSlice';
 import headersReducer from './slice/HeadersSlice';
 import graphqlReducer from './slice/graphql.slice';
+import docReducer from './slice/DocSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     responseReducer,
     graphqlReducer,
     headersReducer,
+    docReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -9,6 +9,7 @@ import {
   getIntrospection,
 } from 'src/store/slice/graphql.slice';
 import { useText } from 'src/hooks/useText';
+import { clearPath } from 'src/store/slice/DocSlice';
 
 const EXAMPLE_API = [
   'https://graphql.anilist.co',
@@ -28,6 +29,8 @@ export default function InputApi() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    dispatch(clearPath());
 
     if (urlApi) {
       dispatch(clearApiState());

@@ -11,8 +11,11 @@ export const docSlice = createSlice({
     setPath(state, action: PayloadAction<string[]>) {
       state.docPath = action.payload;
     },
+    clearPath(state) {
+      state.docPath = initialState.docPath;
+    },
   },
 });
 
-export const { setPath } = docSlice.actions;
+export const { setPath, clearPath } = docSlice.actions;
 export default docSlice.reducer;

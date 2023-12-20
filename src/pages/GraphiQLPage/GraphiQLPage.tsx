@@ -1,9 +1,9 @@
-import React from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
 import DocumentationExplorer from '../../components/DocumentationExplorer/DocumentationExplorer';
 import RequestEditor from '../../components/RequestEditor/RequestEditor';
 import RequestMenu from '../../components/RequestMenu/RequestMenu';
 import ResponseSection from '../../components/ResponseSection/ResponseSection';
+import InputApi from 'src/components/InputApi/InputApi';
 
 export default function GraphiQLPage() {
   return (
@@ -11,6 +11,7 @@ export default function GraphiQLPage() {
       <Typography variant="h1" sx={{ p: 2 }}>
         GraphiQLPage
       </Typography>
+      <InputApi />
       <Grid container justifyContent="space-between" sx={{ p: 2 }}>
         <Grid item xs={3} sx={{ p: 1 }}>
           <DocumentationExplorer />

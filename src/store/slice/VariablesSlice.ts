@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  variablesString: '',
+  variablesInputValue: '',
 };
 
 export const variablesSlice = createSlice({
@@ -9,7 +9,7 @@ export const variablesSlice = createSlice({
   initialState,
   reducers: {
     setVariablesInputValue(state, action: PayloadAction<string>) {
-      state.variablesString = action.payload;
+      state.variablesInputValue = action.payload;
     },
   },
 });

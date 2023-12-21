@@ -22,6 +22,7 @@ export default function VariablesEditor() {
         value={variablesInputValue}
         onChange={handleChange}
         fullWidth
+        data-testid="component-input-variables"
       ></TextField>
     </>
   );

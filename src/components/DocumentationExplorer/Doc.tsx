@@ -16,37 +16,35 @@ import { useAppSelector } from 'src/hooks/redux';
 import { CustomGraphQLType } from 'src/models/models';
 
 type DocProps = {
-  bob: string;
+  item: string;
   schema: GraphQLSchema;
 };
 
 export default function Doc(props: DocProps) {
-  const { bob, schema } = props;
+  const { item, schema } = props;
   const { docPath: path } = useAppSelector((state) => state.docReducer);
 
-  const typeCheck = (bob: string) => {
-    const selectedType = schema?.getType(bob); // side effect
+  const typeCheck = (item: string) => {
+    const selectedType = schema?.getType(item);
 
     if (!selectedType) {
-      // it is a field, but not a type
-      const parent = schema?.getType(
-        path[path.length - 2] // side effect
-      );
+      // it is a field, not a type
+      const parent = schema?.getType(path[path.length - 2]);
       if (!parent) {
-        throw new Error(`Sorry, I can't find the field "${bob}"`);
+        throw new Error(`Sorry, I can't find the field "${item}"`);
       }
       const p = parent as CustomGraphQLType;
-      if (p && p._fields && bob in p._fields) {
-        return p._fields[bob] as CustomGraphQLType;
+      if (p && p._fields && item in p._fields) {
+        return p._fields[item] as CustomGraphQLType;
       } else {
-        throw new Error(`Sorry, I can't find the field "${bob}"`);
+        throw new Error(`Sorry, I can't find the field "${item}"`);
       }
     }
 
     return selectedType as unknown as CustomGraphQLType;
   };
 
-  const selectedType = typeCheck(bob);
+  const selectedType = typeCheck(item);
 
   let sectionType = '';
   if (isEnumType(selectedType)) sectionType = 'ENUM';
@@ -61,8 +59,8 @@ export default function Doc(props: DocProps) {
   return (
     <Stack spacing={2}>
       <Stack>
-        <Typography noWrap title={bob} variant="h3">
-          {bob}
+        <Typography noWrap title={item} variant="h3">
+          {item}
         </Typography>
       </Stack>
       <Stack>

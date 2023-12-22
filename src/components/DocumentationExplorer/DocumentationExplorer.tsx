@@ -17,6 +17,25 @@ export default function DocumentationExplorer() {
 
   const { docPath: path } = useAppSelector((state) => state.docReducer);
 
+  const style = {
+    '&::-webkit-scrollbar': {
+      width: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+      bgcolor: 'background.paper',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      bgcolor: 'primary.dark',
+      borderRadius: 2,
+      border: '1px solid',
+      borderColor: 'background.paper',
+    },
+    p: 2,
+    overflowY: 'auto',
+    height: '100%',
+    border: 'none',
+  };
+
   if (isLoading) throw Promise.resolve('loading');
   if (errorMessage)
     return (
@@ -34,12 +53,12 @@ export default function DocumentationExplorer() {
     );
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={style}>
       {path.length <= 1 && <Docs schema={schema} />}
       {path.length > 1 && (
         <>
           <DocBreadCrumbs />
-          <Doc bob={path[path.length - 1]} schema={schema} />
+          <Doc item={path[path.length - 1]} schema={schema} />
         </>
       )}
     </Paper>

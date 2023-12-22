@@ -9,7 +9,7 @@ import {
   getIntrospection,
 } from 'src/store/slice/graphql.slice';
 import { useText } from 'src/hooks/useText';
-import { clearPath } from 'src/store/slice/DocSlice';
+import { clearPath, closeDocs } from 'src/store/slice/DocSlice';
 
 const EXAMPLE_API = [
   'https://graphql.anilist.co',
@@ -31,6 +31,7 @@ export default function InputApi() {
     event.preventDefault();
 
     dispatch(clearPath());
+    dispatch(closeDocs());
 
     if (urlApi) {
       dispatch(clearApiState());

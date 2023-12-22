@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   docPath: ['Docs'],
+  docsOpen: false,
 };
 
 export const docSlice = createSlice({
@@ -14,8 +15,14 @@ export const docSlice = createSlice({
     clearPath(state) {
       state.docPath = initialState.docPath;
     },
+    openDocs(state) {
+      state.docsOpen = true;
+    },
+    closeDocs(state) {
+      state.docsOpen = false;
+    },
   },
 });
 
-export const { setPath, clearPath } = docSlice.actions;
+export const { setPath, clearPath, openDocs, closeDocs } = docSlice.actions;
 export default docSlice.reducer;

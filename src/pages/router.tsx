@@ -6,12 +6,12 @@ import { useAppDispatch } from '../hooks/redux';
 
 import RootLayout from '../layout/RootLayout';
 import { auth, setUser } from '../store/slice/user.slice';
-import GraphiQLPage from './GraphiQLPage/GraphiQLPage';
 
 const MainPage = lazy(() => import('./MainPage/MainPage'));
 const SignInPage = lazy(() => import('./SignInPage/SignInPage'));
 const SignUpPage = lazy(() => import('./SignUpPage/SignUpPage'));
 const Page404 = lazy(() => import('./404/404'));
+const GraphiQLPage = lazy(() => import('./GraphiQLPage/GraphiQLPage'));
 
 const Router = (): React.JSX.Element => {
   const dispatch = useAppDispatch();

@@ -17,12 +17,7 @@ export default function DocumentationExplorer() {
 
   const { docPath: path } = useAppSelector((state) => state.docReducer);
 
-  if (isLoading)
-    return (
-      <Stack>
-        <Typography variant="h2">Loading...</Typography>
-      </Stack>
-    );
+  if (isLoading) throw Promise.resolve('loading');
   if (errorMessage)
     return (
       <Stack>

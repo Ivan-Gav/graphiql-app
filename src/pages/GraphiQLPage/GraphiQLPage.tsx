@@ -18,7 +18,7 @@ export default function GraphiQLPage() {
       <InputApi />
       <Grid container justifyContent="space-between" sx={{ p: 2 }}>
         <Grid item xs={3} sx={{ p: 1 }}>
-          <Suspense fallback={<h3>fallback...</h3>}>
+          <Suspense fallback={<h2>Loading schema...</h2>}>
             <DocumentationExplorer />
           </Suspense>
         </Grid>

@@ -1,5 +1,4 @@
 import { Grid, IconButton, Paper } from '@mui/material';
-import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
 import HeadersEditor from './HeadersEditor/HeadersEditor';
 import VariablesEditor from './VariablesEditor/VariablesEditor';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
@@ -63,11 +62,6 @@ export default function RequestMenu() {
             <IconButton onClick={handleClickClear}>
               <CancelPresentationRoundedIcon />
             </IconButton>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 1 }}>
-              <APIEndpointEditor />
-            </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper sx={{ p: 1 }}>

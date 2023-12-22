@@ -1,5 +1,4 @@
 import { Grid, IconButton, Paper } from '@mui/material';
-import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
 import HeadersEditor from './HeadersEditor/HeadersEditor';
 import VariablesEditor from './VariablesEditor/VariablesEditor';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
@@ -11,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getData } from '../../api/api';
 import { responseSlice } from '../../store/slice/ResponseSlice';
 import { prettify } from 'src/utils/prettify';
+import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();

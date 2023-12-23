@@ -1,10 +1,12 @@
 import { Divider, Grid, Stack, Typography } from '@mui/material';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { GraphQLEnumType } from 'graphql';
+import { useText } from 'src/hooks/useText';
 
 export default function EnumTypeSection(props: { type: GraphQLEnumType }) {
   const { type } = props;
   const values = type.getValues();
+  const T = useText();
 
   return (
     <Stack>
@@ -12,7 +14,7 @@ export default function EnumTypeSection(props: { type: GraphQLEnumType }) {
         <>
           <Grid container alignItems="center" gap={1} mb={1}>
             <ListAltIcon fontSize="small" />
-            <Typography variant="h4">Enum Values</Typography>
+            <Typography variant="h4">{T.ENUM_VALUES}</Typography>
           </Grid>
           {values.map((val) => {
             return (

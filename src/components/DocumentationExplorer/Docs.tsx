@@ -7,9 +7,11 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import TypeLink from './TypeLink';
 import { GraphQLSchema } from 'graphql';
 import LazyList from './LazyList';
+import { useText } from 'src/hooks/useText';
 
 export default function Docs(props: { schema: GraphQLSchema | null }) {
   const { schema } = props;
+  const T = useText();
 
   const queryType = schema?.getQueryType() || null;
   const mutationType = schema?.getMutationType?.() || null;
@@ -44,7 +46,7 @@ export default function Docs(props: { schema: GraphQLSchema | null }) {
         <Stack spacing={2}>{schemaDescription}</Stack>
         <Grid container alignItems="center" gap={1}>
           <DeviceHubRoundedIcon fontSize="small" />
-          <Typography variant="subtitle1">Root types</Typography>
+          <Typography variant="subtitle1">{T.ROOT_TYPES}</Typography>
         </Grid>
         <Stack spacing={2}>
           {!!queryType && (
@@ -89,7 +91,7 @@ export default function Docs(props: { schema: GraphQLSchema | null }) {
         </Stack>
         <Grid container alignItems="center" gap={1}>
           <AdjustIcon fontSize="small" />
-          <Typography variant="subtitle1">All schema types</Typography>
+          <Typography variant="subtitle1">{T.SCHEMA_TYPES}</Typography>
         </Grid>
       </Stack>
       <Box flexGrow={1}>

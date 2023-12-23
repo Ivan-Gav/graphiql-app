@@ -12,7 +12,7 @@ export default function DocBreadCrumbs() {
   const onBCClick = () => dispatch(setPath(path.slice(0, -1)));
 
   return (
-    <Grid container alignItems="center" gap={1} mb={2} flexWrap="nowrap">
+    <Grid container alignItems="center" gap={1} p={2} flexWrap="nowrap">
       <NavigateBeforeRoundedIcon fontSize="small" />
       <Link
         href="#"

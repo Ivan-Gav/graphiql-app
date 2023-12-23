@@ -20,6 +20,25 @@ type DocProps = {
   schema: GraphQLSchema;
 };
 
+const style = {
+  '&::-webkit-scrollbar': {
+    width: '8px',
+  },
+  '&::-webkit-scrollbar-track': {
+    bgcolor: 'background.paper',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    bgcolor: 'primary.dark',
+    borderRadius: 2,
+    border: '1px solid',
+    borderColor: 'background.paper',
+  },
+  p: 2,
+  overflowY: 'auto',
+  flexFrow: 1,
+  border: 'none',
+};
+
 export default function Doc(props: DocProps) {
   const { item, schema } = props;
   const { docPath: path } = useAppSelector((state) => state.docReducer);
@@ -57,7 +76,7 @@ export default function Doc(props: DocProps) {
     sectionType = 'TYPE';
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={style}>
       <Stack>
         <Typography noWrap title={item} variant="h3">
           {item}

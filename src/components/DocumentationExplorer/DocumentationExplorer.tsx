@@ -18,20 +18,8 @@ export default function DocumentationExplorer() {
   const { docPath: path } = useAppSelector((state) => state.docReducer);
 
   const style = {
-    '&::-webkit-scrollbar': {
-      width: '8px',
-    },
-    '&::-webkit-scrollbar-track': {
-      bgcolor: 'background.paper',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      bgcolor: 'primary.dark',
-      borderRadius: 2,
-      border: '1px solid',
-      borderColor: 'background.paper',
-    },
-    p: 2,
-    overflowY: 'auto',
+    pb: 2,
+    overflow: 'hidden',
     height: '100%',
     border: 'none',
   };
@@ -56,10 +44,10 @@ export default function DocumentationExplorer() {
     <Paper sx={style}>
       {path.length <= 1 && <Docs schema={schema} />}
       {path.length > 1 && (
-        <>
+        <Stack height="100%">
           <DocBreadCrumbs />
           <Doc item={path[path.length - 1]} schema={schema} />
-        </>
+        </Stack>
       )}
     </Paper>
   );

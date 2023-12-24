@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {} from 'graphql';
 import { RootState } from '../store';
 import { T } from 'src/models/models';
-const EXAMPLE_REQUEST = `{
+export const EXAMPLE_REQUEST = `{
   characters(page: 2, filter: { name: "rick" }) {
     info {
       count
@@ -26,7 +26,6 @@ export interface RequestState {
   errorMessage: string | null;
   responseString: string | null;
   isLoading: boolean;
-  headers: HeadersInit;
 }
 
 const initialState: RequestState = {
@@ -35,7 +34,6 @@ const initialState: RequestState = {
   errorMessage: null,
   responseString: null,
   isLoading: true,
-  headers: new Headers(),
 };
 
 export const requestToApi = createAsyncThunk(
@@ -64,9 +62,12 @@ export const requestToApi = createAsyncThunk(
           query: requestInputValue,
         }),
       });
+      if (results.ok) {
+        const data = await results.json();
+        return data;
+      }
 
-      const data = await results.json();
-      return data;
+      throw new Error(results.statusText);
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -108,6 +109,7 @@ export const requestSlice = createSlice({
 
 export const getRequestState = (state: RootState) => state.requestReducer;
 
-export const { setHeadersInputValue } = requestSlice.actions;
+export const { setHeadersInputValue, setRequestInputValue } =
+  requestSlice.actions;
 
 export default requestSlice.reducer;

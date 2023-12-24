@@ -1,7 +1,7 @@
 import { json } from '@codemirror/lang-json';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { ListItemButton, ListItemText, Collapse } from '@mui/material';
-import ReactCodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from 'src/hooks/redux';
 import { setHeadersInputValue } from 'src/store/slice/RequestSlice';
@@ -32,12 +32,17 @@ export default function HeadersEditor() {
 
   return (
     <>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton onClick={handleClick} data-testid="component-list-item">
         <ListItemText primary="Headers" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <ReactCodeMirror
+      <Collapse
+        in={open}
+        timeout="auto"
+        unmountOnExit
+        data-testid="component-input-headers"
+      >
+        <CodeMirror
           lang="json"
           extensions={[json()]}
           minHeight="100px"
@@ -47,7 +52,6 @@ export default function HeadersEditor() {
           value={value}
           onChange={onChange}
           style={{ margin: '8px' }}
-          data-testid="component-input-headers"
         />
       </Collapse>
     </>

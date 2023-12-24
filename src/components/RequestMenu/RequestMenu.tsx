@@ -5,7 +5,11 @@ import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
-import { requestSlice, requestToApi } from '../../store/slice/RequestSlice';
+import {
+  getRequestState,
+  requestToApi,
+  setRequestInputValue,
+} from '../../store/slice/RequestSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { prettify } from 'src/utils/prettify';
 import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
@@ -13,8 +17,7 @@ import { useText } from 'src/hooks/useText';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();
-  const { requestInputValue } = useAppSelector((state) => state.requestReducer);
-  const { setRequestInputValue } = requestSlice.actions;
+  const { requestInputValue } = useAppSelector(getRequestState);
 
   const T = useText();
 

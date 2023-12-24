@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { store } from '../store/store';
 import LangContextProvider from 'src/context/LangContext';
-import { useAppSelector } from 'src/hooks/redux';
 import HeadersEditor from 'src/components/RequestMenu/HeadersEditor/HeadersEditor';
 
 describe('HeadersEditor component', () => {
@@ -19,12 +18,25 @@ describe('HeadersEditor component', () => {
       </LangContextProvider>
     );
 
-  vi.mock('src/hooks/redux');
+  vi.mock('@uiw/react-codemirror');
 
   it('should render HeadersEditor component successfully', () => {
-    vi.mocked(useAppSelector).mockReturnValue({ isLoading: false, urlApi: '' });
     renderComponent('/');
 
     expect(screen.getByTestId('component-input-headers')).toBeInTheDocument();
+  });
+
+  it('should be pressed to open the input field', () => {
+    renderComponent('/');
+
+    expect(screen.getByTestId('ExpandLessIcon')).toBeInTheDocument();
+    expect(screen.queryByTestId('ExpandMoreIcon')).not.toBeInTheDocument();
+
+    const listItem = screen.getByTestId('component-list-item');
+
+    fireEvent.click(listItem);
+
+    expect(screen.getByTestId('ExpandMoreIcon')).toBeInTheDocument();
+    expect(screen.queryByTestId('ExpandLessIcon')).not.toBeInTheDocument();
   });
 });

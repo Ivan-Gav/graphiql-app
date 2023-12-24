@@ -3,28 +3,32 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { ListItemButton, ListItemText, Collapse } from '@mui/material';
 import ReactCodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { useCallback, useState } from 'react';
-// import { ChangeEvent } from 'react';
-// import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-// import { headersSlice } from 'src/store/slice/HeadersSlice';
+import { useAppDispatch } from 'src/hooks/redux';
+import { setHeadersInputValue } from 'src/store/slice/RequestSlice';
 
 export default function HeadersEditor() {
   const [open, setOpen] = useState(true);
-  const [value, setValue] = useState('');
-  // const dispatch = useAppDispatch();
-  // const { headersInputValue } = useAppSelector((state) => state.headersReducer);
-  // const { setHeadersInputValue } = headersSlice.actions;
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   dispatch(setHeadersInputValue(e.target.value));
-  // };
+  const [value, setValue] = useState('//JSON\n{\n\n}\n');
+
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
     setOpen(!open);
   };
 
-  const onChange = useCallback((val: string, viewUpdate: ViewUpdate) => {
-    setValue(val);
-    console.log(viewUpdate.state.doc);
-  }, []);
+  const onChange = useCallback(
+    (val: string, viewUpdate: ViewUpdate) => {
+      setValue(val);
+
+      const newHeadersValue = viewUpdate.state.sliceDoc(
+        val.indexOf('{'),
+        val.indexOf('}') + 1
+      );
+
+      dispatch(setHeadersInputValue(newHeadersValue));
+    },
+    [dispatch]
+  );
 
   return (
     <>

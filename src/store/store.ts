@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slice/user.slice';
 import requestReducer from './slice/RequestSlice';
 import responseReducer from './slice/ResponseSlice';
-import headersReducer from './slice/HeadersSlice';
 import graphqlReducer from './slice/graphql.slice';
 
 export const store = configureStore({
@@ -11,7 +10,6 @@ export const store = configureStore({
     requestReducer,
     responseReducer,
     graphqlReducer,
-    headersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

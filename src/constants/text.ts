@@ -40,6 +40,7 @@ const TEXT = {
       'Password strength: 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
     YUP_TANDC: 'Rules not accepted',
     INPUT_API: 'Input API',
+    NOT_SELECTED_API: 'API not selected',
   },
   RU: {
     LANG: 'Язык',
@@ -82,6 +83,7 @@ const TEXT = {
       'Пароль должен содержать: 1 цифру, 1 прописную и 1 заглавную букву, 1 специальный символ',
     YUP_TANDC: 'Забыли поставить галочку',
     INPUT_API: 'Введите API',
+    NOT_SELECTED_API: 'Не выбран API',
   },
 };
 

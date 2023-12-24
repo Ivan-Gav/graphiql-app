@@ -29,7 +29,7 @@ export default function GraphiQLPage() {
           </Paper>
         </Grid>
         <Grid item xs={4} sx={{ p: 1 }}>
-          <Paper sx={{ minHeight: '100%', p: 2 }}>
+          <Paper sx={{ p: 2 }}>
             <ResponseSection />
           </Paper>
         </Grid>

@@ -5,31 +5,21 @@ import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
-import { requestSlice } from '../../store/slice/RequestSlice';
+import { requestSlice, requestToApi } from '../../store/slice/RequestSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getData } from '../../api/api';
-import { responseSlice } from '../../store/slice/ResponseSlice';
 import { prettify } from 'src/utils/prettify';
 import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
+import { useText } from 'src/hooks/useText';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();
   const { requestInputValue } = useAppSelector((state) => state.requestReducer);
   const { setRequestInputValue } = requestSlice.actions;
-  const { setResponseInputValue } = responseSlice.actions;
+
+  const T = useText();
 
   const handleClickPlay = () => {
-    getData(requestInputValue)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        dispatch(
-          setResponseInputValue(
-            JSON.stringify(JSON.parse(JSON.stringify(data.data)), null, 1)
-          )
-        );
-      });
+    dispatch(requestToApi({ T }));
   };
 
   const handleClickClear = () => {

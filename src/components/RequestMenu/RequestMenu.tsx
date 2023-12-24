@@ -13,6 +13,7 @@ import { getData } from '../../api/api';
 import { responseSlice } from '../../store/slice/ResponseSlice';
 import { prettify } from 'src/utils/prettify';
 import { openDocs, closeDocs } from 'src/store/slice/DocSlice';
+import { useText } from 'src/hooks/useText';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export default function RequestMenu() {
 
   const { schemaApi } = useAppSelector((state) => state.graphqlReducer);
   const { docsOpen } = useAppSelector((state) => state.docReducer);
+  const T = useText();
 
   const handleCLickDocs = () => {
     dispatch(docsOpen ? closeDocs() : openDocs());
@@ -57,7 +59,7 @@ export default function RequestMenu() {
             <IconButton
               disabled={!schemaApi}
               onClick={handleCLickDocs}
-              title={docsOpen ? 'Close docs' : 'Open docs'}
+              title={docsOpen ? T.CLOSE_DOCS : T.OPEN_DOCS}
             >
               {docsOpen ? <DisabledByDefaultRoundedIcon /> : <ArticleIcon />}
             </IconButton>

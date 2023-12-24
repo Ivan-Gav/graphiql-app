@@ -1,11 +1,11 @@
 import { Grid, Link } from '@mui/material';
 import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { setPath } from 'src/store/slice/DocSlice';
+import { getDocState, setPath } from 'src/store/slice/DocSlice';
 
 export default function DocBreadCrumbs() {
   const dispatch = useAppDispatch();
-  const { docPath: path } = useAppSelector((state) => state.docReducer);
+  const { docPath: path } = useAppSelector(getDocState);
 
   if (path.length <= 1) return null;
 

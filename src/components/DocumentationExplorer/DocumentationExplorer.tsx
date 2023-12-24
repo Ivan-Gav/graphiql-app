@@ -6,6 +6,8 @@ import DocBreadCrumbs from './DocBreadCrumbs';
 import Docs from './Docs';
 import Doc from './Doc';
 import { getGraphqlState } from 'src/store/slice/graphql.slice';
+import { getDocState } from 'src/store/slice/DocSlice';
+import { useText } from 'src/hooks/useText';
 
 export default function DocumentationExplorer() {
   const { isLoading, errorMessage, schemaApi } =
@@ -15,7 +17,9 @@ export default function DocumentationExplorer() {
     [schemaApi]
   );
 
-  const { docPath: path } = useAppSelector((state) => state.docReducer);
+  const { docPath: path } = useAppSelector(getDocState);
+
+  const T = useText();
 
   const style = {
     pb: 2,
@@ -29,14 +33,15 @@ export default function DocumentationExplorer() {
     return (
       <Stack>
         <Typography variant="h2">
-          Following error occured: {errorMessage}
+          {T.FOLLOWING_ERROR}
+          {errorMessage}
         </Typography>
       </Stack>
     );
   if (!schema)
     return (
       <Stack>
-        <Typography variant="h2">No schema</Typography>
+        <Typography variant="h2">{T.NO_SCHEMA}</Typography>
       </Stack>
     );
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 const initialState = {
   docPath: ['Docs'],
@@ -24,5 +25,6 @@ export const docSlice = createSlice({
   },
 });
 
+export const getDocState = (state: RootState) => state.docReducer;
 export const { setPath, clearPath, openDocs, closeDocs } = docSlice.actions;
 export default docSlice.reducer;

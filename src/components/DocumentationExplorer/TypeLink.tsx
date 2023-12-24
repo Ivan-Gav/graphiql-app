@@ -2,13 +2,13 @@ import { Link } from '@mui/material';
 import { GraphQLNamedType, isListType, isNonNullType } from 'graphql';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { TypeLinkProps } from 'src/models/models';
-import { setPath } from 'src/store/slice/DocSlice';
+import { getDocState, setPath } from 'src/store/slice/DocSlice';
 
 export default function TypeLink(props: TypeLinkProps) {
   const { type } = props;
 
   const dispatch = useAppDispatch();
-  const { docPath: path } = useAppSelector((state) => state.docReducer);
+  const { docPath: path } = useAppSelector(getDocState);
 
   const handleClick = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLAnchorElement && e.target.textContent)

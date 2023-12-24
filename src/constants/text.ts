@@ -45,6 +45,11 @@ const TEXT = {
     ENUM_VALUES: 'Enum Values',
     FIELDS: 'Fields',
     TYPE: 'Type',
+    CLOSE_DOCS: 'Close docs',
+    OPEN_DOCS: 'Open docs',
+    NO_SCHEMA: 'No schema',
+    FOLLOWING_ERROR: 'Following error occured: ',
+    CANT_FIND_FIELD: "Sorry, I can't find the field ",
   },
   RU: {
     LANG: 'Язык',
@@ -92,6 +97,11 @@ const TEXT = {
     ENUM_VALUES: 'Значения Enum',
     FIELDS: 'Поля',
     TYPE: 'Тип',
+    CLOSE_DOCS: 'Закрыть схему',
+    OPEN_DOCS: 'Открыть схему',
+    NO_SCHEMA: 'Нет схемы',
+    FOLLOWING_ERROR: 'Возникла следующая ошибка: ',
+    CANT_FIND_FIELD: 'Не удалось найти поле ',
   },
 };
 

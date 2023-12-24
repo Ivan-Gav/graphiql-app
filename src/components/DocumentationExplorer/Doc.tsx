@@ -14,6 +14,8 @@ import FieldsSection from './FieldsSection';
 import TypeSection from './TypeSection';
 import { useAppSelector } from 'src/hooks/redux';
 import { CustomGraphQLType } from 'src/models/models';
+import { getDocState } from 'src/store/slice/DocSlice';
+import { useText } from 'src/hooks/useText';
 
 type DocProps = {
   item: string;
@@ -41,7 +43,9 @@ const style = {
 
 export default function Doc(props: DocProps) {
   const { item, schema } = props;
-  const { docPath: path } = useAppSelector((state) => state.docReducer);
+  const { docPath: path } = useAppSelector(getDocState);
+
+  const T = useText();
 
   const typeCheck = (item: string) => {
     const selectedType = schema?.getType(item);
@@ -50,13 +54,13 @@ export default function Doc(props: DocProps) {
       // it is a field, not a type
       const parent = schema?.getType(path[path.length - 2]);
       if (!parent) {
-        throw new Error(`Sorry, I can't find the field "${item}"`);
+        throw new Error(`${T.CANT_FIND_FIELD}"${item}"`);
       }
       const p = parent as CustomGraphQLType;
       if (p && p._fields && item in p._fields) {
         return p._fields[item] as CustomGraphQLType;
       } else {
-        throw new Error(`Sorry, I can't find the field "${item}"`);
+        throw new Error(`${T.CANT_FIND_FIELD}"${item}"`);
       }
     }
 

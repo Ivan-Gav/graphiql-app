@@ -10,25 +10,6 @@ type LazyListProps = {
   typeArr: GraphQLNamedType[];
 };
 
-// const addStyle = {
-//   ':-webkit-scrollbar': {
-//     width: '8px',
-//   },
-//   '&::-webkit-scrollbar-track': {
-//     backgroundColor: 'background.paper',
-//   },
-//   '&::-webkit-scrollbar-thumb': {
-//     backgroundColor: 'primary.dark',
-//     borderRadius: '16px',
-//     border: '1px solid',
-//     borderColor: 'background.paper',
-//   },
-//   padding: '1px',
-//   overflowY: 'auto',
-//   height: '100%',
-//   border: 'none',
-// };
-
 export default function LazyList(props: LazyListProps) {
   const { listLength, typeArr } = props;
 

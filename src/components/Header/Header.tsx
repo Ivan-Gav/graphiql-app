@@ -45,7 +45,11 @@ export default function Header() {
   });
 
   return (
-    <AppBar position="sticky" sx={{ px: 2 }} elevation={scrollTrigger ? 4 : 0}>
+    <AppBar
+      position="sticky"
+      sx={{ px: 2, mb: 2, zIndex: 1300 }}
+      elevation={scrollTrigger ? 4 : 0}
+    >
       <Toolbar disableGutters>
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           <Menu

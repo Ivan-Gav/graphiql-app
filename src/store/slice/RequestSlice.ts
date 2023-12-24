@@ -62,12 +62,14 @@ export const requestToApi = createAsyncThunk(
           query: requestInputValue,
         }),
       });
-      if (results.ok) {
-        const data = await results.json();
-        return data;
+
+      const data = await results.json();
+
+      if (data.errors) {
+        throw new Error(JSON.stringify(data.errors));
       }
 
-      throw new Error(results.statusText);
+      return data;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);

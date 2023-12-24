@@ -1,7 +1,8 @@
 import { Grid, IconButton, Paper } from '@mui/material';
 import HeadersEditor from './HeadersEditor/HeadersEditor';
 import VariablesEditor from './VariablesEditor/VariablesEditor';
-import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
+import ArticleIcon from '@mui/icons-material/Article';
+import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
@@ -13,13 +14,21 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { prettify } from 'src/utils/prettify';
 import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
+import { openDocs, closeDocs, getDocState } from 'src/store/slice/DocSlice';
 import { useText } from 'src/hooks/useText';
+import { getGraphqlState } from 'src/store/slice/graphql.slice';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();
   const { requestInputValue } = useAppSelector(getRequestState);
+  const { schemaApi } = useAppSelector(getGraphqlState);
+  const { docsOpen } = useAppSelector(getDocState);
 
   const T = useText();
+
+  const handleCLickDocs = () => {
+    dispatch(docsOpen ? closeDocs() : openDocs());
+  };
 
   const handleClickPlay = () => {
     dispatch(requestToApi({ T }));
@@ -38,8 +47,12 @@ export default function RequestMenu() {
       <Paper variant="outlined">
         <Grid container gap={1} justifyContent="space-between">
           <Grid item>
-            <IconButton>
-              <AutoStoriesRoundedIcon />
+            <IconButton
+              disabled={!schemaApi}
+              onClick={handleCLickDocs}
+              title={docsOpen ? T.CLOSE_DOCS : T.OPEN_DOCS}
+            >
+              {docsOpen ? <DisabledByDefaultRoundedIcon /> : <ArticleIcon />}
             </IconButton>
           </Grid>
           <Grid item>

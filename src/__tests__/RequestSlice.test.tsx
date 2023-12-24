@@ -89,7 +89,9 @@ describe('Request slice', () => {
 
     global.fetch = vi.fn().mockResolvedValueOnce({
       ok: false,
-      statusText: 'data rejected',
+      json: () => {
+        return Promise.resolve({ errors: 'data rejected' });
+      },
     });
 
     await store.dispatch(
@@ -102,26 +104,7 @@ describe('Request slice', () => {
 
     expect(store.getState().requestReducer).toEqual({
       ...initialState,
-      errorMessage: 'data rejected',
-      isLoading: false,
-    });
-
-    global.fetch = vi.fn().mockResolvedValueOnce({
-      ok: false,
-      statusText: undefined,
-    });
-
-    await store.dispatch(
-      requestToApi({
-        T: {
-          ...TEXT.EN,
-        },
-      })
-    );
-
-    expect(store.getState().requestReducer).toEqual({
-      ...initialState,
-      errorMessage: '',
+      errorMessage: JSON.stringify('data rejected'),
       isLoading: false,
     });
   });

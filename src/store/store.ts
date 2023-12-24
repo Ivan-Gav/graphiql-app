@@ -1,15 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slice/user.slice';
 import requestReducer from './slice/RequestSlice';
+import variablesReducer from './slice/VariablesSlice';
 import responseReducer from './slice/ResponseSlice';
 import graphqlReducer from './slice/graphql.slice';
+import docReducer from './slice/DocSlice';
 
 export const store = configureStore({
   reducer: {
     userReducer,
     requestReducer,
+    variablesReducer,
     responseReducer,
     graphqlReducer,
+    docReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

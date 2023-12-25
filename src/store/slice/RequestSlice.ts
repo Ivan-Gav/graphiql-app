@@ -65,10 +65,6 @@ export const requestToApi = createAsyncThunk(
 
       const data = await results.json();
 
-      if (data.errors) {
-        throw new Error(JSON.stringify(data.errors));
-      }
-
       return data;
     } catch (error) {
       if (error instanceof Error) {
@@ -103,7 +99,11 @@ export const requestSlice = createSlice({
       })
       .addCase(requestToApi.fulfilled, (state, { payload }) => {
         state.errorMessage = null;
-        state.responseString = JSON.stringify(payload);
+        if (payload.errors) {
+          state.errorMessage = JSON.stringify(payload, null, 1);
+        } else {
+          state.responseString = JSON.stringify(payload, null, 1);
+        }
         state.isLoading = false;
       });
   },

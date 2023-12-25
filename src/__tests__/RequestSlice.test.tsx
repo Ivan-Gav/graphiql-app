@@ -104,7 +104,7 @@ describe('Request slice', () => {
 
     expect(store.getState().requestReducer).toEqual({
       ...initialState,
-      errorMessage: JSON.stringify('data rejected'),
+      errorMessage: JSON.stringify({ errors: 'data rejected' }, null, 1),
       isLoading: false,
     });
   });

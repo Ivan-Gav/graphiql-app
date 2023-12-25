@@ -4,11 +4,14 @@ import { ListItemButton, ListItemText, Collapse } from '@mui/material';
 import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from 'src/hooks/redux';
+import { useText } from 'src/hooks/useText';
 import { setHeadersInputValue } from 'src/store/slice/RequestSlice';
 
 export default function HeadersEditor() {
   const [open, setOpen] = useState(true);
   const [value, setValue] = useState('//JSON\n{\n\n}\n');
+
+  const T = useText();
 
   const dispatch = useAppDispatch();
 
@@ -33,7 +36,7 @@ export default function HeadersEditor() {
   return (
     <>
       <ListItemButton onClick={handleClick} data-testid="component-list-item">
-        <ListItemText primary="Headers" />
+        <ListItemText primary={T.HEADERS} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse

@@ -51,6 +51,7 @@ const TEXT = {
     NO_SCHEMA: 'No schema',
     FOLLOWING_ERROR: 'Following error occured: ',
     CANT_FIND_FIELD: "Sorry, I can't find the field ",
+    HEADERS: 'Headers',
   },
   RU: {
     LANG: 'Язык',
@@ -104,6 +105,7 @@ const TEXT = {
     NO_SCHEMA: 'Нет схемы',
     FOLLOWING_ERROR: 'Возникла следующая ошибка: ',
     CANT_FIND_FIELD: 'Не удалось найти поле ',
+    HEADERS: 'Заголовки',
   },
 };
 

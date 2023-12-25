@@ -1,28 +1,29 @@
 import { Grid, IconButton, Paper } from '@mui/material';
 import HeadersEditor from './HeadersEditor/HeadersEditor';
 import VariablesEditor from './VariablesEditor/VariablesEditor';
-// import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import ArticleIcon from '@mui/icons-material/Article';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
-import { requestSlice } from '../../store/slice/RequestSlice';
+import {
+  getRequestState,
+  requestToApi,
+  setRequestInputValue,
+} from '../../store/slice/RequestSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getData } from '../../api/api';
-import { responseSlice } from '../../store/slice/ResponseSlice';
 import { prettify } from 'src/utils/prettify';
-import { openDocs, closeDocs } from 'src/store/slice/DocSlice';
+import APIEndpointEditor from './APIEndpointEditor.tsx/APIEndpointEditor';
+import { openDocs, closeDocs, getDocState } from 'src/store/slice/DocSlice';
 import { useText } from 'src/hooks/useText';
+import { getGraphqlState } from 'src/store/slice/graphql.slice';
 
 export default function RequestMenu() {
   const dispatch = useAppDispatch();
-  const { requestInputValue } = useAppSelector((state) => state.requestReducer);
-  const { setRequestInputValue } = requestSlice.actions;
-  const { setResponseInputValue } = responseSlice.actions;
+  const { requestInputValue } = useAppSelector(getRequestState);
+  const { schemaApi } = useAppSelector(getGraphqlState);
+  const { docsOpen } = useAppSelector(getDocState);
 
-  const { schemaApi } = useAppSelector((state) => state.graphqlReducer);
-  const { docsOpen } = useAppSelector((state) => state.docReducer);
   const T = useText();
 
   const handleCLickDocs = () => {
@@ -30,17 +31,7 @@ export default function RequestMenu() {
   };
 
   const handleClickPlay = () => {
-    getData(requestInputValue)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        dispatch(
-          setResponseInputValue(
-            JSON.stringify(JSON.parse(JSON.stringify(data.data)), null, 1)
-          )
-        );
-      });
+    dispatch(requestToApi({ T }));
   };
 
   const handleClickClear = () => {
@@ -81,11 +72,16 @@ export default function RequestMenu() {
           </Grid>
           <Grid item xs={12}>
             <Paper sx={{ p: 1 }}>
-              <VariablesEditor />
+              <APIEndpointEditor />
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper sx={{ p: 1 }}>
+              <VariablesEditor />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
               <HeadersEditor />
             </Paper>
           </Grid>

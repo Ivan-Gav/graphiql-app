@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-const initialState = {
-  requestInputValue: `{
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {} from 'graphql';
+import { RootState } from '../store';
+import { T } from 'src/models/models';
+export const EXAMPLE_REQUEST = `{
   characters(page: 2, filter: { name: "rick" }) {
     info {
       count
@@ -17,8 +18,61 @@ const initialState = {
     id
   }
 }
-`,
+`;
+
+export interface RequestState {
+  requestInputValue: string;
+  headersInputValue: string;
+  errorMessage: string | null;
+  responseString: string | null;
+  isLoading: boolean;
+}
+
+const initialState: RequestState = {
+  requestInputValue: EXAMPLE_REQUEST,
+  headersInputValue: '',
+  errorMessage: null,
+  responseString: null,
+  isLoading: true,
 };
+
+export const requestToApi = createAsyncThunk(
+  'request/requestToApi',
+  async ({ T }: { T: T }, { getState }) => {
+    try {
+      const {
+        graphqlReducer: { urlApi },
+        requestReducer: { headersInputValue, requestInputValue },
+      } = getState() as RootState;
+      if (!urlApi) {
+        throw new Error(T.NOT_SELECTED_API);
+      }
+
+      const newHeaders = headersInputValue ? JSON.parse(headersInputValue) : {};
+
+      const results = await fetch(urlApi, {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+          ...newHeaders,
+        },
+
+        body: JSON.stringify({
+          query: requestInputValue,
+        }),
+      });
+
+      const data = await results.json();
+
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  }
+);
 
 export const requestSlice = createSlice({
   name: 'request',
@@ -27,7 +81,37 @@ export const requestSlice = createSlice({
     setRequestInputValue(state, action: PayloadAction<string>) {
       state.requestInputValue = action.payload;
     },
+    setHeadersInputValue(state, action: PayloadAction<string>) {
+      state.headersInputValue = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(requestToApi.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = null;
+        state.responseString = null;
+      })
+      .addCase(requestToApi.rejected, (state, { error }) => {
+        state.errorMessage = error.message || '';
+        state.isLoading = false;
+        state.responseString = null;
+      })
+      .addCase(requestToApi.fulfilled, (state, { payload }) => {
+        state.errorMessage = null;
+        if (payload.errors) {
+          state.errorMessage = JSON.stringify(payload, null, 1);
+        } else {
+          state.responseString = JSON.stringify(payload, null, 1);
+        }
+        state.isLoading = false;
+      });
   },
 });
+
+export const getRequestState = (state: RootState) => state.requestReducer;
+
+export const { setHeadersInputValue, setRequestInputValue } =
+  requestSlice.actions;
 
 export default requestSlice.reducer;

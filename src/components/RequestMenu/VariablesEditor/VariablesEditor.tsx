@@ -1,29 +1,62 @@
-import { TextField } from '@mui/material';
-import { ChangeEvent } from 'react';
-import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { variablesSlice } from 'src/store/slice/VariablesSlice';
+import { json } from '@codemirror/lang-json';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { Collapse, ListItemButton, ListItemText } from '@mui/material';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
+import { useCallback, useState } from 'react';
+import { useAppDispatch } from 'src/hooks/redux';
+import { useText } from 'src/hooks/useText';
+import { setVariablesInputValue } from 'src/store/slice/RequestSlice';
 
 export default function VariablesEditor() {
-  const dispatch = useAppDispatch();
-  const { variablesInputValue } = useAppSelector(
-    (state) => state.variablesReducer
-  );
-  const { setVariablesInputValue } = variablesSlice.actions;
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('//JSON\n{\n\n}\n');
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setVariablesInputValue(e.target.value));
+  const T = useText();
+
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    setOpen(!open);
   };
+
+  const onChange = useCallback(
+    (val: string, viewUpdate: ViewUpdate) => {
+      setValue(val);
+
+      const newVariablesValue = viewUpdate.state.sliceDoc(
+        val.indexOf('{'),
+        val.indexOf('}') + 1
+      );
+
+      dispatch(setVariablesInputValue(newVariablesValue));
+    },
+    [dispatch]
+  );
+
   return (
     <>
-      <TextField
-        label="Variables"
-        multiline
-        maxRows="20"
-        value={variablesInputValue}
-        onChange={handleChange}
-        fullWidth
+      <ListItemButton onClick={handleClick} data-testid="component-list-item">
+        <ListItemText primary={T.VARIABLES} />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse
+        in={open}
+        timeout="auto"
+        unmountOnExit
         data-testid="component-input-variables"
-      ></TextField>
+      >
+        <CodeMirror
+          lang="json"
+          extensions={[json()]}
+          minHeight="100px"
+          theme="dark"
+          width="100%"
+          height="100%"
+          value={value}
+          onChange={onChange}
+          style={{ margin: '8px' }}
+        />
+      </Collapse>
     </>
   );
 }

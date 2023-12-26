@@ -52,6 +52,7 @@ const TEXT = {
     FOLLOWING_ERROR: 'Following error occured: ',
     CANT_FIND_FIELD: "Sorry, I can't find the field ",
     HEADERS: 'Headers',
+    VARIABLES: 'Variables',
   },
   RU: {
     LANG: 'Язык',
@@ -106,6 +107,7 @@ const TEXT = {
     FOLLOWING_ERROR: 'Возникла следующая ошибка: ',
     CANT_FIND_FIELD: 'Не удалось найти поле ',
     HEADERS: 'Заголовки',
+    VARIABLES: 'Переменные',
   },
 };
 

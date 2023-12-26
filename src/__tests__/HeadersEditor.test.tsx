@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { store } from '../store/store';
 import LangContextProvider from 'src/context/LangContext';
 import HeadersEditor from 'src/components/RequestMenu/HeadersEditor/HeadersEditor';
+import TEXT from 'src/constants/text';
 
 describe('HeadersEditor component', () => {
   const renderComponent = (url: string) =>
@@ -23,20 +24,20 @@ describe('HeadersEditor component', () => {
   it('should render HeadersEditor component successfully', () => {
     renderComponent('/');
 
-    expect(screen.getByTestId('component-input-headers')).toBeInTheDocument();
+    expect(screen.getByText(TEXT.EN.HEADERS)).toBeInTheDocument();
   });
 
   it('should be pressed to open the input field', () => {
     renderComponent('/');
 
-    expect(screen.getByTestId('ExpandLessIcon')).toBeInTheDocument();
-    expect(screen.queryByTestId('ExpandMoreIcon')).not.toBeInTheDocument();
+    expect(screen.getByTestId('ExpandMoreIcon')).toBeInTheDocument();
+    expect(screen.queryByTestId('ExpandLessIcon')).not.toBeInTheDocument();
 
     const listItem = screen.getByTestId('component-list-item');
 
     fireEvent.click(listItem);
 
-    expect(screen.getByTestId('ExpandMoreIcon')).toBeInTheDocument();
-    expect(screen.queryByTestId('ExpandLessIcon')).not.toBeInTheDocument();
+    expect(screen.getByTestId('ExpandLessIcon')).toBeInTheDocument();
+    expect(screen.queryByTestId('ExpandMoreIcon')).not.toBeInTheDocument();
   });
 });

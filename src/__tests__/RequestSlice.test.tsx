@@ -6,6 +6,7 @@ import requestReducer, {
   requestToApi,
   setHeadersInputValue,
   setRequestInputValue,
+  setVariablesInputValue,
 } from 'src/store/slice/RequestSlice';
 import graphqlReducer, {
   getIntrospection,
@@ -15,6 +16,7 @@ import { describe, expect, it, vi } from 'vitest';
 const initialState: RequestState = {
   requestInputValue: EXAMPLE_REQUEST,
   headersInputValue: '',
+  variablesInputValue: '',
   errorMessage: null,
   responseString: null,
   isLoading: true,
@@ -41,6 +43,17 @@ describe('Request slice', () => {
     const result = requestReducer(initialState, action);
 
     expect(result).toEqual({ ...initialState, headersInputValue: 'Test' });
+  });
+
+  it('should set variables input value with "setVariablesInputValue" action', () => {
+    const action = {
+      type: setVariablesInputValue.type,
+      payload: 'Test',
+    };
+
+    const result = requestReducer(initialState, action);
+
+    expect(result).toEqual({ ...initialState, variablesInputValue: 'Test' });
   });
 
   it('should write error if API not selected ', async () => {
@@ -125,6 +138,7 @@ describe('Request slice', () => {
     });
 
     store.dispatch(setHeadersInputValue('{ "headers": "test" }'));
+    store.dispatch(setVariablesInputValue('{ "variables": "test" }'));
 
     await store.dispatch(
       getIntrospection({
@@ -151,6 +165,7 @@ describe('Request slice', () => {
       ...initialState,
       responseString: JSON.stringify('Test'),
       headersInputValue: '{ "headers": "test" }',
+      variablesInputValue: '{ "variables": "test" }',
       isLoading: false,
     });
   });

@@ -48,7 +48,7 @@ export default function Docs(props: { schema: GraphQLSchema | null }) {
           <DeviceHubRoundedIcon fontSize="small" />
           <Typography variant="subtitle1">{T.ROOT_TYPES}</Typography>
         </Grid>
-        <Stack spacing={2}>
+        <Stack>
           {!!queryType && (
             <Grid container px={2} textOverflow="ellipsis" overflow="hidden">
               <Typography
@@ -94,7 +94,7 @@ export default function Docs(props: { schema: GraphQLSchema | null }) {
           <Typography variant="subtitle1">{T.SCHEMA_TYPES}</Typography>
         </Grid>
       </Stack>
-      <Box flexGrow={1}>
+      <Box flexGrow={1} pl={2}>
         {!!filteredTypeMapArr && (
           <LazyList
             listLength={filteredTypeMapArr.length}

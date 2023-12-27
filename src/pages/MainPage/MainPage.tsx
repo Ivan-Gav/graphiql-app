@@ -7,7 +7,7 @@ export default function MainPage() {
 
   return (
     <>
-      <Grid container p={2} spacing={2}>
+      <Grid container p={2} spacing={6}>
         <Grid item xs={12}>
           <Typography variant="h1" align="center">
             {T.HI}
@@ -16,7 +16,7 @@ export default function MainPage() {
         <Grid item xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <Paper sx={{ p: 2, height: '100%' }}>
+              <Paper sx={{ padding: { xs: 2, md: 5 }, height: '100%' }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={4} md={12} lg={4} textAlign="center">
                     <Link href="https://rs.school/react">
@@ -35,10 +35,10 @@ export default function MainPage() {
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Paper sx={{ p: 2, height: '100%' }}>
+              <Paper sx={{ padding: { xs: 2, md: 5 }, height: '100%' }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={4} md={12} lg={4} textAlign="center">
-                    <Link href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md">
+                    <Link href="https://github.com/Ivan-Gav/graphiql-app">
                       <img
                         src="https://www.svgrepo.com/show/394181/graphql.svg"
                         alt="RSS"
@@ -54,15 +54,15 @@ export default function MainPage() {
               </Paper>
             </Grid>
             <Grid item xs={12} md={12}>
-              <Paper sx={{ p: 2 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
+              <Paper sx={{ padding: { xs: 2, md: 5 } }}>
+                <Grid container spacing={5}>
+                  <Grid item xs={12} md={4}>
                     <Typography variant="body1">{T.ABOUT_ANASTASIA}</Typography>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} md={4}>
                     <Typography variant="body1">{T.ABOUT_ANDREY}</Typography>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} md={4}>
                     <Typography variant="body1">{T.ABOUT_IVAN}</Typography>
                   </Grid>
                 </Grid>

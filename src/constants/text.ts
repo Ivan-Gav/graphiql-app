@@ -11,6 +11,13 @@ const TEXT = {
     WELCOME_PAGE: 'Welcome',
     GRAPHIQL_PAGE: 'GraphiQL',
     HI: 'Hi!',
+    ABOUT_COURSE:
+      'This project was created as part of the RS School React course, which includes: components, routing, context, redux, nextjs, graphql.',
+    ABOUT_PROJECT:
+      'GraphiQL is a playground/IDE for graphQL requests. In this project we implemented authorization, localization, work with documentation and graphQL editor.',
+    ABOUT_ANASTASIA: 'Anastasia Mataeva',
+    ABOUT_ANDREY: 'Andrei Shamayeu',
+    ABOUT_IVAN: 'Ivan Gavrilin',
     ANASTASIA: 'Anastasia Mataeva',
     ANDREY: 'Andrei Shamayeu',
     IVAN: 'Ivan Gavrilin',
@@ -65,6 +72,13 @@ const TEXT = {
     WELCOME_PAGE: 'Добро пожаловать',
     GRAPHIQL_PAGE: 'Редактор GraphiQL',
     HI: 'Привет!',
+    ABOUT_COURSE:
+      'Этот проект был создан в рамках курса RS School React, который включает в себя: components, routing, context, redux, nextjs, graphql.',
+    ABOUT_PROJECT:
+      'GraphiQL - это песочница/IDE для graphQL запросов. В данном проекте мы реализовали авторизацию, локализацию, работу с документацией и редактор.',
+    ABOUT_ANASTASIA: 'Анастасия Матаева',
+    ABOUT_ANDREY: 'Андрей Шамаев',
+    ABOUT_IVAN: 'Иван Гаврилин',
     ANASTASIA: 'Анастасия Матаева',
     ANDREY: 'Андрей Шамаев',
     IVAN: 'Иван Гаврилин',

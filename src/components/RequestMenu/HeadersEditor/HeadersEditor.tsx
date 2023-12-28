@@ -8,7 +8,7 @@ import { useText } from 'src/hooks/useText';
 import { setHeadersInputValue } from 'src/store/slice/RequestSlice';
 
 export default function HeadersEditor() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [value, setValue] = useState('//JSON\n{\n\n}\n');
 
   const T = useText();

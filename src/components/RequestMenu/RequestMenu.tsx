@@ -76,7 +76,7 @@ export default function RequestMenu() {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper sx={{ p: 1 }}>
+            <Paper>
               <VariablesEditor />
             </Paper>
           </Grid>

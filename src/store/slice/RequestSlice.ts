@@ -23,6 +23,7 @@ export const EXAMPLE_REQUEST = `{
 export interface RequestState {
   requestInputValue: string;
   headersInputValue: string;
+  variablesInputValue: string;
   errorMessage: string | null;
   responseString: string | null;
   isLoading: boolean;
@@ -31,6 +32,7 @@ export interface RequestState {
 const initialState: RequestState = {
   requestInputValue: EXAMPLE_REQUEST,
   headersInputValue: '',
+  variablesInputValue: '',
   errorMessage: null,
   responseString: null,
   isLoading: true,
@@ -42,13 +44,20 @@ export const requestToApi = createAsyncThunk(
     try {
       const {
         graphqlReducer: { urlApi },
-        requestReducer: { headersInputValue, requestInputValue },
+        requestReducer: {
+          headersInputValue,
+          requestInputValue,
+          variablesInputValue,
+        },
       } = getState() as RootState;
       if (!urlApi) {
         throw new Error(T.NOT_SELECTED_API);
       }
 
       const newHeaders = headersInputValue ? JSON.parse(headersInputValue) : {};
+      const newVariables = variablesInputValue
+        ? JSON.parse(variablesInputValue)
+        : {};
 
       const results = await fetch(urlApi, {
         method: 'POST',
@@ -60,6 +69,7 @@ export const requestToApi = createAsyncThunk(
 
         body: JSON.stringify({
           query: requestInputValue,
+          variables: newVariables,
         }),
       });
 
@@ -78,11 +88,14 @@ export const requestSlice = createSlice({
   name: 'request',
   initialState,
   reducers: {
-    setRequestInputValue(state, action: PayloadAction<string>) {
-      state.requestInputValue = action.payload;
+    setRequestInputValue(state, { payload }: PayloadAction<string>) {
+      state.requestInputValue = payload;
     },
-    setHeadersInputValue(state, action: PayloadAction<string>) {
-      state.headersInputValue = action.payload;
+    setHeadersInputValue(state, { payload }: PayloadAction<string>) {
+      state.headersInputValue = payload;
+    },
+    setVariablesInputValue(state, { payload }: PayloadAction<string>) {
+      state.variablesInputValue = payload;
     },
   },
   extraReducers: (builder) => {
@@ -111,7 +124,10 @@ export const requestSlice = createSlice({
 
 export const getRequestState = (state: RootState) => state.requestReducer;
 
-export const { setHeadersInputValue, setRequestInputValue } =
-  requestSlice.actions;
+export const {
+  setHeadersInputValue,
+  setRequestInputValue,
+  setVariablesInputValue,
+} = requestSlice.actions;
 
 export default requestSlice.reducer;

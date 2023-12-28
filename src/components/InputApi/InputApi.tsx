@@ -12,6 +12,7 @@ import { useText } from 'src/hooks/useText';
 import { clearPath, closeDocs } from 'src/store/slice/DocSlice';
 
 const EXAMPLE_API = [
+  'https://graphqlzero.almansi.me/api',
   'https://graphql.anilist.co',
   'https://rickandmortyapi.com/graphql',
   'https://beta.pokeapi.co/graphql/v1beta',
@@ -22,7 +23,7 @@ export default function InputApi() {
   const { isLoading, urlApi } = useAppSelector(getGraphqlState);
 
   const [valueApi, setValueApi] = useState('');
-  const [valueAutocomplete, setValueAutocomplete] = useState('');
+  const [valueAutocomplete, setValueAutocomplete] = useState(urlApi || '');
 
   const dispatch = useAppDispatch();
   const T = useText();

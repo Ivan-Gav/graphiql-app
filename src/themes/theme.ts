@@ -16,6 +16,12 @@ const secondaryColor = {
   light: '#72a1ed',
 };
 
+const infoColor = {
+  main: '#F05B00',
+  dark: '#F03100',
+  light: '#F08500',
+};
+
 const textColor = {
   primary: '#e3e3e3',
   secondary: '#fff',
@@ -31,6 +37,7 @@ const theme = createTheme({
     text: textColor,
     primary: primaryColor,
     secondary: secondaryColor,
+    info: infoColor,
   },
   shadows: [
     'none',

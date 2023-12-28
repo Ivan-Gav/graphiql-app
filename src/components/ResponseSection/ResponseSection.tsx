@@ -1,8 +1,11 @@
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
-import { Paper, Typography } from '@mui/material';
-import { useAppSelector } from '../../hooks/redux';
-import { getRequestState } from 'src/store/slice/RequestSlice';
+import { Alert, Paper, Snackbar, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import {
+  deleteMessageError,
+  getRequestState,
+} from 'src/store/slice/RequestSlice';
 import { createTheme } from '@uiw/codemirror-themes';
 
 const myTheme = createTheme({
@@ -22,7 +25,14 @@ const myTheme = createTheme({
 });
 
 export default function ResponseSection() {
-  const { responseString, errorMessage } = useAppSelector(getRequestState);
+  const { responseString, errorMessageApi, errorMessage } =
+    useAppSelector(getRequestState);
+
+  const dispatch = useAppDispatch();
+
+  const handleClose = () => {
+    dispatch(deleteMessageError());
+  };
 
   return (
     <Paper variant="outlined">
@@ -30,13 +40,22 @@ export default function ResponseSection() {
         <ReactCodeMirror
           lang="json"
           extensions={[json()]}
-          theme={!errorMessage ? 'dark' : myTheme}
+          theme={!errorMessageApi ? 'dark' : myTheme}
           width="100%"
           height="100%"
-          value={responseString || errorMessage || ''}
+          value={responseString || errorMessageApi || ''}
           readOnly
         />
       </Typography>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={errorMessage ? true : false}
+        onClose={handleClose}
+      >
+        <Alert severity="error" elevation={6} variant="filled">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 }

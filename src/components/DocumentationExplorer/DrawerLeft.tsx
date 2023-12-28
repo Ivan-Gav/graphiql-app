@@ -1,5 +1,6 @@
 import { Drawer } from '@mui/material';
 import { useAppSelector } from 'src/hooks/redux';
+import { getDocState } from 'src/store/slice/DocSlice';
 
 const drawerWidth = '100%';
 
@@ -10,7 +11,7 @@ type DrawerProps = {
 
 export default function DrawerLeft(props: DrawerProps) {
   const { children, container } = props;
-  const { docsOpen } = useAppSelector((state) => state.docReducer);
+  const { docsOpen } = useAppSelector(getDocState);
 
   return (
     <Drawer

@@ -26,6 +26,7 @@ export default function DocumentationExplorer() {
     overflow: 'hidden',
     height: '100%',
     border: 'none',
+    minWidth: '380px',
   };
 
   if (isLoading) throw Promise.resolve('loading');

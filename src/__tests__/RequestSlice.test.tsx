@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import TEXT from 'src/constants/text';
 import requestReducer, {
+  deleteMessageError,
   EXAMPLE_REQUEST,
   RequestState,
   requestToApi,
@@ -17,6 +18,7 @@ const initialState: RequestState = {
   requestInputValue: EXAMPLE_REQUEST,
   headersInputValue: '',
   variablesInputValue: '',
+  errorMessageApi: null,
   errorMessage: null,
   responseString: null,
   isLoading: true,
@@ -54,6 +56,19 @@ describe('Request slice', () => {
     const result = requestReducer(initialState, action);
 
     expect(result).toEqual({ ...initialState, variablesInputValue: 'Test' });
+  });
+
+  it('should clear error message "deleteMessageError" action', () => {
+    const action = {
+      type: deleteMessageError.type,
+    };
+
+    const result = requestReducer(
+      { ...initialState, errorMessage: 'Test' },
+      action
+    );
+
+    expect(result).toEqual(initialState);
   });
 
   it('should write error if API not selected ', async () => {
@@ -117,7 +132,7 @@ describe('Request slice', () => {
 
     expect(store.getState().requestReducer).toEqual({
       ...initialState,
-      errorMessage: JSON.stringify({ errors: 'data rejected' }, null, 1),
+      errorMessageApi: JSON.stringify({ errors: 'data rejected' }, null, 1),
       isLoading: false,
     });
   });

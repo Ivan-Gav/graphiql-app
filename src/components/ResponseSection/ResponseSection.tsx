@@ -35,7 +35,7 @@ export default function ResponseSection() {
   };
 
   return (
-    <Paper variant="outlined">
+    <Paper variant="outlined" data-testid="response-section-component">
       <Typography variant="caption">
         <ReactCodeMirror
           lang="json"

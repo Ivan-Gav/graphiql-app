@@ -12,9 +12,9 @@ import { useText } from 'src/hooks/useText';
 import { clearPath, closeDocs } from 'src/store/slice/DocSlice';
 
 const EXAMPLE_API = [
+  'https://rickandmortyapi.com/graphql',
   'https://graphqlzero.almansi.me/api',
   'https://graphql.anilist.co',
-  'https://rickandmortyapi.com/graphql',
   'https://beta.pokeapi.co/graphql/v1beta',
   'https://countries.trevorblades.com/graphql',
 ];
@@ -23,7 +23,9 @@ export default function InputApi() {
   const { isLoading, urlApi } = useAppSelector(getGraphqlState);
 
   const [valueApi, setValueApi] = useState('');
-  const [valueAutocomplete, setValueAutocomplete] = useState(urlApi || '');
+  const [valueAutocomplete, setValueAutocomplete] = useState(
+    urlApi || EXAMPLE_API[0]
+  );
 
   const dispatch = useAppDispatch();
   const T = useText();

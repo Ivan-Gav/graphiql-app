@@ -11,6 +11,16 @@ const TEXT = {
     WELCOME_PAGE: 'Welcome',
     GRAPHIQL_PAGE: 'GraphiQL',
     HI: 'Hi!',
+    ABOUT_COURSE:
+      'This project was created as part of the RS School React course, which includes: components, routing, context, redux, nextjs, graphql.',
+    ABOUT_PROJECT:
+      'GraphiQL is a playground/IDE for graphQL requests. In this project we implemented authorization, localization, work with documentation and graphQL editor.',
+    ABOUT_ANASTASIA:
+      ' set up the mui theme, implemented the graphql editor, code prettifying, response section and the welcome page with information about the project.',
+    ABOUT_ANDREY:
+      ' implemented authentication and authorization/registration pages, routes, as well as requests to the API and the request menu on the graphiql page.',
+    ABOUT_IVAN:
+      ', as our team leader, set up the project and organized teamwork. In addition, he implemented localization, documentation on graphiql page and created the header and footer.',
     ANASTASIA: 'Anastasia Mataeva',
     ANDREY: 'Andrei Shamayeu',
     IVAN: 'Ivan Gavrilin',
@@ -66,6 +76,16 @@ const TEXT = {
     WELCOME_PAGE: 'Добро пожаловать',
     GRAPHIQL_PAGE: 'Редактор GraphiQL',
     HI: 'Привет!',
+    ABOUT_COURSE:
+      'Этот проект был создан в рамках курса RS School React, который включает в себя: components, routing, context, redux, nextjs, graphql.',
+    ABOUT_PROJECT:
+      'GraphiQL - это песочница/IDE для graphQL запросов. В данном проекте мы реализовали авторизацию, локализацию, работу с документацией и редактор.',
+    ABOUT_ANASTASIA:
+      ' настроила mui тему, реализовала graphql редактор, форматирование кода, отображение ответа и стартовую страницу с информацией о проекте.',
+    ABOUT_ANDREY:
+      ' реализовал аутентификацию и соответствующие страницы авторизации/регистрации, переход по страницам, а также запросы к API и меню запросов на странице graphiql.',
+    ABOUT_IVAN:
+      ', будучи лидером нашей команды, настроил проект и организовал работу. Кроме того, реализовал локализацию, документацию на странице graphiql, и создал хедер и футер.',
     ANASTASIA: 'Анастасия Матаева',
     ANDREY: 'Андрей Шамаев',
     IVAN: 'Иван Гаврилин',

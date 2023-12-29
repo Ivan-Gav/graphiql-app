@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-const initialState = {
+export interface DocState {
+  docPath: string[];
+  docsOpen: boolean;
+}
+
+const initialState: DocState = {
   docPath: ['Docs'],
   docsOpen: false,
 };

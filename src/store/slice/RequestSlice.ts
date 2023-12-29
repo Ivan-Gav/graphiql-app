@@ -24,6 +24,7 @@ export interface RequestState {
   requestInputValue: string;
   headersInputValue: string;
   variablesInputValue: string;
+  errorMessageApi: string | null;
   errorMessage: string | null;
   responseString: string | null;
   isLoading: boolean;
@@ -33,6 +34,7 @@ const initialState: RequestState = {
   requestInputValue: EXAMPLE_REQUEST,
   headersInputValue: '',
   variablesInputValue: '',
+  errorMessageApi: null,
   errorMessage: null,
   responseString: null,
   isLoading: true,
@@ -97,12 +99,15 @@ export const requestSlice = createSlice({
     setVariablesInputValue(state, { payload }: PayloadAction<string>) {
       state.variablesInputValue = payload;
     },
+    deleteMessageError(state) {
+      state.errorMessage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(requestToApi.pending, (state) => {
         state.isLoading = true;
-        state.errorMessage = null;
+        state.errorMessageApi = null;
         state.responseString = null;
       })
       .addCase(requestToApi.rejected, (state, { error }) => {
@@ -111,9 +116,9 @@ export const requestSlice = createSlice({
         state.responseString = null;
       })
       .addCase(requestToApi.fulfilled, (state, { payload }) => {
-        state.errorMessage = null;
+        state.errorMessageApi = null;
         if (payload.errors) {
-          state.errorMessage = JSON.stringify(payload, null, 1);
+          state.errorMessageApi = JSON.stringify(payload, null, 1);
         } else {
           state.responseString = JSON.stringify(payload, null, 1);
         }
@@ -128,6 +133,7 @@ export const {
   setHeadersInputValue,
   setRequestInputValue,
   setVariablesInputValue,
+  deleteMessageError,
 } = requestSlice.actions;
 
 export default requestSlice.reducer;

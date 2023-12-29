@@ -65,13 +65,34 @@ export default function MainPage() {
             <Paper sx={{ padding: { xs: 2, md: 5 } }}>
               <Grid container spacing={5}>
                 <Grid item xs={12} md={4}>
-                  <Typography variant="body1">{T.ABOUT_ANASTASIA}</Typography>
+                  <Link href="https://github.com/ana-ma-web">
+                    <Typography variant="body2" sx={{ display: 'inline' }}>
+                      {T.ANASTASIA}
+                    </Typography>
+                  </Link>
+                  <Typography variant="body1" sx={{ display: 'inline' }}>
+                    {T.ABOUT_ANASTASIA}
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <Typography variant="body1">{T.ABOUT_ANDREY}</Typography>
+                  <Link href="https://github.com/cheleste1994">
+                    <Typography variant="body2" sx={{ display: 'inline' }}>
+                      {T.ANDREY}
+                    </Typography>
+                  </Link>
+                  <Typography variant="body1" sx={{ display: 'inline' }}>
+                    {T.ABOUT_ANDREY}
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <Typography variant="body1">{T.ABOUT_IVAN}</Typography>
+                  <Link href="https://github.com/ivan-gav">
+                    <Typography variant="body2" sx={{ display: 'inline' }}>
+                      {T.IVAN}
+                    </Typography>
+                  </Link>
+                  <Typography variant="body1" sx={{ display: 'inline' }}>
+                    {T.ABOUT_IVAN}
+                  </Typography>
                 </Grid>
               </Grid>
             </Paper>

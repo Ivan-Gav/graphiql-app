@@ -16,11 +16,11 @@ const TEXT = {
     ABOUT_PROJECT:
       'GraphiQL is a playground/IDE for graphQL requests. In this project we implemented authorization, localization, work with documentation and graphQL editor.',
     ABOUT_ANASTASIA:
-      'Anastasia Mataeva set up the mui theme, implemented the graphql editor, code prettifying, response section and the welcome page with information about the project.',
+      ' set up the mui theme, implemented the graphql editor, code prettifying, response section and the welcome page with information about the project.',
     ABOUT_ANDREY:
-      'Andrei Shamayeu implemented authentication and authorization/registration pages, routes, as well as requests to the API and the request menu on the graphiql page.',
+      ' implemented authentication and authorization/registration pages, routes, as well as requests to the API and the request menu on the graphiql page.',
     ABOUT_IVAN:
-      'Ivan Gavrilin, as our team leader, set up the project and organized teamwork. In addition, he implemented localization, documentation on graphiql page and created the header and footer.',
+      ', as our team leader, set up the project and organized teamwork. In addition, he implemented localization, documentation on graphiql page and created the header and footer.',
     ANASTASIA: 'Anastasia Mataeva',
     ANDREY: 'Andrei Shamayeu',
     IVAN: 'Ivan Gavrilin',
@@ -80,11 +80,11 @@ const TEXT = {
     ABOUT_PROJECT:
       'GraphiQL - это песочница/IDE для graphQL запросов. В данном проекте мы реализовали авторизацию, локализацию, работу с документацией и редактор.',
     ABOUT_ANASTASIA:
-      'Анастасия Матаева настроила mui тему, реализовала graphql редактор, форматирование кода, отображение ответа и стартовую страницу с информацией о проекте.',
+      ' настроила mui тему, реализовала graphql редактор, форматирование кода, отображение ответа и стартовую страницу с информацией о проекте.',
     ABOUT_ANDREY:
-      'Андрей Шамаев реализовал аутентификацию и соответствующие страницы авторизации/регистрации, переход по страницам, а также запросы к API и меню запросов на странице graphiql.',
+      ' реализовал аутентификацию и соответствующие страницы авторизации/регистрации, переход по страницам, а также запросы к API и меню запросов на странице graphiql.',
     ABOUT_IVAN:
-      'Иван Гаврилин, будучи лидером нашей команды, настроил проект и организовал работу. Кроме того, реализовал локализацию, документацию на странице graphiql, и создал хедер и футер.',
+      ', будучи лидером нашей команды, настроил проект и организовал работу. Кроме того, реализовал локализацию, документацию на странице graphiql, и создал хедер и футер.',
     ANASTASIA: 'Анастасия Матаева',
     ANDREY: 'Андрей Шамаев',
     IVAN: 'Иван Гаврилин',

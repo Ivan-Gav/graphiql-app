@@ -18,7 +18,14 @@ export default function RootLayout() {
     >
       <Header />
       <Box mt="auto" width="100%">
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense
+          fallback={
+            <CircularProgress
+              size={68}
+              sx={{ marginLeft: 'auto', marginRight: 'auto', display: 'block' }}
+            />
+          }
+        >
           <Outlet />
         </Suspense>
       </Box>

@@ -3,7 +3,6 @@ import HeadersEditor from './HeadersEditor/HeadersEditor';
 import VariablesEditor from './VariablesEditor/VariablesEditor';
 import ArticleIcon from '@mui/icons-material/Article';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
-import CancelPresentationRoundedIcon from '@mui/icons-material/CancelPresentationRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import {
@@ -34,10 +33,6 @@ export default function RequestMenu() {
     dispatch(requestToApi({ T }));
   };
 
-  const handleClickClear = () => {
-    dispatch(setRequestInputValue(''));
-  };
-
   const handleClickFormatter = () => {
     dispatch(setRequestInputValue(prettify(requestInputValue)));
   };
@@ -63,11 +58,6 @@ export default function RequestMenu() {
           <Grid item>
             <IconButton onClick={handleClickFormatter}>
               <CleaningServicesRoundedIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton onClick={handleClickClear}>
-              <CancelPresentationRoundedIcon />
             </IconButton>
           </Grid>
           <Grid item xs={12}>

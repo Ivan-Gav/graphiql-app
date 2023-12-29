@@ -20,7 +20,29 @@ export default function RequestEditor() {
         value={requestInputValue}
         onChange={handleChange}
         fullWidth
-        inputProps={{ style: { fontSize: 12, lineHeight: '150%' } }}
+        inputProps={{
+          sx: [
+            {
+              fontSize: 12,
+              lineHeight: '150%',
+              overflow: 'auto',
+            },
+            {
+              '&::-webkit-scrollbar': {
+                width: '8px',
+                height: '8px',
+                backgroundColor: '#242526',
+              },
+            },
+            {
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: '#7644b5',
+                borderRadius: '16px',
+                border: '#242526 1px solid',
+              },
+            },
+          ],
+        }}
       />
     </>
   );

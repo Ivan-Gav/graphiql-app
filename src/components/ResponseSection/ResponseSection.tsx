@@ -7,6 +7,24 @@ import {
   getRequestState,
 } from 'src/store/slice/RequestSlice';
 import { createTheme } from '@uiw/codemirror-themes';
+import { EditorView } from '@codemirror/view';
+
+const scrollStyle = EditorView.theme(
+  {
+    '.cm-scroller': { overflow: 'auto' },
+    '.cm-scroller::-webkit-scrollbar': {
+      width: '8px',
+      height: '8px',
+      backgroundColor: '#242526',
+    },
+    '.cm-scroller::-webkit-scrollbar-thumb': {
+      backgroundColor: '#7644b5',
+      borderRadius: '16px',
+      border: '#242526 1px solid',
+    },
+  },
+  { dark: true }
+);
 
 const myTheme = createTheme({
   theme: 'dark',
@@ -39,10 +57,11 @@ export default function ResponseSection() {
       <Typography variant="caption">
         <ReactCodeMirror
           lang="json"
-          extensions={[json()]}
+          extensions={[json(), scrollStyle]}
           theme={!errorMessageApi ? 'dark' : myTheme}
           width="100%"
           height="100%"
+          maxHeight="800px"
           value={responseString || errorMessageApi || ''}
           readOnly
         />

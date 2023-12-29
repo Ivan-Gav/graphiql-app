@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
-import { Paper, Stack, Typography } from '@mui/material';
+import { IconButton, Paper, Stack, Typography } from '@mui/material';
+import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import { buildClientSchema } from 'graphql';
-import { useAppSelector } from 'src/hooks/redux';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import DocBreadCrumbs from './DocBreadCrumbs';
 import Docs from './Docs';
 import Doc from './Doc';
 import { getGraphqlState } from 'src/store/slice/graphql.slice';
-import { getDocState } from 'src/store/slice/DocSlice';
+import { closeDocs, getDocState } from 'src/store/slice/DocSlice';
 import { useText } from 'src/hooks/useText';
 
 export default function DocumentationExplorer() {
+  const dispatch = useAppDispatch();
   const { isLoading, errorMessage, schemaApi } =
     useAppSelector(getGraphqlState);
   const schema = useMemo(
@@ -26,8 +28,23 @@ export default function DocumentationExplorer() {
     overflow: 'hidden',
     height: '100%',
     border: 'none',
-    minWidth: '380px',
+    minWidth: '280px',
+    maxWidth: '380px',
+    position: 'relative',
   };
+
+  function CloseButton() {
+    return (
+      <IconButton
+        disabled={!schemaApi}
+        onClick={() => dispatch(closeDocs())}
+        title={T.CLOSE_DOCS}
+        sx={{ position: 'absolute', top: '8px', right: '8px' }}
+      >
+        <DisabledByDefaultRoundedIcon />
+      </IconButton>
+    );
+  }
 
   if (isLoading) throw Promise.resolve('loading');
   if (errorMessage)
@@ -48,6 +65,7 @@ export default function DocumentationExplorer() {
 
   return (
     <Paper sx={style}>
+      <CloseButton />
       {path.length <= 1 && <Docs schema={schema} />}
       {path.length > 1 && (
         <Stack height="100%">

@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-const initialState = {
+export interface ResponseState {
+  responseString: string;
+}
+
+const initialState: ResponseState = {
   responseString: '',
 };
 
@@ -13,5 +18,9 @@ export const responseSlice = createSlice({
     },
   },
 });
+
+export const getResponseState = (state: RootState) => state.responseReducer;
+
+export const { setResponseInputValue } = responseSlice.actions;
 
 export default responseSlice.reducer;

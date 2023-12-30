@@ -34,7 +34,7 @@ export default function GraphiQLPage() {
         <Grid item xs={5} sx={{ p: 1 }}>
           <Paper sx={{ p: 1 }}>
             <Grid container>
-              <Grid item xs={12} sx={{ p: 1 }}>
+              <Grid item xs={12} sx={{ p: 1, position: 'relative' }}>
                 <RequestEditor />
               </Grid>
               <Grid item xs={12} sx={{ p: 1 }}>

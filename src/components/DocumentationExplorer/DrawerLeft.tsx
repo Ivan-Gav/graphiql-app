@@ -34,7 +34,6 @@ export default function DrawerLeft(props: DrawerProps) {
         style: { position: 'absolute' },
       }}
       variant={drawerVariant === 'mobile' ? 'temporary' : 'persistent'}
-      // variant={'persistent'}
       anchor="left"
       open={docsOpen}
       onClose={() => dispatch(closeDocs())}

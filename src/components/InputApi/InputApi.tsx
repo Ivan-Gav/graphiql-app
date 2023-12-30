@@ -50,6 +50,7 @@ export default function InputApi() {
   return (
     <Grid
       container
+      my={1}
       component={'form'}
       data-testid="component-input-api"
       flexWrap={'nowrap'}

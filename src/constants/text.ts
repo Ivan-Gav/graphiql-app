@@ -49,7 +49,7 @@ const TEXT = {
     YUP_PASS_STRENGTH:
       'Password strength: 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
     YUP_TANDC: 'Rules not accepted',
-    INPUT_API: 'Input API',
+    INPUT_API: 'Enter API Endpoint',
     NOT_SELECTED_API: 'API not selected',
     ROOT_TYPES: 'Root Types',
     SCHEMA_TYPES: 'All Schema Types',
@@ -63,6 +63,7 @@ const TEXT = {
     CANT_FIND_FIELD: "Sorry, I can't find the field ",
     HEADERS: 'Headers',
     VARIABLES: 'Variables',
+    API_Endpoint: 'GraphQL API Endpoint',
   },
   RU: {
     LANG: 'Язык',
@@ -114,7 +115,7 @@ const TEXT = {
     YUP_PASS_STRENGTH:
       'Пароль должен содержать: 1 цифру, 1 прописную и 1 заглавную букву, 1 специальный символ',
     YUP_TANDC: 'Забыли поставить галочку',
-    INPUT_API: 'Введите API',
+    INPUT_API: 'Введите адрес API',
     NOT_SELECTED_API: 'Не выбран API',
     ROOT_TYPES: 'Корневые типы',
     SCHEMA_TYPES: 'Все типы',
@@ -128,6 +129,7 @@ const TEXT = {
     CANT_FIND_FIELD: 'Не удалось найти поле ',
     HEADERS: 'Заголовки',
     VARIABLES: 'Переменные',
+    API_Endpoint: 'Адрес GraphQL API',
   },
 };
 

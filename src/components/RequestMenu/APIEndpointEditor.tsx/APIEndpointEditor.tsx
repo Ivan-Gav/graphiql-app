@@ -16,7 +16,7 @@ export default function APIEndpointEditor() {
   return (
     <>
       <ListItemButton onClick={handleClick} data-testid="component-list-item">
-        <ListItemText primary={T.API_Endpoint} />
+        <ListItemText primary={T.API_ENDPOINT} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse

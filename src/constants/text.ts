@@ -63,7 +63,10 @@ const TEXT = {
     CANT_FIND_FIELD: "Sorry, I can't find the field ",
     HEADERS: 'Headers',
     VARIABLES: 'Variables',
-    API_Endpoint: 'GraphQL API Endpoint',
+    API_ENDPOINT: 'GraphQL API Endpoint',
+    API_SELECTED: 'Selected API Endpoint',
+    SELECT_ENDPOINT: 'Select endpoint',
+    DESELECT_ENDPOINT: 'Deselect endpoint',
   },
   RU: {
     LANG: 'Язык',
@@ -129,7 +132,10 @@ const TEXT = {
     CANT_FIND_FIELD: 'Не удалось найти поле ',
     HEADERS: 'Заголовки',
     VARIABLES: 'Переменные',
-    API_Endpoint: 'Адрес GraphQL API',
+    API_ENDPOINT: 'Адрес GraphQL API',
+    API_SELECTED: 'Выбранный API',
+    SELECT_ENDPOINT: 'Выбрать API',
+    DESELECT_ENDPOINT: 'Сбросить выбор API',
   },
 };
 

@@ -28,7 +28,13 @@ export default function LazyList(props: LazyListProps) {
 
   return (
     <AutoSizer>
-      {({ height, width }) => (
+      {({
+        height,
+        width,
+      }: {
+        height: string | number;
+        width: string | number;
+      }) => (
         <List
           height={height}
           width={width}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -28,6 +28,7 @@ export default function Header() {
 
   const dispatch = useAppDispatch();
 
+  const location = useLocation();
   const navigate = useNavigate();
   const T = useText();
 
@@ -76,7 +77,14 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">{T.WELCOME_PAGE}</Typography>
+              <Typography
+                textAlign="center"
+                color={
+                  location.pathname === '/' ? 'primary.main' : 'text.primary'
+                }
+              >
+                {T.WELCOME_PAGE}
+              </Typography>
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -84,7 +92,16 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
             >
-              <Typography textAlign="center">{T.GRAPHIQL_PAGE}</Typography>
+              <Typography
+                textAlign="center"
+                color={
+                  location.pathname === '/graphiql'
+                    ? 'primary.main'
+                    : 'text.primary'
+                }
+              >
+                {T.GRAPHIQL_PAGE}
+              </Typography>
             </MenuItem>
             <Divider />
             {isAuth && (
@@ -104,7 +121,16 @@ export default function Header() {
                   handleCloseNavMenu();
                 }}
               >
-                <Typography textAlign="center">{T.SIGNIN}</Typography>
+                <Typography
+                  textAlign="center"
+                  color={
+                    location.pathname === '/signin'
+                      ? 'primary.main'
+                      : 'text.primary'
+                  }
+                >
+                  {T.SIGNIN}
+                </Typography>
               </MenuItem>
             )}
             {!isAuth && (
@@ -114,17 +140,40 @@ export default function Header() {
                   handleCloseNavMenu();
                 }}
               >
-                <Typography textAlign="center">{T.SIGNUP}</Typography>
+                <Typography
+                  textAlign="center"
+                  color={
+                    location.pathname === '/signup'
+                      ? 'primary.main'
+                      : 'text.primary'
+                  }
+                >
+                  {T.SIGNUP}
+                </Typography>
               </MenuItem>
             )}
           </Menu>
         </Box>
 
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link component={NavLink} to="/" px={2}>
+          <Link
+            component={NavLink}
+            to="/"
+            px={2}
+            color={location.pathname === '/' ? 'primary.main' : 'text.primary'}
+          >
             {T.WELCOME_PAGE}
           </Link>
-          <Link component={NavLink} to="/graphiql" px={2}>
+          <Link
+            component={NavLink}
+            to="/graphiql"
+            px={2}
+            color={
+              location.pathname === '/graphiql'
+                ? 'primary.main'
+                : 'text.primary'
+            }
+          >
             {T.GRAPHIQL_PAGE}
           </Link>
         </Box>
@@ -147,18 +196,20 @@ export default function Header() {
             <>
               <Button
                 component={NavLink}
+                sx={{ px: '15px' }}
                 to="/signin"
                 onClick={handleCloseNavMenu}
-                variant="text"
+                variant={location.pathname === '/signin' ? 'outlined' : 'text'}
                 endIcon={<Login />}
               >
                 {T.SIGNIN}
               </Button>
               <Button
                 component={NavLink}
+                sx={{ px: '15px' }}
                 to="/signup"
                 onClick={handleCloseNavMenu}
-                variant="text"
+                variant={location.pathname === '/signup' ? 'outlined' : 'text'}
                 endIcon={<PersonAddAlt1 />}
               >
                 {T.SIGNUP}

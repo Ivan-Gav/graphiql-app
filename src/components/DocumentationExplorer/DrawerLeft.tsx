@@ -1,16 +1,19 @@
 import { Drawer } from '@mui/material';
-import { useAppSelector } from 'src/hooks/redux';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
+import { getDocState, closeDocs } from 'src/store/slice/DocSlice';
 
-const drawerWidth = '100%';
+const drawerWidth = '300px';
 
 type DrawerProps = {
   container: HTMLElement | null;
   children: React.ReactNode;
+  drawerVariant?: 'desktop' | 'mobile';
 };
 
 export default function DrawerLeft(props: DrawerProps) {
-  const { children, container } = props;
-  const { docsOpen } = useAppSelector((state) => state.docReducer);
+  const { children, container, drawerVariant } = props;
+  const { docsOpen } = useAppSelector(getDocState);
+  const dispatch = useAppDispatch();
 
   return (
     <Drawer
@@ -27,11 +30,13 @@ export default function DrawerLeft(props: DrawerProps) {
       }}
       ModalProps={{
         container: container,
+        disableAutoFocus: true,
         style: { position: 'absolute' },
       }}
-      variant="persistent"
+      variant={drawerVariant === 'mobile' ? 'temporary' : 'persistent'}
       anchor="left"
       open={docsOpen}
+      onClose={() => dispatch(closeDocs())}
       elevation={2}
     >
       {children}

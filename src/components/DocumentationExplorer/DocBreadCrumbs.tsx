@@ -17,6 +17,7 @@ export default function DocBreadCrumbs() {
       <Link
         href="#"
         variant="body1"
+        pr={4}
         sx={[{ color: 'inherit' }, { '&:hover': { color: 'inherit' } }]}
         noWrap
         title={path[path.length - 2]}

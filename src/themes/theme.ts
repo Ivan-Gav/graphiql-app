@@ -25,6 +25,7 @@ const infoColor = {
 const textColor = {
   primary: '#e3e3e3',
   secondary: '#fff',
+  dark: '#5f5f60',
 };
 
 const theme = createTheme({

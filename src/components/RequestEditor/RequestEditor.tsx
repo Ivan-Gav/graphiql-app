@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { TextField } from '@mui/material';
+import { Box, CircularProgress, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   getRequestState,
@@ -8,13 +8,32 @@ import {
 
 export default function RequestEditor() {
   const dispatch = useAppDispatch();
-  const { requestInputValue } = useAppSelector(getRequestState);
+  const { requestInputValue, isLoading } = useAppSelector(getRequestState);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setRequestInputValue(e.target.value));
   };
+
   return (
     <>
+      {isLoading && (
+        <Box
+          sx={{
+            position: 'absolute',
+            backgroundColor: '#11111150',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            borderRadius: '4px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <CircularProgress size={48} sx={{}} />
+        </Box>
+      )}
       <TextField
         variant="outlined"
         multiline
@@ -23,6 +42,7 @@ export default function RequestEditor() {
         onChange={handleChange}
         fullWidth
         inputProps={{ style: { fontSize: 12, lineHeight: '150%' } }}
+        disabled={isLoading}
       />
     </>
   );

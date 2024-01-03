@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import { Container } from '@mui/material';
+import { Box, CircularProgress, Container } from '@mui/material';
 import Footer from '../components/Footer/Footer';
 
 export default function RootLayout() {
@@ -17,9 +17,18 @@ export default function RootLayout() {
       }}
     >
       <Header />
-      <Suspense fallback={<>Loading..</>}>
-        <Outlet />
-      </Suspense>
+      <Box mt="auto" width="100%">
+        <Suspense
+          fallback={
+            <CircularProgress
+              size={68}
+              sx={{ marginLeft: 'auto', marginRight: 'auto', display: 'block' }}
+            />
+          }
+        >
+          <Outlet />
+        </Suspense>
+      </Box>
       <Footer />
     </Container>
   );

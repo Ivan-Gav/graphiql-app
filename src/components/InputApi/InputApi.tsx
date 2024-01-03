@@ -16,6 +16,7 @@ import {
 } from 'src/store/slice/graphql.slice';
 import { useText } from 'src/hooks/useText';
 import { clearPath, closeDocs } from 'src/store/slice/DocSlice';
+import { cleanResponse } from 'src/store/slice/RequestSlice';
 
 const EXAMPLE_API = [
   'https://rickandmortyapi.com/graphql',
@@ -44,6 +45,7 @@ export default function InputApi() {
 
     if (urlApi) {
       dispatch(clearApiState());
+      dispatch(cleanResponse());
       setValueApi('');
       return;
     }

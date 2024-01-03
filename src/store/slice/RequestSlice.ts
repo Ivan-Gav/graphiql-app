@@ -102,6 +102,10 @@ export const requestSlice = createSlice({
     deleteMessageError(state) {
       state.errorMessage = null;
     },
+    cleanResponse(state) {
+      state.responseString = null;
+      state.errorMessageApi = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -134,6 +138,7 @@ export const {
   setRequestInputValue,
   setVariablesInputValue,
   deleteMessageError,
+  cleanResponse,
 } = requestSlice.actions;
 
 export default requestSlice.reducer;

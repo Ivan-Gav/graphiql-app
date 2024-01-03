@@ -21,7 +21,7 @@ const initialState: RequestState = {
   errorMessageApi: null,
   errorMessage: null,
   responseString: null,
-  isLoading: true,
+  isLoading: false,
 };
 
 describe('Request slice', () => {

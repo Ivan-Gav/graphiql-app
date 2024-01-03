@@ -37,7 +37,7 @@ const initialState: RequestState = {
   errorMessageApi: null,
   errorMessage: null,
   responseString: null,
-  isLoading: true,
+  isLoading: false,
 };
 
 export const requestToApi = createAsyncThunk(

@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, CircularProgress, Grid, Paper } from '@mui/material';
 import RequestEditor from '../../components/RequestEditor/RequestEditor';
 import RequestMenu from '../../components/RequestMenu/RequestMenu';
 import ResponseSection from '../../components/ResponseSection/ResponseSection';
@@ -46,7 +46,7 @@ export default function GraphiQLPage() {
         }}
       >
         <DrawerLeft container={contRef.current}>
-          <Suspense fallback={<h2>Loading schema...</h2>}>
+          <Suspense fallback={<CircularProgress />}>
             <DocumentationExplorer />
           </Suspense>
         </DrawerLeft>
@@ -78,7 +78,7 @@ export default function GraphiQLPage() {
               </Suspense>
             </DrawerLeft>
           </Box>
-          <Grid item xs={12} sx={{ p: 1 }}>
+          <Grid item xs={12} sx={{ p: 1, position: 'relative' }}>
             <RequestEditor />
           </Grid>
           <Grid item xs={12} sx={{ p: 1 }}>

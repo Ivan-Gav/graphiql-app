@@ -15,18 +15,41 @@ const TestHeader = () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={['/']}>
           <Routes>
-            <Route path={'/'} element={<Header />} />
+            <Route
+              path={'/'}
+              element={
+                <>
+                  <Header />
+                  <div>Main Page</div>
+                </>
+              }
+            />
             <Route
               path={'/graphiql'}
-              element={<div data-testid="test-page">Graphiql Page</div>}
+              element={
+                <>
+                  <Header />
+                  <div data-testid="test-page">Graphiql Page</div>
+                </>
+              }
             />
             <Route
               path={'/signin'}
-              element={<div data-testid="test-page">Signin Page</div>}
+              element={
+                <>
+                  <Header />
+                  <div data-testid="test-page">Signin Page</div>
+                </>
+              }
             />
             <Route
               path={'/signup'}
-              element={<div data-testid="test-page">Signup Page</div>}
+              element={
+                <>
+                  <Header />
+                  <div data-testid="test-page">Signup Page</div>
+                </>
+              }
             />
           </Routes>
         </MemoryRouter>

@@ -6,6 +6,13 @@ export const schema = buildSchema(`
     firstName: String!
     description: String
     locationType: LocationType!
+    posts: [Post]
+  }
+
+  type Post {
+    id: Int
+    user: User
+    body: String
   }
 
   enum LocationType {
@@ -18,6 +25,7 @@ export const schema = buildSchema(`
 
   type Query {
     user(id: ID!): User
+    posts(id: Int!): Post!
   }
 
   type Mutation {

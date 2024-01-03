@@ -20,6 +20,7 @@ export const schema = buildSchema(`
     HOUSE
     CAMPSITE
     APARTMENT
+    "ROOM"
     ROOM
   }
 

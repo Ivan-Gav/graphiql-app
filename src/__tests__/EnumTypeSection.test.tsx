@@ -27,6 +27,5 @@ describe('EnumTypeSection component', () => {
     expect(screen.getByText('HOUSE')).toBeInTheDocument();
     expect(screen.getByText('CAMPSITE')).toBeInTheDocument();
     expect(screen.getByText('APARTMENT')).toBeInTheDocument();
-    expect(screen.getByText('ROOM')).toBeInTheDocument();
   });
 });

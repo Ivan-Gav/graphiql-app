@@ -2,10 +2,10 @@ import { Box, CircularProgress, Grid, Paper } from '@mui/material';
 import RequestEditor from '../../components/RequestEditor/RequestEditor';
 import RequestMenu from '../../components/RequestMenu/RequestMenu';
 import ResponseSection from '../../components/ResponseSection/ResponseSection';
-import { Suspense, lazy, useRef } from 'react';
+import { Suspense, lazy, useEffect, useRef } from 'react';
 import DrawerLeft from 'src/components/DocumentationExplorer/DrawerLeft';
-import { useAppSelector } from 'src/hooks/redux';
-import { getDocState } from 'src/store/slice/DocSlice';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
+import { closeDocs, getDocState } from 'src/store/slice/DocSlice';
 
 const DocumentationExplorer = lazy(
   () => import('../../components/DocumentationExplorer/DocumentationExplorer')
@@ -15,6 +15,12 @@ export default function GraphiQLPage() {
   const contRef = useRef(null);
   const mobContRef = useRef(null);
   const { docsOpen } = useAppSelector(getDocState);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(closeDocs());
+  }, [dispatch]);
 
   return (
     <Grid
@@ -45,7 +51,7 @@ export default function GraphiQLPage() {
           display: { xs: 'none', md: 'block' },
         }}
       >
-        <DrawerLeft container={contRef.current}>
+        <DrawerLeft container={contRef.current} drawerVariant="desktop">
           <Suspense fallback={<CircularProgress />}>
             <DocumentationExplorer />
           </Suspense>
@@ -72,11 +78,13 @@ export default function GraphiQLPage() {
               display: { xs: 'block', md: 'none' },
             }}
           >
-            <DrawerLeft container={mobContRef.current} drawerVariant="mobile">
-              <Suspense fallback={<h2>Loading schema...</h2>}>
-                <DocumentationExplorer />
-              </Suspense>
-            </DrawerLeft>
+            {!!mobContRef.current && (
+              <DrawerLeft container={mobContRef.current} drawerVariant="mobile">
+                <Suspense fallback={<CircularProgress />}>
+                  <DocumentationExplorer />
+                </Suspense>
+              </DrawerLeft>
+            )}
           </Box>
           <Grid item xs={12} sx={{ p: 1, position: 'relative' }}>
             <RequestEditor />

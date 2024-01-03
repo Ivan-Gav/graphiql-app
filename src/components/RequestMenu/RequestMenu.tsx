@@ -61,7 +61,7 @@ export default function RequestMenu() {
             </IconButton>
           </Grid>
           <Grid item xs={12}>
-            <Paper sx={{ p: 1 }}>
+            <Paper>
               <APIEndpointEditor />
             </Paper>
           </Grid>

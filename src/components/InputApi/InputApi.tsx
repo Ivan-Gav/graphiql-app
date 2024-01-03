@@ -1,4 +1,10 @@
-import { Autocomplete, Button, Grid, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  Grid,
+  TextField,
+  CircularProgress,
+  IconButton,
+} from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import CancelScheduleSendIcon from '@mui/icons-material/CancelScheduleSend';
 import { useState } from 'react';
@@ -50,10 +56,11 @@ export default function InputApi() {
   return (
     <Grid
       container
+      my={1}
       component={'form'}
       data-testid="component-input-api"
       flexWrap={'nowrap'}
-      alignItems={'center'}
+      alignItems={'flex-end'}
       gap={1}
       sx={{ paddingLeft: 3, paddingRight: 3 }}
       onSubmit={handleSubmit}
@@ -78,24 +85,24 @@ export default function InputApi() {
             {...params}
             fullWidth
             InputLabelProps={{ sx: { paddingLeft: 1 } }}
-            label={T.INPUT_API}
+            label={!urlApi ? T.INPUT_API : T.API_SELECTED}
             variant="standard"
           />
         )}
       />
-      <Button
-        variant="contained"
-        sx={{ p: '2px 8px', marginTop: 1, minWidth: '0px' }}
+      <IconButton
         type="submit"
         disabled={isLoading}
         data-testid="btn-submit-api"
       >
-        {!urlApi ? (
-          <SendIcon color={'action'} />
+        {isLoading ? (
+          <CircularProgress size={20} />
+        ) : !urlApi ? (
+          <SendIcon titleAccess={T.SELECT_ENDPOINT} />
         ) : (
-          <CancelScheduleSendIcon color={'action'} />
+          <CancelScheduleSendIcon titleAccess={T.DESELECT_ENDPOINT} />
         )}
-      </Button>
+      </IconButton>
     </Grid>
   );
 }

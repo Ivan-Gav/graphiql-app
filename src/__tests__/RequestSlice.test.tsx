@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import TEXT from 'src/constants/text';
 import requestReducer, {
+  cleanResponse,
   deleteMessageError,
   EXAMPLE_REQUEST,
   RequestState,
@@ -65,6 +66,19 @@ describe('Request slice', () => {
 
     const result = requestReducer(
       { ...initialState, errorMessage: 'Test' },
+      action
+    );
+
+    expect(result).toEqual(initialState);
+  });
+
+  it('should clear response section "cleanResponse" action', () => {
+    const action = {
+      type: cleanResponse.type,
+    };
+
+    const result = requestReducer(
+      { ...initialState, errorMessageApi: 'Test', responseString: 'Test' },
       action
     );
 

@@ -6,7 +6,15 @@ export default function MainPage() {
   const T = useText();
 
   return (
-    <Box pt={2} pb={2} mt="auto">
+    <Box
+      mt="auto"
+      sx={{
+        padding: {
+          xs: 2,
+          lg: 0,
+        },
+      }}
+    >
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid

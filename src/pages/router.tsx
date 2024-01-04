@@ -2,6 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import React, { lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import AuthRoutes from 'src/components/PrivateRoutes/AuthRoutes/AuthRoutes';
+import UnauthRoutes from 'src/components/PrivateRoutes/UnauthRoutes/UnauthRoutes';
 import { useAppDispatch } from '../hooks/redux';
 
 import RootLayout from '../layout/RootLayout';
@@ -32,7 +33,9 @@ const Router = (): React.JSX.Element => {
           <Route path="signin" element={<SignInPage />} />
           <Route path="signup" element={<SignUpPage />} />
         </Route>
-        <Route path="graphiql" element={<GraphiQLPage />} />
+        <Route element={<UnauthRoutes />}>
+          <Route path="graphiql" element={<GraphiQLPage />} />
+        </Route>
         <Route path="*" element={<Page404 />} />
       </Route>
     </Routes>

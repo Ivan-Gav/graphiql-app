@@ -72,6 +72,8 @@ describe('Header', () => {
   });
 
   it('renders link to the editor page', () => {
+    vi.mocked(useAppSelector).mockReturnValue({ isAuth: true });
+
     render(<TestHeader />);
 
     const editorPageLink = screen.getByRole('link', { name: 'GraphiQL' });
@@ -80,6 +82,8 @@ describe('Header', () => {
   });
 
   it('renders Sign In button', () => {
+    vi.mocked(useAppSelector).mockReturnValue({ isAuth: false });
+
     render(<TestHeader />);
 
     const signInLink = screen.getByRole('link', { name: 'Sign In' });

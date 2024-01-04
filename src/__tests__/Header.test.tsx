@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import * as modReduxHooks from 'src/hooks/redux';
 
 import Header from '../components/Header/Header';
 import { store } from '../store/store';
@@ -12,8 +13,45 @@ const TestHeader = () => {
   return (
     <LangContextProvider>
       <Provider store={store}>
-        <MemoryRouter>
-          <Header />
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route
+              path={'/'}
+              element={
+                <>
+                  <Header />
+                  <div>Main Page</div>
+                </>
+              }
+            />
+            <Route
+              path={'/graphiql'}
+              element={
+                <>
+                  <Header />
+                  <div data-testid="test-page">Graphiql Page</div>
+                </>
+              }
+            />
+            <Route
+              path={'/signin'}
+              element={
+                <>
+                  <Header />
+                  <div data-testid="test-page">Signin Page</div>
+                </>
+              }
+            />
+            <Route
+              path={'/signup'}
+              element={
+                <>
+                  <Header />
+                  <div data-testid="test-page">Signup Page</div>
+                </>
+              }
+            />
+          </Routes>
         </MemoryRouter>
       </Provider>
     </LangContextProvider>
@@ -65,5 +103,55 @@ describe('Header', () => {
     const signUpLink = screen.getByRole('link', { name: 'Sign Out' });
 
     expect(signUpLink).toHaveAttribute('href', '/');
+  });
+
+  it('should to press SignOut to sign out', () => {
+    const spy = vi
+      .spyOn(modReduxHooks, 'useAppDispatch')
+      .mockImplementation(vi.fn);
+
+    vi.mocked(useAppSelector).mockReturnValue({ isAuth: true });
+
+    render(<TestHeader />);
+
+    fireEvent.click(screen.getByTestId('MenuIcon'));
+    fireEvent.click(screen.getByTestId('LogoutIcon'));
+
+    expect(spy).toHaveBeenCalled();
+
+    fireEvent.click(screen.getByTestId('menu-item-signout'));
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should click on the GraphQl link to go to the page', () => {
+    vi.mocked(useAppSelector).mockReturnValue({ isAuth: true });
+
+    render(<TestHeader />);
+
+    fireEvent.click(screen.getByTestId('menu-item-welcome'));
+    fireEvent.click(screen.getByTestId('menu-item-graphql'));
+
+    expect(screen.getByText('Graphiql Page')).toBeInTheDocument();
+  });
+
+  it('should click on the Signin link to go to the page', () => {
+    vi.mocked(useAppSelector).mockReturnValue({ isAuth: false });
+
+    render(<TestHeader />);
+
+    fireEvent.click(screen.getByTestId('menu-item-signin'));
+
+    expect(screen.getByText('Signin Page')).toBeInTheDocument();
+  });
+
+  it('should click on the SignUp link to go to the page', () => {
+    vi.mocked(useAppSelector).mockReturnValue({ isAuth: false });
+
+    render(<TestHeader />);
+
+    fireEvent.click(screen.getByTestId('menu-item-signup'));
+
+    expect(screen.getByText('Signup Page')).toBeInTheDocument();
   });
 });

@@ -76,6 +76,7 @@ export default function Header() {
                 navigate('/');
                 handleCloseNavMenu();
               }}
+              data-testid={'menu-item-welcome'}
             >
               <Typography
                 textAlign="center"
@@ -91,6 +92,7 @@ export default function Header() {
                 navigate('/graphiql');
                 handleCloseNavMenu();
               }}
+              data-testid={'menu-item-graphql'}
             >
               <Typography
                 textAlign="center"
@@ -110,6 +112,7 @@ export default function Header() {
                   handleCloseNavMenu();
                   dispatch(fetchSignOut());
                 }}
+                data-testid={'menu-item-signout'}
               >
                 <Typography textAlign="center">{T.SIGNOUT}</Typography>
               </MenuItem>
@@ -120,6 +123,7 @@ export default function Header() {
                   navigate('/signin');
                   handleCloseNavMenu();
                 }}
+                data-testid={'menu-item-signin'}
               >
                 <Typography
                   textAlign="center"
@@ -139,6 +143,7 @@ export default function Header() {
                   navigate('/signup');
                   handleCloseNavMenu();
                 }}
+                data-testid={'menu-item-signup'}
               >
                 <Typography
                   textAlign="center"

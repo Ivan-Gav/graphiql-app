@@ -10,9 +10,6 @@ import TEXT from 'src/constants/text';
 
 describe('Doc component', () => {
   vi.mock('src/hooks/redux');
-  vi.mocked(useAppSelector).mockReturnValue({
-    docPath: ['Docs', 'User', 'id'],
-  });
 
   const WrappedDocComponent = (props: { item: string }) => {
     return (
@@ -24,7 +21,11 @@ describe('Doc component', () => {
     );
   };
 
-  it('renders item', () => {
+  it('renders item id', () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs', 'User', 'id'],
+    });
+
     render(<WrappedDocComponent item="id" />);
 
     const itemTitle = screen.getByRole('heading', { level: 3 });
@@ -32,9 +33,35 @@ describe('Doc component', () => {
     expect(itemTitle).toHaveTextContent('id');
   });
 
+  it('renders item User', () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs', 'User', 'id'],
+    });
+
+    render(<WrappedDocComponent item="User" />);
+
+    const itemTitle = screen.getByRole('heading', { level: 3 });
+
+    expect(itemTitle).toHaveTextContent('User');
+  });
+
   it("throws an error if type isn't found", () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs', 'User', 'id'],
+    });
+
     const r = () => render(<WrappedDocComponent item="nonono" />);
 
     expect(r).toThrowError(`${TEXT.EN.CANT_FIND_FIELD}"nonono"`);
+  });
+
+  it("throws an error if type isn't found", () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs', 'User', 'id', 'title'],
+    });
+
+    const r = () => render(<WrappedDocComponent item="" />);
+
+    expect(r).toThrowError(`${TEXT.EN.CANT_FIND_FIELD}""`);
   });
 });

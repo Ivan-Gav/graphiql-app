@@ -10,9 +10,6 @@ import * as actions from 'src/store/slice/DocSlice';
 
 describe('Doc component', () => {
   vi.mock('src/hooks/redux');
-  vi.mocked(useAppSelector).mockReturnValue({
-    docPath: ['Docs', 'User', 'id'],
-  });
 
   const WrappedBCComponent = () => {
     return (
@@ -24,7 +21,21 @@ describe('Doc component', () => {
     );
   };
 
+  it('bread crumb return null if length docPath less 2', () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs'],
+    });
+
+    const { container } = render(<WrappedBCComponent />);
+
+    expect(container.firstChild).toBeNull();
+  });
+
   it('renders bread crumb link', () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs', 'User', 'id'],
+    });
+
     render(<WrappedBCComponent />);
     const bcLink = screen.getByRole('link', { name: 'User' });
 
@@ -32,6 +43,9 @@ describe('Doc component', () => {
   });
 
   it('dispatches action when clicked', () => {
+    vi.mocked(useAppSelector).mockReturnValue({
+      docPath: ['Docs', 'User', 'id'],
+    });
     const dispatch = vi.fn();
     const mockedDispatch = vi.spyOn(modReduxHooks, 'useAppDispatch');
     mockedDispatch.mockReturnValue(dispatch);

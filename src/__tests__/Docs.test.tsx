@@ -18,11 +18,19 @@ const WrappedDocsComponent = (props: { schema: GraphQLSchema | null }) => {
 };
 
 describe('Docs', () => {
-  it('renders heading', () => {
+  it('should displays schema', () => {
     render(<WrappedDocsComponent schema={schema} />);
 
-    expect(
-      screen.getByRole('heading', { name: 'Docs', level: 3 })
-    ).toBeVisible();
+    expect(screen.getByText('query')).toBeInTheDocument();
+    expect(screen.getByText('mutation')).toBeInTheDocument();
+    expect(screen.getByText('subscription')).toBeInTheDocument();
+  });
+
+  it('should displays the header without a schema', () => {
+    render(<WrappedDocsComponent schema={null} />);
+
+    expect(screen.queryByText('query')).not.toBeInTheDocument();
+    expect(screen.queryByText('mutation')).not.toBeInTheDocument();
+    expect(screen.queryByText('subscription')).not.toBeInTheDocument();
   });
 });

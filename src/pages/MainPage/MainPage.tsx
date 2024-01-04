@@ -1,4 +1,3 @@
-// import Demo from '../../components/ui/demo/Demo';
 import { Box, Grid, Link, Paper, Typography } from '@mui/material';
 import { useText } from 'src/hooks/useText';
 

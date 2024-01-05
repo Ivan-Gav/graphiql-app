@@ -18,9 +18,7 @@ export default function Docs(props: { schema: GraphQLSchema | null }) {
   const subscriptionType = schema?.getSubscriptionType?.() || null;
   const typeMap = useMemo(() => schema?.getTypeMap() || null, [schema]);
 
-  const schemaDescription =
-    schema?.description ||
-    'A GraphQL schema provides a root type for each kind of operation.';
+  const schemaDescription = schema?.description || T.SCHEMA_DEFAULT_DESCRIPTION;
   const ignoreTypes = useMemo(
     () => [queryType?.name, mutationType?.name, subscriptionType?.name],
     [queryType, mutationType, subscriptionType]

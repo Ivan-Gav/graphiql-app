@@ -8,6 +8,7 @@ import {
 } from 'src/store/slice/RequestSlice';
 import { createTheme } from '@uiw/codemirror-themes';
 import { EditorView } from '@codemirror/view';
+import { clearApiState, getGraphqlState } from 'src/store/slice/graphql.slice';
 
 const scrollStyle = EditorView.theme(
   {
@@ -46,10 +47,13 @@ export default function ResponseSection() {
   const { responseString, errorMessageApi, errorMessage } =
     useAppSelector(getRequestState);
 
+  const { errorMessage: errorMessageApiUrl } = useAppSelector(getGraphqlState);
+
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
     dispatch(deleteMessageError());
+    dispatch(clearApiState());
   };
 
   return (
@@ -68,11 +72,11 @@ export default function ResponseSection() {
       </Typography>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={errorMessage ? true : false}
+        open={errorMessage || errorMessageApiUrl ? true : false}
         onClose={handleClose}
       >
         <Alert severity="error" elevation={6} variant="filled">
-          {errorMessage}
+          {errorMessage || errorMessageApiUrl}
         </Alert>
       </Snackbar>
     </Paper>

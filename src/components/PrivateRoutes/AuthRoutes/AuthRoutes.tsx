@@ -5,5 +5,5 @@ import { getUser } from '../../../store/slice/user.slice';
 export default function AuthRoutes() {
   const { isAuth } = useAppSelector(getUser);
 
-  return isAuth ? <Navigate to="/" /> : <Outlet />;
+  return isAuth ? <Navigate to="/graphiql" /> : <Outlet />;
 }

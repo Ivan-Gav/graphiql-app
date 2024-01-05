@@ -16,7 +16,6 @@ export const VALIDATION_MESSAGE = {
     length: 'YUP_PASS_LENGTH',
     strength: 'YUP_PASS_STRENGTH',
   },
-  rules: 'YUP_TANDC',
 };
 
 const schema = yup
@@ -38,7 +37,6 @@ const schema = yup
       .matches(REGEX.password, VALIDATION_MESSAGE.password.strength)
       .min(8, VALIDATION_MESSAGE.password.length)
       .required(),
-    rules: yup.bool().oneOf([true], VALIDATION_MESSAGE.rules),
   })
   .required();
 

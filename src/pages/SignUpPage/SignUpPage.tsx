@@ -157,13 +157,7 @@ export default function SignUpPage() {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={
-                <Checkbox
-                  {...register('rules')}
-                  color="primary"
-                  data-testid="rules-input"
-                />
-              }
+              control={<Checkbox color="primary" data-testid="rules-input" />}
               label={T.AGREE_TO_SUBSCRIBE}
             />
           </Grid>

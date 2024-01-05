@@ -147,7 +147,6 @@ describe('Page SignUp', () => {
     renderComponent('/');
 
     const firstNameInput = screen.getByTestId('first-name-input');
-    const lastNameInput = screen.getByTestId('last-name-input');
     const emailInput = screen.getByTestId('email-input');
     const passwordInput = screen.getByTestId('password-input');
 
@@ -155,7 +154,6 @@ describe('Page SignUp', () => {
 
     await act(async () => {
       fireEvent.input(firstNameInput, { target: { value: 'Firstname' } });
-      fireEvent.input(lastNameInput, { target: { value: 'Lastname' } });
       fireEvent.input(emailInput, { target: { value: 'test@gmail.com' } });
       fireEvent.input(passwordInput, { target: { value: '@Qwerty123' } });
     });

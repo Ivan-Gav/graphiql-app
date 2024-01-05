@@ -5,7 +5,15 @@ export default function MainPage() {
   const T = useText();
 
   return (
-    <Box p={2}>
+    <Box
+      mt="auto"
+      sx={{
+        padding: {
+          xs: 2,
+          lg: 0,
+        },
+      }}
+    >
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid

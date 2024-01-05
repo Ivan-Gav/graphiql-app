@@ -93,6 +93,7 @@ export default function Header() {
                 handleCloseNavMenu();
               }}
               data-testid={'menu-item-graphql'}
+              sx={{ opacity: isAuth ? 1 : 0.1 }}
             >
               <Typography
                 textAlign="center"
@@ -105,6 +106,7 @@ export default function Header() {
                 {T.GRAPHIQL_PAGE}
               </Typography>
             </MenuItem>
+
             <Divider />
             {isAuth && (
               <MenuItem
@@ -169,6 +171,7 @@ export default function Header() {
           >
             {T.WELCOME_PAGE}
           </Link>
+
           <Link
             component={NavLink}
             to="/graphiql"
@@ -178,6 +181,7 @@ export default function Header() {
                 ? 'primary.main'
                 : 'text.primary'
             }
+            sx={{ opacity: isAuth ? 1 : 0.1 }}
           >
             {T.GRAPHIQL_PAGE}
           </Link>

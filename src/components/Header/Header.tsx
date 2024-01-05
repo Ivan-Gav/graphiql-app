@@ -87,26 +87,26 @@ export default function Header() {
                 {T.WELCOME_PAGE}
               </Typography>
             </MenuItem>
-            {isAuth && (
-              <MenuItem
-                onClick={() => {
-                  navigate('/graphiql');
-                  handleCloseNavMenu();
-                }}
-                data-testid={'menu-item-graphql'}
+            <MenuItem
+              onClick={() => {
+                navigate('/graphiql');
+                handleCloseNavMenu();
+              }}
+              data-testid={'menu-item-graphql'}
+              sx={{ opacity: isAuth ? 1 : 0.1 }}
+            >
+              <Typography
+                textAlign="center"
+                color={
+                  location.pathname === '/graphiql'
+                    ? 'primary.main'
+                    : 'text.primary'
+                }
               >
-                <Typography
-                  textAlign="center"
-                  color={
-                    location.pathname === '/graphiql'
-                      ? 'primary.main'
-                      : 'text.primary'
-                  }
-                >
-                  {T.GRAPHIQL_PAGE}
-                </Typography>
-              </MenuItem>
-            )}
+                {T.GRAPHIQL_PAGE}
+              </Typography>
+            </MenuItem>
+
             <Divider />
             {isAuth && (
               <MenuItem
@@ -171,20 +171,20 @@ export default function Header() {
           >
             {T.WELCOME_PAGE}
           </Link>
-          {isAuth && (
-            <Link
-              component={NavLink}
-              to="/graphiql"
-              px={2}
-              color={
-                location.pathname === '/graphiql'
-                  ? 'primary.main'
-                  : 'text.primary'
-              }
-            >
-              {T.GRAPHIQL_PAGE}
-            </Link>
-          )}
+
+          <Link
+            component={NavLink}
+            to="/graphiql"
+            px={2}
+            color={
+              location.pathname === '/graphiql'
+                ? 'primary.main'
+                : 'text.primary'
+            }
+            sx={{ opacity: isAuth ? 1 : 0.1 }}
+          >
+            {T.GRAPHIQL_PAGE}
+          </Link>
         </Box>
 
         <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex', gap: 16 } }}>

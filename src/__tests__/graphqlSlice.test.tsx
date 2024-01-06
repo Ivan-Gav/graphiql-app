@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import graphqlReducer, {
   clearApiState,
+  deleteMessageError,
   getIntrospection,
   GraphqlState,
 } from 'src/store/slice/graphql.slice';
@@ -28,6 +29,19 @@ describe('Graphql slice', () => {
     };
 
     const result = graphqlReducer(data, action);
+
+    expect(result).toEqual(initialState);
+  });
+
+  it('should clear error message "deleteMessageError" action', () => {
+    const action = {
+      type: deleteMessageError.type,
+    };
+
+    const result = graphqlReducer(
+      { ...initialState, errorMessage: 'Test' },
+      action
+    );
 
     expect(result).toEqual(initialState);
   });

@@ -10,7 +10,7 @@ const TEXT = {
     SIGNOUT: 'Sign Out',
     WELCOME_PAGE: 'Welcome',
     GRAPHIQL_PAGE: 'GraphiQL',
-    HI: 'Hi!',
+    HI: 'Hello! GraphiQL editor is available only to authorized users. Please log in to your account or register.',
     ABOUT_COURSE:
       'This project was created as part of the RS School React course, which includes: components, routing, context, redux, nextjs, graphql.',
     ABOUT_PROJECT:
@@ -81,7 +81,7 @@ const TEXT = {
     SIGNOUT: 'Выйти',
     WELCOME_PAGE: 'Добро пожаловать',
     GRAPHIQL_PAGE: 'Редактор GraphiQL',
-    HI: 'Привет!',
+    HI: 'Здравствуйте! GraphiQL редактор доступен только авторизованным пользователям. Пожалуйста, войдите в свой аккаунт или зарегистрируйтесь.',
     ABOUT_COURSE:
       'Этот проект был создан в рамках курса RS School React, который включает в себя: components, routing, context, redux, nextjs, graphql.',
     ABOUT_PROJECT:

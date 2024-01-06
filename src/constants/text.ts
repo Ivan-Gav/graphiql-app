@@ -51,6 +51,8 @@ const TEXT = {
     YUP_TANDC: 'Rules not accepted',
     INPUT_API: 'Enter API Endpoint',
     NOT_SELECTED_API: 'API not selected',
+    SCHEMA_DEFAULT_DESCRIPTION:
+      'A GraphQL schema provides a root type for each kind of operation.',
     ROOT_TYPES: 'Root Types',
     SCHEMA_TYPES: 'All Schema Types',
     ENUM_VALUES: 'Enum Values',
@@ -120,6 +122,8 @@ const TEXT = {
     YUP_TANDC: 'Забыли поставить галочку',
     INPUT_API: 'Введите адрес API',
     NOT_SELECTED_API: 'Не выбран API',
+    SCHEMA_DEFAULT_DESCRIPTION:
+      'Схема GraphQL описывает корневые типы для каждого вида операций.',
     ROOT_TYPES: 'Корневые типы',
     SCHEMA_TYPES: 'Все типы',
     ENUM_VALUES: 'Значения Enum',

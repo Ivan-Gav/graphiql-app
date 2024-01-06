@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 
 const REGEX = {
-  username: /^[A-Z]/,
-  password: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z\d])/,
+  username: /^[A-ZА-Я]/,
+  password: /^(?=.*[^\p{L}\d\s])(?=.*\d)(?=.*\p{Lu})(?=.*\p{Ll}).{4,}$/u,
 };
 
 export const VALIDATION_MESSAGE = {

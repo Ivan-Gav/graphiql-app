@@ -27,7 +27,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  isAuth: false,
+  isAuth: localStorage.getItem('isAuth') === 'true' || false,
   email: null,
 };
 
@@ -59,20 +59,24 @@ const userSlice = createSlice({
     setUser: (state, { payload }: { payload: { email: string | null } }) => {
       state.isAuth = !!payload.email;
       state.email = payload.email;
+      localStorage.setItem('isAuth', payload.email ? 'true' : 'false');
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSignIn.fulfilled, (state, action) => {
       state.isAuth = true;
       state.email = action.payload.email;
+      localStorage.setItem('isAuth', 'true');
     });
     builder.addCase(fetchSignOut.fulfilled, (state) => {
       state.isAuth = false;
       state.email = null;
+      localStorage.setItem('isAuth', 'false');
     });
     builder.addCase(fetchSignUp.fulfilled, (state, action) => {
       state.isAuth = true;
       state.email = action.payload.email;
+      localStorage.setItem('isAuth', 'true');
     });
   },
 });

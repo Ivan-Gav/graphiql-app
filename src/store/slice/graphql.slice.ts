@@ -50,6 +50,9 @@ const graphqlSlice = createSlice({
       urlApi: null,
       errorMessage: null,
     }),
+    deleteMessageError(state) {
+      state.errorMessage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -74,6 +77,6 @@ const graphqlSlice = createSlice({
 
 export const getGraphqlState = (state: RootState) => state.graphqlReducer;
 
-export const { clearApiState } = graphqlSlice.actions;
+export const { clearApiState, deleteMessageError } = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;

@@ -3,12 +3,15 @@ import { json } from '@codemirror/lang-json';
 import { Alert, Paper, Snackbar, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
-  deleteMessageError,
+  deleteMessageError as deleteMessageErrorRequest,
   getRequestState,
 } from 'src/store/slice/RequestSlice';
 import { createTheme } from '@uiw/codemirror-themes';
 import { EditorView } from '@codemirror/view';
-import { clearApiState, getGraphqlState } from 'src/store/slice/graphql.slice';
+import {
+  deleteMessageError as deleteMessageErrorApi,
+  getGraphqlState,
+} from 'src/store/slice/graphql.slice';
 
 const scrollStyle = EditorView.theme(
   {
@@ -52,8 +55,8 @@ export default function ResponseSection() {
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
-    dispatch(deleteMessageError());
-    dispatch(clearApiState());
+    dispatch(deleteMessageErrorRequest());
+    dispatch(deleteMessageErrorApi());
   };
 
   return (

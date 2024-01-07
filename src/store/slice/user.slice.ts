@@ -27,7 +27,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  isAuth: false,
+  isAuth: localStorage.getItem('isAuth') === 'true' || false,
   email: null,
 };
 
@@ -36,6 +36,7 @@ export const fetchSignIn = createAsyncThunk(
   async ({ email, password }: { email: string; password: string }) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
 
+    localStorage.setItem('isAuth', 'true');
     return { email: data.user.email };
   }
 );
@@ -44,12 +45,14 @@ export const fetchSignUp = createAsyncThunk(
   async ({ email, password }: { email: string; password: string }) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
 
+    localStorage.setItem('isAuth', 'true');
     return { email: data.user.email };
   }
 );
 
 export const fetchSignOut = createAsyncThunk('user/signOut', async () => {
   await auth.signOut();
+  localStorage.setItem('isAuth', 'false');
 });
 
 const userSlice = createSlice({

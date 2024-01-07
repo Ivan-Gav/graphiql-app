@@ -36,6 +36,7 @@ export const fetchSignIn = createAsyncThunk(
   async ({ email, password }: { email: string; password: string }) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
 
+    localStorage.setItem('isAuth', 'true');
     return { email: data.user.email };
   }
 );
@@ -44,12 +45,14 @@ export const fetchSignUp = createAsyncThunk(
   async ({ email, password }: { email: string; password: string }) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
 
+    localStorage.setItem('isAuth', 'true');
     return { email: data.user.email };
   }
 );
 
 export const fetchSignOut = createAsyncThunk('user/signOut', async () => {
   await auth.signOut();
+  localStorage.setItem('isAuth', 'false');
 });
 
 const userSlice = createSlice({
@@ -59,24 +62,20 @@ const userSlice = createSlice({
     setUser: (state, { payload }: { payload: { email: string | null } }) => {
       state.isAuth = !!payload.email;
       state.email = payload.email;
-      localStorage.setItem('isAuth', payload.email ? 'true' : 'false');
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSignIn.fulfilled, (state, action) => {
       state.isAuth = true;
       state.email = action.payload.email;
-      localStorage.setItem('isAuth', 'true');
     });
     builder.addCase(fetchSignOut.fulfilled, (state) => {
       state.isAuth = false;
       state.email = null;
-      localStorage.setItem('isAuth', 'false');
     });
     builder.addCase(fetchSignUp.fulfilled, (state, action) => {
       state.isAuth = true;
       state.email = action.payload.email;
-      localStorage.setItem('isAuth', 'true');
     });
   },
 });

@@ -21,6 +21,7 @@ const Router = (): React.JSX.Element => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      localStorage.setItem('isAuth', user?.email ? 'true' : 'false');
       dispatch(setUser({ email: user?.email || null }));
     });
   }, [dispatch, location.pathname]);

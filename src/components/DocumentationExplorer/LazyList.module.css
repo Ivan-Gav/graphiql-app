@@ -1,0 +1,21 @@
+.scroll {
+padding: 0 16px 16px 16px;
+overflow-y: auto;
+height: 100%;
+border: none;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar {
+  background-color: #242526;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #7644b5;
+  border-radius: 16px;
+  border: #242526 1px solid;
+
+}
